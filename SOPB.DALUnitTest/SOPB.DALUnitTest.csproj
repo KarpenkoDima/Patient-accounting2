@@ -60,7 +60,7 @@
     <Compile Include="ConnectionManager\ConnectionManagerTests.cs" />
     <Compile Include="ConnectionManager\RoleForUserTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TableAdapters\Glossary\GenderTests.cs" />
+    <Compile Include="TableAdapters\Glossary\GlossaryTests.cs" />
     <Compile Include="TableAdapters\ManyConnectionTableAdaptersUnitTest1.cs" />
   </ItemGroup>
   <ItemGroup>
