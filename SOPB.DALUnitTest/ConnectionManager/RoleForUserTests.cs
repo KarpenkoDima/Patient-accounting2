@@ -15,7 +15,10 @@ namespace SOPB.Accounting.DAL.ConnectionManager.Tests
         public void GetRoleForUserTest()
         {
             string role = RoleForUser.GetRoleForUser("Катя", "1");
-            Assert.IsTrue(role.Length > 0);
+
+            Assert.IsNotNull(role);
         }
+
+      
     }
 }

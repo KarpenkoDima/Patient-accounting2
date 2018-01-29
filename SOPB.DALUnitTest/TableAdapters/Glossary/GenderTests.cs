@@ -13,7 +13,7 @@ namespace SOPB.Accounting.DAL.TableAdapters.Glossary.Tests
     [TestClass()]
     public class GenderTests
     {
-        private SqlConnection conn;
+        private SqlConnection _conn;
         public void Mehod()
         {
             
@@ -22,10 +22,9 @@ namespace SOPB.Accounting.DAL.TableAdapters.Glossary.Tests
         public void FillTest()
         {
             ConnectionManager.ConnectionManager.SetConnection("Катя", "1");
-            conn = ConnectionManager.ConnectionManager.Connection;
+            _conn = ConnectionManager.ConnectionManager.Connection;
            // conn.Open();
-            GenderTableAdapter gender = new GenderTableAdapter();
-            gender.Connection = conn;
+            GenderTableAdapter gender = new GenderTableAdapter {Connection = _conn};
             int count = gender.Fill(new DataTable(""));
             Assert.IsTrue(count > 0);
         }
@@ -34,9 +33,9 @@ namespace SOPB.Accounting.DAL.TableAdapters.Glossary.Tests
         public void UpdateFailedTest()
         {
             ConnectionManager.ConnectionManager.SetConnection("Катя", "1");
-            conn = ConnectionManager.ConnectionManager.Connection;
+            _conn = ConnectionManager.ConnectionManager.Connection;
             GenderTableAdapter gender = new GenderTableAdapter();
-            gender.Connection = conn;
+            gender.Connection = _conn;
           gender.Update(new DataTable(""));
             Assert.IsNull(null);
         }

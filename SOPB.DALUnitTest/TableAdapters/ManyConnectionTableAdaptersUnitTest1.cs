@@ -14,11 +14,13 @@ namespace SOPB.DALUnitTest.TableAdapters
         {
             Accounting.DAL.ConnectionManager.ConnectionManager.SetConnection("Катя", "1");
            //Accounting.DAL.ConnectionManager.ConnectionManager.Connection;
-            BaseTableAdapter[] adapters = new GenderTableAdapter[10];
+            BaseTableAdapter[] adapters = new BaseTableAdapter[10];
             for (int i = 0; i < adapters.Length; i++)
             {
-                adapters[i] = new GenderTableAdapter();
-                adapters[i].Connection = Accounting.DAL.ConnectionManager.ConnectionManager.Connection;
+                adapters[i] = new GenderTableAdapter
+                {
+                    Connection = Accounting.DAL.ConnectionManager.ConnectionManager.Connection
+                };
                 adapters[i].Fill(new DataTable());
             }
             Assert.AreEqual(adapters[0].Connection, adapters[1].Connection);
