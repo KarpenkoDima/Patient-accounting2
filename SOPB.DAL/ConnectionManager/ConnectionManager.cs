@@ -68,6 +68,8 @@ namespace SOPB.Accounting.DAL.ConnectionManager
             builder.InitialCatalog = _dbDatabaseName;
             _userID = login;
             builder.MultipleActiveResultSets = true;
+            if (password == null)
+                password = "";
             foreach (char c in password)
             {
                 _secureString.AppendChar(c);
@@ -89,9 +91,9 @@ namespace SOPB.Accounting.DAL.ConnectionManager
                     return connection.State == ConnectionState.Open;
                 }
             }
-            catch (SqlException sqlException)
+            catch (SqlException)
             {
-                throw sqlException;
+                throw;
             }
             catch (Exception)
             {

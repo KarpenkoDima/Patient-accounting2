@@ -9,17 +9,20 @@ namespace SOPB.Accounting.DAL.TableAdapters.Glossary
     /// <summary>
     /// 
     /// </summary>
-    public class GenderTableAdapter : BaseTableAdapter
+    public class AdminDivisionTableAdapter : BaseTableAdapter
     {
-
+        /// <summary>
+        /// _commandCollecction[0] = [R]
+        /// </summary>
         protected override void InitCollection()
         {
             this._CommandCollection = new SqlCommand[1];
             this._CommandCollection[0] = new SqlCommand();
             this._CommandCollection[0].Connection = this.Connection;
-            this._CommandCollection[0].CommandText = $"SELECT [GenderID] \n"
+            this._CommandCollection[0].CommandText = $"SELECT [AdminDivisionID] \n"
                                                      + "      ,[Name] \n"
-                                                     + "  FROM [dbo].[vGetGender]";
+                                                     + "      ,[SocrName] \n"
+                                                     + "  FROM [dbo].[vGetAdminDivision]";
             this._CommandCollection[0].CommandType = CommandType.Text;
         }
 

@@ -21,7 +21,7 @@ namespace SOPB.Accounting.DAL.TableAdapters.Glossary.Tests
         [TestMethod()]
         public void FillTest()
         {
-            ConnectionManager.ConnectionManager.SetConnection("Катя", "1");
+            ConnectionManager.ConnectionManager.SetConnection("Катя", null);
             _conn = ConnectionManager.ConnectionManager.Connection;
            // conn.Open();
             GenderTableAdapter gender = new GenderTableAdapter {Connection = _conn};

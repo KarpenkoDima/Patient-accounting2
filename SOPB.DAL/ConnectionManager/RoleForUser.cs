@@ -16,7 +16,7 @@ namespace SOPB.Accounting.DAL.ConnectionManager
             string role = null;
             ConnectionManager.SetConnection(login, password);
             SqlConnection connection = ConnectionManager.Connection;
-                
+
 
             using (SqlCommand command = connection.CreateCommand())
             {
@@ -32,8 +32,8 @@ namespace SOPB.Accounting.DAL.ConnectionManager
                 command.Parameters.Add(parameter);
 
                 command.Connection.Open();
-                if (command.ExecuteNonQuery()>0)
-                    role = ((string) command.Parameters["@Role"].Value).Trim();
+                command.ExecuteNonQuery();
+                role = ((string) command.Parameters["@Role"].Value).Trim();
             }
 
             return role;
