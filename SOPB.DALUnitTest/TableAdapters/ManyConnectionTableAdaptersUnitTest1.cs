@@ -12,7 +12,7 @@ namespace SOPB.DALUnitTest.TableAdapters
         [TestMethod]
         public void GetManyManyConnectionTableAdaptersTestMethod1()
         {
-            Accounting.DAL.ConnectionManager.ConnectionManager.SetConnection("Катя", "1");
+            Accounting.DAL.ConnectionManager.ConnectionManager.SetConnection(UserSettings.UserName, UserSettings.Password);
            //Accounting.DAL.ConnectionManager.ConnectionManager.Connection;
             BaseTableAdapter[] adapters = new BaseTableAdapter[10];
             for (int i = 0; i < adapters.Length; i++)

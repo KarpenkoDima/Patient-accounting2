@@ -14,18 +14,18 @@ namespace SOPB.Accounting.DAL.TableAdapters.Glossary
 
         protected override void InitCollection()
         {
-            this._CommandCollection = new SqlCommand[1];
-            this._CommandCollection[0] = new SqlCommand();
-            this._CommandCollection[0].Connection = this.Connection;
-            this._CommandCollection[0].CommandText = $"SELECT [GenderID] \n"
+            this._commandCollection = new SqlCommand[1];
+            this._commandCollection[0] = new SqlCommand();
+            this._commandCollection[0].Connection = this.Connection;
+            this._commandCollection[0].CommandText = $"SELECT [GenderID] \n"
                                                      + "      ,[Name] \n"
                                                      + "  FROM [dbo].[vGetGender]";
-            this._CommandCollection[0].CommandType = CommandType.Text;
+            this._commandCollection[0].CommandType = CommandType.Text;
         }
 
         public override int Fill(DataTable table)
         {
-            this.Adapter.SelectCommand = _CommandCollection[0];
+            this.Adapter.SelectCommand = _commandCollection[0];
             try
             {
                 if (ClearBefore)
@@ -40,13 +40,5 @@ namespace SOPB.Accounting.DAL.TableAdapters.Glossary
             return this.Adapter.Fill(table);
         }
 
-        /// <summary>
-        /// Nothing
-        /// </summary>
-        /// <param name="table"></param>
-        public override void Update(DataTable table)
-        {
-
-        }
     }
 }

@@ -76,7 +76,6 @@ namespace SOPB.Accounting.DAL.ConnectionManager
             }
 
             _secureString.MakeReadOnly();
-            password = String.Empty;
             _connectionString = builder.ToString();
         }
 

@@ -43,9 +43,21 @@
     <Compile Include="ConnectionManager\GenericAccess.cs" />
     <Compile Include="ConnectionManager\RoleForUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TableAdapters\CustomerTableAdapter\AddressTableAdapter.cs" />
     <Compile Include="TableAdapters\BaseTableAdapter.cs" />
+    <Compile Include="TableAdapters\CustomerTableAdapter\CustomerTableAdapter.cs" />
     <Compile Include="TableAdapters\Glossary\AdminDivisionTableAdapter.cs" />
+    <Compile Include="TableAdapters\Glossary\ApppTprTableAdapter.cs" />
+    <Compile Include="TableAdapters\Glossary\BenefitsCategoryTableAdapter.cs" />
+    <Compile Include="TableAdapters\Glossary\ChiperReceptTableAdapter.cs" />
+    <Compile Include="TableAdapters\Glossary\DisabilityGroupTableAdapter.cs" />
     <Compile Include="TableAdapters\Glossary\GenderTableAdapter.cs" />
+    <Compile Include="TableAdapters\Glossary\LandTableAdapter.cs" />
+    <Compile Include="TableAdapters\Glossary\RegisterTypeTableAdapter.cs" />
+    <Compile Include="TableAdapters\Glossary\TypeStreetTableAdapter.cs" />
+    <Compile Include="TableAdapters\Glossary\WhyDeRegister.cs" />
+    <Compile Include="TableAdapters\CustomerTableAdapter\InvalidTableAdapter.cs" />
+    <Compile Include="TableAdapters\CustomerTableAdapter\RegisterTableAdapter.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="ConnectionManager\Readme.txt" />

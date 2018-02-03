@@ -10,50 +10,67 @@ namespace SOPB.DALUnitTest.TableAdapters.Glossary
     public class GlossaryTests
     {
         private SqlConnection _conn;
-        public void Mehod()
+        private string[] _glossariesName;
+        protected BaseTableAdapter GetGlossary(string name)
         {
-            
+            BaseTableAdapter table=null;
+            switch (name)
+            {
+                case "AdminDivision":
+                    table = new AdminDivisionTableAdapter(){Connection = _conn};
+                        break;
+                case "Gender":
+                     table = new GenderTableAdapter() { Connection = _conn };
+                    break;
+                case "ApppTpr":
+                     table = new ApppTprTableAdapter() { Connection = _conn };
+                    break;
+                case "Benefits":
+                    table = new BenefitsCategoryTableAdapter() { Connection = _conn };
+                    break;
+                case "ChiperRecept":
+                     table = new ChiperReceptTableAdapter() { Connection = _conn };
+                    break;
+                case "Disability":
+                    table = new DisabilityGroupTableAdapter() { Connection = _conn };
+                    break;
+                case "Land":
+                     table = new LandTableAdapter() { Connection = _conn };
+                    break;
+                case "Register":
+                     table = new RegisterTypeTableAdapter() { Connection = _conn };
+                    break;
+                case "TypeStreet":
+                     table = new TypeStreetTableAdapter() { Connection = _conn };
+                    break;
+                case "WhyDeReg":
+                     table = new WhyDeRegisterTableAdapter() { Connection = _conn };
+                    break;
+            }
+
+            return table;
+        }
+        [TestInitialize]
+        public void Init()
+        {
+            _glossariesName = new[] { "AdminDivision","Gender","ApppTpr", "Benefits","ChiperRecept", "Disability","Land", "Register", "TypeStreet", "WhyDeReg" };
+
+            _conn = UserSettings.InitConnection();
         }
         [TestMethod()]
-        public void FillGenderGlossaryTest()
+        public void FillGlossariesTest()
         {
-            Accounting.DAL.ConnectionManager.ConnectionManager.SetConnection("Катя", null);
-            _conn = Accounting.DAL.ConnectionManager.ConnectionManager.Connection;
-           // conn.Open();
-            GenderTableAdapter gender = new GenderTableAdapter {Connection = _conn};
-            int count = gender.Fill(new DataTable(""));
-            Assert.IsTrue(count > 0);
+            BaseTableAdapter table = null;
+            foreach (string name in _glossariesName)
+            {
+                table = GetGlossary(name);
+            }
+
+            if (table != null)
+            {
+                int count = table.Fill(new DataTable(""));
+                Assert.IsTrue(count > 0);
+            }
         }
-        [TestMethod()]
-        public void FillAdminDivisionGenderTest()
-        {
-            Accounting.DAL.ConnectionManager.ConnectionManager.SetConnection("Катя", null);
-            _conn = Accounting.DAL.ConnectionManager.ConnectionManager.Connection;
-            // conn.Open();
-            BaseTableAdapter adminDivision = new AdminDivisionTableAdapter() { Connection = _conn };
-            int count = adminDivision.Fill(new DataTable(""));
-            Assert.IsTrue(count > 0);
-        }
-        [TestMethod()]
-        public void UpdateFailedForGenderGlossaryTest()
-        {
-            Accounting.DAL.ConnectionManager.ConnectionManager.SetConnection("Катя", null);
-            _conn = Accounting.DAL.ConnectionManager.ConnectionManager.Connection;
-            GenderTableAdapter gender = new GenderTableAdapter();
-            gender.Connection = _conn;
-          gender.Update(new DataTable(""));
-            Assert.IsNull(null);
-        }
-        [TestMethod()]
-        public void UpdateFailedForAdminDivisionGlossaryTest()
-        {
-            Accounting.DAL.ConnectionManager.ConnectionManager.SetConnection("Катя", null);
-            _conn = Accounting.DAL.ConnectionManager.ConnectionManager.Connection;
-            BaseTableAdapter adminDivision = new AdminDivisionTableAdapter();
-            adminDivision.Connection = _conn;
-            adminDivision.Update(new DataTable(""));
-            Assert.IsNull(null);
-        }
-       
     }
 }

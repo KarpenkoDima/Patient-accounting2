@@ -8,10 +8,10 @@ namespace SOPB.Accounting.DAL.TableAdapters
 {
     public abstract class BaseTableAdapter
     {
-        protected SqlDataAdapter _Adapter;
-        protected SqlConnection _Connection;
-        protected SqlTransaction _Transaction;
-        protected SqlCommand[] _CommandCollection;
+        protected SqlDataAdapter _adapter;
+        protected SqlConnection _connection;
+        protected SqlTransaction _transaction;
+        protected SqlCommand[] _commandCollection;
         private bool _clearBefore;
 
         public BaseTableAdapter()
@@ -21,18 +21,18 @@ namespace SOPB.Accounting.DAL.TableAdapters
 
         void InitAdapter()
         {
-            this._Adapter = new SqlDataAdapter();
+            this._adapter = new SqlDataAdapter();
         }
 
         public SqlDataAdapter Adapter
         {
             get
             {
-                if (_Adapter == null)
+                if (_adapter == null)
                 {
                     this.InitAdapter();
                 }
-                return this._Adapter;
+                return this._adapter;
             }
         }
 
@@ -46,15 +46,15 @@ namespace SOPB.Accounting.DAL.TableAdapters
         {
             get
             {
-                if (this._Connection == null)
+                if (this._connection == null)
                 {
                     this.InitConnection();
                 }
-                return this._Connection;
+                return this._connection;
             }
             set
             {
-                this._Connection = value;
+                this._connection = value;
                 if (this.Adapter.InsertCommand != null)
                 {
                     this.Adapter.InsertCommand.Connection = value;
@@ -79,18 +79,18 @@ namespace SOPB.Accounting.DAL.TableAdapters
 
         private void InitConnection()
         {
-            this._Connection = new SqlConnection();
+            this._connection = new SqlConnection();
         }
 
         public SqlTransaction Transaction
         {
             get
             {
-               return this._Transaction;
+               return this._transaction;
             }
             set
             {
-                this._Transaction = value;
+                this._transaction = value;
                 if (this.Adapter.InsertCommand != null)
                 {
                     this.Adapter.InsertCommand.Transaction = value;
@@ -117,63 +117,15 @@ namespace SOPB.Accounting.DAL.TableAdapters
         {
             get
             {
-                if (this._CommandCollection == null)
+                if (this._commandCollection == null)
                 {
                     this.InitCollection();
                 }
-                return this._CommandCollection;
+                return this._commandCollection;
             }
         }
 
-        public virtual void Update(DataTable table)
-        {
-            try
-            {
-                this.Adapter.ContinueUpdateOnError = true;
-                this.Adapter.InsertCommand = this.CommandCollection[1];
-                this.Adapter.InsertCommand.Transaction = this.CommandCollection[1].Transaction;
-
-                this.Adapter.UpdateCommand = this.CommandCollection[1];
-                this.Adapter.UpdateCommand.Transaction = this.Transaction;
-
-
-                this.Adapter.DeleteCommand = this.CommandCollection[2];
-                this.Adapter.DeleteCommand.Transaction = this.Transaction;
-
-
-                this.Adapter.Update(table.Select(null, null,
-                    DataViewRowState.Added | DataViewRowState.ModifiedCurrent | DataViewRowState.Deleted));
-
-                if (table.HasErrors)
-                {
-                    StringBuilder stringBuilder = new StringBuilder();
-                    stringBuilder.AppendLine("Данная строка(и) была обновлена не удачно.");
-                    foreach (DataRow row in table.Rows)
-                    {
-                        if (row.HasErrors)
-                        {
-                            DataColumn[] columns = row.GetColumnsInError();
-                            if (columns.Length > 0)
-                            {
-                                for (int i = 0; i < columns.Length; i++)
-                                {
-                                    stringBuilder.AppendFormat("{0}: {1}", columns[i].ColumnName, row.RowError);
-                                }
-                            }
-                            else
-                            {
-                                stringBuilder.AppendFormat("{0}", row.RowError);
-                            }
-                        }
-                    }
-                    throw new ArgumentException(stringBuilder.ToString());
-                }
-            }
-            catch (Exception exception)
-            {
-                throw;
-            }
-        }
+       
 
         #region Abstract memebrs
 
@@ -181,6 +133,60 @@ namespace SOPB.Accounting.DAL.TableAdapters
         public abstract int Fill(DataTable table);
 
         #endregion
+
+    }
+
+    public abstract class UpdateBaseTableAdapter : BaseTableAdapter
+    {
+        public virtual int Update(DataTable table)
+        {
+            this.Adapter.ContinueUpdateOnError = true;
+            this.Adapter.InsertCommand = this.CommandCollection[1];
+            this.Adapter.InsertCommand.Transaction = this.CommandCollection[1].Transaction;
+
+            this.Adapter.UpdateCommand = this.CommandCollection[1];
+            this.Adapter.UpdateCommand.Transaction = this.Transaction;
+
+
+            this.Adapter.DeleteCommand = this.CommandCollection[2];
+            this.Adapter.DeleteCommand.Transaction = this.Transaction;
+
+
+            int update = this.Adapter.Update(table.Select(null, null,
+                DataViewRowState.Added | DataViewRowState.ModifiedCurrent | DataViewRowState.Deleted));
+
+            if (table.HasErrors)
+            {
+                StringBuilder stringBuilder = new StringBuilder();
+                stringBuilder.AppendLine("Данная строка(и) была обновлена не удачно.");
+                foreach (DataRow row in table.Rows)
+                {
+                    if (row.HasErrors)
+                    {
+                        DataColumn[] columns = row.GetColumnsInError();
+                        if (columns.Length > 0)
+                        {
+                            for (int i = 0; i < columns.Length; i++)
+                            {
+                                stringBuilder.AppendFormat("{0}: {1}", columns[i].ColumnName, row.RowError);
+                            }
+                        }
+                        else
+                        {
+                            stringBuilder.AppendFormat("{0}", row.RowError);
+                        }
+                    }
+                }
+                throw new ArgumentException(stringBuilder.ToString());
+            }
+
+            return update;
+        }
+
+        protected abstract override void InitCollection();
+
+
+        public abstract override int Fill(DataTable table);
 
     }
 }

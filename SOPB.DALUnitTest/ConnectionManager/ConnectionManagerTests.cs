@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using SOPB.DALUnitTest;
 
 namespace SOPB.Accounting.DAL.ConnectionManager.Tests
 {
@@ -20,7 +21,7 @@ namespace SOPB.Accounting.DAL.ConnectionManager.Tests
         public static void  ManagerTests(TestContext context)
         {
            
-            DAL.ConnectionManager.ConnectionManager.SetConnection("Катя", "1");
+            DAL.ConnectionManager.ConnectionManager.SetConnection(UserSettings.UserName, UserSettings.Password);
             conn = ConnectionManager.Connection;
             //conn.Open();
         }
@@ -35,7 +36,7 @@ namespace SOPB.Accounting.DAL.ConnectionManager.Tests
         [TestMethod()]
         public void TestConnectionTest()
         {
-            Assert.IsTrue(ConnectionManager.TestConnection("Катя", "1"));
+            Assert.IsTrue(ConnectionManager.TestConnection(UserSettings.UserName, UserSettings.Password));
         }
         [TestMethod()]
         public void OpenConnectionTest()
@@ -65,7 +66,7 @@ namespace SOPB.Accounting.DAL.ConnectionManager.Tests
         [TestMethod()]
         public void GetConnectionAndConnectionAnyMoreTest()
         {
-           DAL.ConnectionManager.ConnectionManager.SetConnection("Катя", "1");
+           DAL.ConnectionManager.ConnectionManager.SetConnection(UserSettings.UserName,UserSettings.Password);
            SqlConnection conn = ConnectionManager.Connection;
            SqlConnection conn2 = ConnectionManager.Connection;
             conn.Open();
