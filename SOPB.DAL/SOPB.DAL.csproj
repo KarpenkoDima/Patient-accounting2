@@ -43,6 +43,7 @@
     <Compile Include="ConnectionManager\GenericAccess.cs" />
     <Compile Include="ConnectionManager\RoleForUser.cs" />
     <Compile Include="LoadData\TableAdapterFactory.cs" />
+    <Compile Include="LoadData\Transaction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TableAdapters\CustomerTableAdapter\AddressTableAdapter.cs" />
     <Compile Include="TableAdapters\BaseTableAdapter.cs" />
