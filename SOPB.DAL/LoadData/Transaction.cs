@@ -53,8 +53,7 @@ namespace SOPB.Accounting.DAL.LoadData
         }
         public void UpdateData(DataTable table)
         {
-            UpdateBaseTableAdapter baseTableAdapter = TableAdapterFactory.AdapterFactory(table.TableName) as UpdateBaseTableAdapter;
-            if (baseTableAdapter != null)
+            if (TableAdapterFactory.AdapterFactory(table.TableName) is UpdateBaseTableAdapter baseTableAdapter)
             {
                 baseTableAdapter.Connection = _transaction.Connection;
                 baseTableAdapter.Transaction = _transaction;

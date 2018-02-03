@@ -63,6 +63,7 @@
     <Compile Include="TableAdapters\CustomerTableAdapter\CustomerTest.cs" />
     <Compile Include="TableAdapters\Glossary\GlossaryTests.cs" />
     <Compile Include="TableAdapters\LoadDataTest\TableAdapterFactoryTest.cs" />
+    <Compile Include="TableAdapters\LoadDataTest\TransactioWorkUnitTest.cs" />
     <Compile Include="TableAdapters\ManyConnectionTableAdaptersUnitTest1.cs" />
     <Compile Include="UserSettings.cs" />
   </ItemGroup>
