@@ -11,7 +11,7 @@ namespace BAL.AccessData
     public class CustomerAccess
     {
         
-        private void FillDictionary(DataSet dataSet)
+        public static void FillDictionary(DataSet dataSet)
         {
             TransactionWork transactionWork = null;
             try
@@ -49,7 +49,7 @@ namespace BAL.AccessData
         }
 
 
-        private void FillCustomerData(DataSet dataSet)
+        public static void FillCustomerData(DataSet dataSet)
         {
             TransactionWork transactionWork = null;
             try
