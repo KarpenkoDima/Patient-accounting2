@@ -132,15 +132,20 @@ namespace SOPB.DALUnitTest.TableAdapters.LoadDataTest
             ITransactionWork transactionWork = null;
 
             DataTable adminDivisionTable = new DataTable("AdminDivision");
-            using (transactionWork = TransactionFactory.Create())
+            try
             {
-                transactionWork.ReadData(adminDivisionTable);
-                DataRow newRow = adminDivisionTable.NewRow();
-                newRow[1] = "aaa";
-                adminDivisionTable.Rows.Add(newRow);
-
-                transactionWork.UpdateData(adminDivisionTable);
-                transactionWork.Rollback();
+                using (transactionWork = TransactionFactory.Create())
+                {
+                    transactionWork.ReadData(adminDivisionTable);
+                    DataRow newRow = adminDivisionTable.NewRow();
+                    newRow[1] = "aaa";
+                    adminDivisionTable.Rows.Add(newRow);
+                    throw new Exception();
+                }
+            }
+            catch
+            {
+                transactionWork ? .Rollback();
             }
 
             Assert.IsTrue(true);
