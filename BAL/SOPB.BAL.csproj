@@ -42,7 +42,13 @@
   <ItemGroup>
     <Compile Include="AccessData\CustomerAccess.cs" />
     <Compile Include="DataTables\Tables.cs" />
+    <Compile Include="ORM\Criteria.cs" />
+    <Compile Include="ORM\Query.cs" />
+    <Compile Include="ORM\Repository\IRepository.cs" />
+    <Compile Include="ORM\Repository\Repositories.cs" />
+    <Compile Include="ORM\Repository\RepositoryBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utilites.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SOPB.DAL\SOPB.DAL.csproj">
@@ -50,8 +56,6 @@
       <Name>SOPB.DAL</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ORM\Repository\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -47,9 +47,11 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccessDataTest\CustomerAccessUnitTest.cs" />
+    <Compile Include="ORMTest\QueryUnitTest.cs" />
     <Compile Include="Relationship\RelationshipUnitTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Relationship\RelationShipUpdateCustomerDataUnitTest1.cs" />
