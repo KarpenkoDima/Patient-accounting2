@@ -43,6 +43,7 @@
     <Compile Include="AccessData\CustomerAccess.cs" />
     <Compile Include="DataTables\Tables.cs" />
     <Compile Include="ORM\Criteria.cs" />
+    <Compile Include="ORM\CustomerService.cs" />
     <Compile Include="ORM\Query.cs" />
     <Compile Include="ORM\Repository\IRepository.cs" />
     <Compile Include="ORM\Repository\Repositories.cs" />

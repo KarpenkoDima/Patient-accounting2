@@ -42,6 +42,7 @@ namespace BAL.ORM.Repository
             }
             _errorText = String.Empty;
         }
+        
         private void CustomerDataTableOnRowChanging(object sender, DataRowChangeEventArgs dataRowChangeEventArgs)
         {
             if (Utilites.ValidateTextInputNotName(dataRowChangeEventArgs.Row["LastName"].ToString()))
@@ -168,11 +169,8 @@ namespace BAL.ORM.Repository
 
     internal class GlossaryRepository : RepositoryBase, IMutableRepository<Int32>
     {
-        private string _nameGlossary;
-        public GlossaryRepository(string nameGlossary)
-        {
-            _nameGlossary = nameGlossary;
-        }
+        
+        
 
         #region Override Methods
 
@@ -188,12 +186,12 @@ namespace BAL.ORM.Repository
 
         protected override string GetEntityName()
         {
-            return _nameGlossary;
+            return String.Empty;
         }
 
         protected override string GetKeyFieldName()
         {
-            return _nameGlossary + "ID";
+            return String.Empty;
         }
 
         protected override void BuildChildCallbacks()
@@ -245,6 +243,10 @@ namespace BAL.ORM.Repository
 
         #endregion
 
+        public object GetGlossaryByName(string name)
+        {
+            return Tables.DispancerDataSet.Tables[name];
+        }
         private void ClearCustomerData()
         {
             Tables.AddressDataTable.Clear();
