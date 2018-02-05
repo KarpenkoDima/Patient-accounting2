@@ -10,7 +10,7 @@ namespace BAL.AccessData
 {
     public class CustomerAccess
     {
-        
+
         public static void FillDictionary(DataSet dataSet)
         {
             TransactionWork transactionWork = null;
@@ -43,7 +43,7 @@ namespace BAL.AccessData
             }
             catch (Exception)
             {
-                transactionWork ? .Rollback();
+                transactionWork?.Rollback();
                 throw;
             }
         }
@@ -70,37 +70,67 @@ namespace BAL.AccessData
             }
             catch (Exception)
             {
-                transactionWork ? .Rollback();
+                transactionWork?.Rollback();
                 throw;
             }
         }
+
         public static void GetCustomersByID(DataTable table, int idx)
         {
-            BaseTableAdapter baseTableAdapter = TableAdapterFactory.AdapterFactory(table.TableName);
+            TransactionWork transactionWork = null;
+
             String storageProcedureName = "uspGetCustomers";
             SqlParameter parameter = new SqlParameter();
             parameter.DbType = DbType.Int32;
             parameter.Size = 4;
             parameter.ParameterName = "@CustomerID";
             parameter.Value = idx;
-            baseTableAdapter.Execute(table, storageProcedureName, parameter);
+            try
+            {
+                using (transactionWork = (TransactionWork) TransactionFactory.Create())
+                {
+                    transactionWork.Execute(table, storageProcedureName, parameter);
+                    transactionWork.Commit();
+                }
+            }
+            catch (Exception)
+            {
+                transactionWork?.Rollback();
+                throw;
+            }
         }
 
         public static void GetCustomersByLastName(DataTable table, string lastName)
         {
-            BaseTableAdapter baseTableAdapter = TableAdapterFactory.AdapterFactory(table.TableName);
+            TransactionWork transactionWork = null;
+
+
             string storageProcedureName = "uspGet" + table.TableName + "byLastName";
             SqlParameter parameter = new SqlParameter();
             parameter.DbType = DbType.String;
             parameter.Size = 100;
             parameter.ParameterName = "@LastName";
-            parameter.Value = lastName;
-            baseTableAdapter.Execute(table, storageProcedureName, parameter);
+            try
+            {
+                parameter.Value = lastName;
+                using (transactionWork = (TransactionWork) TransactionFactory.Create())
+                {
+                    transactionWork.Execute(table, storageProcedureName, parameter);
+                    transactionWork.Commit();
+                }
+            }
+            catch (Exception)
+            {
+                transactionWork?.Rollback();
+                throw;
+            }
         }
 
         public static void GetCustomersByBirthdayBetween(DataTable table, DateTime fromDateTime, DateTime toDateTime)
         {
-            BaseTableAdapter baseTableAdapter = TableAdapterFactory.AdapterFactory(table.TableName);
+            TransactionWork transactionWork = null;
+
+
             string storageProcedureName = "uspGet" + table.TableName + "ByBirthOfDay";
             SqlParameter[] parameters = new SqlParameter[3];
             SqlParameter parameter = new SqlParameter();
@@ -119,12 +149,26 @@ namespace BAL.AccessData
             parameter.ParameterName = "@predicate";
             parameter.Value = "МЕЖДУ";
             parameters[2] = parameter;
-            baseTableAdapter.Execute(table, storageProcedureName, parameters);
+            try
+            {
+                using (transactionWork = (TransactionWork) TransactionFactory.Create())
+                {
+                    transactionWork.Execute(table, storageProcedureName, parameters);
+                    transactionWork.Commit();
+                }
+            }
+            catch (Exception)
+            {
+                transactionWork?.Rollback();
+                throw;
+            }
         }
+
         public static void GetCustomersByBirthday(DataTable table, DateTime fromDateTime)
         {
 
-            BaseTableAdapter baseTableAdapter = TableAdapterFactory.AdapterFactory(table.TableName);
+            TransactionWork transactionWork = null;
+
             string storageProcedureName = "uspGet" + table.TableName + "ByBirthOfDay";
             SqlParameter[] parameters = new SqlParameter[3];
             SqlParameter parameter = new SqlParameter();
@@ -143,18 +187,44 @@ namespace BAL.AccessData
             parameter.ParameterName = "@predicate";
             parameter.Value = "МЕЖДУ";
             parameters[2] = parameter;
-            baseTableAdapter.Execute(table, storageProcedureName, parameters);
+            try
+            {
+                using (transactionWork = (TransactionWork) TransactionFactory.Create())
+                {
+                    transactionWork.Execute(table, storageProcedureName, parameters);
+                    transactionWork.Commit();
+                }
+            }
+            catch (Exception)
+            {
+                transactionWork?.Rollback();
+                throw;
+            }
         }
 
         public static void GetCustomersByGlossary(DataTable table, string glossaryName, int criteria)
         {
-            BaseTableAdapter baseTableAdapter = TableAdapterFactory.AdapterFactory(table.TableName);
+            TransactionWork transactionWork = null;
+
+
             string storageProcedureName = string.Format("uspGet{0}By{1}", table.TableName, glossaryName);
             SqlParameter parameter = new SqlParameter();
             parameter.DbType = DbType.Int32;
             parameter.ParameterName = "@ID";
             parameter.Value = criteria;
-            baseTableAdapter.Execute(table, storageProcedureName, parameter);
+            try
+            {
+                using (transactionWork = (TransactionWork) TransactionFactory.Create())
+                {
+                    transactionWork.Execute(table, storageProcedureName, parameter);
+                    transactionWork.Commit();
+                }
+            }
+            catch (Exception)
+            {
+                transactionWork?.Rollback();
+                throw;
+            }
         }
     }
 }

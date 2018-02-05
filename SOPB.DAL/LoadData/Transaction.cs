@@ -60,6 +60,12 @@ namespace SOPB.Accounting.DAL.LoadData
                 baseTableAdapter.Update(table);
             }
         }
+
+        public void Execute(DataTable table, string storageProc, params SqlParameter[] parameters)
+        {
+            BaseTableAdapter baseTableAdapter = TableAdapterFactory.AdapterFactory(table.TableName);
+            baseTableAdapter.Execute(table, storageProc, parameters);
+        }
         public void Rollback()
         {
             _transaction.Rollback();

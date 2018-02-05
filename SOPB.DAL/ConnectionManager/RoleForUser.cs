@@ -38,7 +38,8 @@ namespace SOPB.Accounting.DAL.ConnectionManager
                     }
                 }
 
-            return role;
+                return role;
+            }
         }
     }
 }
