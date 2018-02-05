@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Text;
+using SOPB.Accounting.DAL.LoadData;
 
 namespace SOPB.Accounting.DAL.TableAdapters
 {
@@ -125,7 +126,21 @@ namespace SOPB.Accounting.DAL.TableAdapters
             }
         }
 
-       
+        public virtual void Execute(DataTable table, string storageProc, params SqlParameter[] parameters)
+        {
+            SqlCommand command = GenericDataAccess.CreateCommand() as SqlCommand;
+            if (command != null)
+            {
+                command.CommandType = CommandType.StoredProcedure;
+                command.CommandText = storageProc;
+                foreach (SqlParameter sqlParameter in parameters)
+                {
+                    command.Parameters.Add(sqlParameter);
+                }
+
+                GenericDataAccess.ExecuteSelectCommand(command, table);
+            }
+        }
 
         #region Abstract memebrs
 

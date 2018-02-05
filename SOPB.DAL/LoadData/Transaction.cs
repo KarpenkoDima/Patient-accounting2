@@ -18,7 +18,7 @@ namespace SOPB.Accounting.DAL.LoadData
         void Rollback();
         void Commit();
     }
-    internal class TransactionWork : ITransactionWork
+    public class TransactionWork : ITransactionWork
     {
 
         public TransactionWork()
@@ -76,103 +76,7 @@ namespace SOPB.Accounting.DAL.LoadData
         }
 
 
-        private void FillDictionary(DataSet dataSet)
-        {
-            try
-            {
-                BaseTableAdapter baseTableAdapter = new ApppTprTableAdapter();
-                baseTableAdapter.Connection = ConnectionManager.ConnectionManager.Connection;
-                baseTableAdapter.Transaction = _transaction as SqlTransaction;
-                baseTableAdapter.Fill(dataSet.Tables["ApppTpr"]);
-
-                baseTableAdapter = new GenderTableAdapter();
-                baseTableAdapter.Connection = ConnectionManager.ConnectionManager.Connection;
-                baseTableAdapter.Transaction = _transaction as SqlTransaction;
-                baseTableAdapter.Fill(dataSet.Tables["Gender"]);
-
-                baseTableAdapter = new AdminDivisionTableAdapter();
-                baseTableAdapter.Connection = ConnectionManager.ConnectionManager.Connection;
-                baseTableAdapter.Transaction = _transaction as SqlTransaction;
-                baseTableAdapter.Fill(dataSet.Tables["AdminDivision"]);
-
-                baseTableAdapter = new TypeStreetTableAdapter();
-                baseTableAdapter.Connection = ConnectionManager.ConnectionManager.Connection;
-                baseTableAdapter.Transaction = _transaction as SqlTransaction;
-                baseTableAdapter.Fill(dataSet.Tables["TypeStreet"]);
-
-                baseTableAdapter = new ChiperReceptTableAdapter();
-                baseTableAdapter.Connection = ConnectionManager.ConnectionManager.Connection;
-                baseTableAdapter.Transaction = _transaction as SqlTransaction;
-                baseTableAdapter.Fill(dataSet.Tables["ChiperRecept"]);
-
-                baseTableAdapter = new BenefitsCategoryTableAdapter();
-                baseTableAdapter.Connection = ConnectionManager.ConnectionManager.Connection;
-                baseTableAdapter.Transaction = _transaction as SqlTransaction;
-                baseTableAdapter.Fill(dataSet.Tables["BenefitsCategory"]);
-
-                baseTableAdapter = new DisabilityGroupTableAdapter();
-                baseTableAdapter.Connection = ConnectionManager.ConnectionManager.Connection;
-                baseTableAdapter.Transaction = _transaction as SqlTransaction;
-                baseTableAdapter.Fill(dataSet.Tables["DisabilityGroup"]);
-
-                baseTableAdapter = new LandTableAdapter();
-                baseTableAdapter.Connection = ConnectionManager.ConnectionManager.Connection;
-                baseTableAdapter.Transaction = _transaction as SqlTransaction;
-                baseTableAdapter.Fill(dataSet.Tables["Land"]);
-
-                baseTableAdapter = new RegisterTypeTableAdapter();
-                baseTableAdapter.Connection = ConnectionManager.ConnectionManager.Connection;
-                baseTableAdapter.Transaction = _transaction as SqlTransaction;
-                baseTableAdapter.Fill(dataSet.Tables["RegisterType"]);
-
-
-                baseTableAdapter = new WhyDeRegisterTableAdapter();
-                baseTableAdapter.Connection = ConnectionManager.ConnectionManager.Connection;
-                baseTableAdapter.Transaction = _transaction as SqlTransaction;
-                baseTableAdapter.Fill(dataSet.Tables["WhyDeRegister"]);
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-        }
-
-
-        private void FillData(DataSet dataSet)
-        {
-            try
-            {
-                BaseTableAdapter baseTableAdapter = new CustomerTableAdapter();
-                baseTableAdapter.Connection = ConnectionManager.ConnectionManager.Connection;
-                baseTableAdapter.Transaction = _transaction as SqlTransaction;
-                baseTableAdapter.Fill(dataSet.Tables["Customer"]);
-
-                baseTableAdapter = new AddressTableAdapter();
-                baseTableAdapter.Connection = ConnectionManager.ConnectionManager.Connection;
-                baseTableAdapter.Transaction = _transaction as SqlTransaction;
-                baseTableAdapter.Fill(dataSet.Tables["Address"]);
-
-                baseTableAdapter = new InvalidTableAdapter();
-                baseTableAdapter.Connection = ConnectionManager.ConnectionManager.Connection;
-                baseTableAdapter.Transaction = _transaction as SqlTransaction;
-                baseTableAdapter.Fill(dataSet.Tables["Invalid"]);
-
-                baseTableAdapter = new InvalidBenefitsCategoryTableAdapter();
-                baseTableAdapter.Connection = ConnectionManager.ConnectionManager.Connection;
-                baseTableAdapter.Transaction = _transaction as SqlTransaction;
-                baseTableAdapter.Fill(dataSet.Tables["InvalidBenefitsCategory"]);
-
-                baseTableAdapter = new RegisterTableAdapter();
-                baseTableAdapter.Connection = ConnectionManager.ConnectionManager.Connection;
-                baseTableAdapter.Transaction = _transaction as SqlTransaction;
-                baseTableAdapter.Fill(dataSet.Tables["Register"]);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
+        
     }
 
 

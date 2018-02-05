@@ -40,8 +40,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccessData\CustomerAccess.cs" />
     <Compile Include="DataTables\Tables.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SOPB.DAL\SOPB.DAL.csproj">
+      <Project>{0C93DB12-88C4-49AB-8649-B4C4AD3FC795}</Project>
+      <Name>SOPB.DAL</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

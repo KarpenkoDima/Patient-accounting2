@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Data;
 using System.Data.SqlClient;
-using System.Text;
+using SOPB.Accounting.DAL.LoadData;
 
 namespace SOPB.Accounting.DAL.ConnectionManager
 {
@@ -18,23 +16,27 @@ namespace SOPB.Accounting.DAL.ConnectionManager
             SqlConnection connection = ConnectionManager.Connection;
 
 
-            using (SqlCommand command = connection.CreateCommand())
+            using (SqlCommand command = GenericDataAccess.CreateCommand() as SqlCommand)
             {
-                command.CommandType = CommandType.StoredProcedure;
-                command.CommandText = "uspGetRoleForUser";
-                SqlParameter parameter = new SqlParameter
                 {
-                    ParameterName = "@Role",
-                    Size = 50,
-                    SqlDbType = SqlDbType.NVarChar,
-                    Direction = ParameterDirection.Output
-                };
-                command.Parameters.Add(parameter);
+                    if (command != null)
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.CommandText = "uspGetRoleForUser";
+                        SqlParameter parameter = new SqlParameter
+                        {
+                            ParameterName = "@Role",
+                            Size = 50,
+                            SqlDbType = SqlDbType.NVarChar,
+                            Direction = ParameterDirection.Output
+                        };
+                        command.Parameters.Add(parameter);
 
-                command.Connection.Open();
-                command.ExecuteNonQuery();
-                role = ((string) command.Parameters["@Role"].Value).Trim();
-            }
+                        command.Connection.Open();
+                        command.ExecuteNonQuery();
+                        role = ((string) command.Parameters["@Role"].Value).Trim();
+                    }
+                }
 
             return role;
         }
