@@ -90,5 +90,17 @@ namespace SOPB.DALUnitTestProject.AccessDataTest
             CustomerAccess.GetCustomersByGlossary(tables.CustomerDataTable, "Gender", 2);
             Assert.IsTrue(tables.CustomerDataTable.Rows.Count > 0);
         }
+        [TestMethod]
+        public void CustomerAccess_UpdateCustomers_TestMethod()
+        {
+            SqlConnection connection = ConnectionManager.Connection;
+            connection.Open();
+            Tables tables = new Tables();
+            CustomerAccess.FillDictionary(tables.DispancerDataSet);
+            CustomerAccess.FillCustomerData(tables.DispancerDataSet);
+            CustomerAccess.Update(tables.DispancerDataSet);
+            Assert.IsTrue(tables.CustomerDataTable.Rows.Count > 0);
+        }
+
     }
 }

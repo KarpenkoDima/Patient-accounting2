@@ -226,5 +226,27 @@ namespace BAL.AccessData
                 throw;
             }
         }
+
+        public static void Update(DataSet dispancerDataSet)
+        {
+            TransactionWork transactionWork = null;
+            try
+            {
+                using (transactionWork = (TransactionWork)TransactionFactory.Create())
+                {
+                    for (int i = 0; i < dispancerDataSet.Tables.Count; i++)
+                    {
+                        transactionWork.UpdateData(dispancerDataSet.Tables[i]);
+                    }
+
+                    transactionWork.Commit();
+                }
+            }
+            catch (Exception)
+            {
+                transactionWork?.Rollback();
+                throw;
+            }
+        }
     }
 }
