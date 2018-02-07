@@ -333,9 +333,7 @@ namespace SOPB.GUI
 
         private void toolStripButtonFillAll_Click(object sender, EventArgs e)
         {
-            ConnectionManager.SetConnection("катя", "");
-            CustomerService service = new CustomerService();
-            BindingData(service.FillAllCustomers());
+           
         }
     }
 }
