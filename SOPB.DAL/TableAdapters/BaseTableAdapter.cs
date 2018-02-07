@@ -166,7 +166,8 @@ namespace SOPB.Accounting.DAL.TableAdapters
             this.Adapter.DeleteCommand = this.CommandCollection[2];
             this.Adapter.DeleteCommand.Transaction = this.Transaction;
 
-
+            var update0 = table.Select(null, null,
+                DataViewRowState.Added | DataViewRowState.ModifiedCurrent | DataViewRowState.Deleted);
             int update = this.Adapter.Update(table.Select(null, null,
                 DataViewRowState.Added | DataViewRowState.ModifiedCurrent | DataViewRowState.Deleted));
 

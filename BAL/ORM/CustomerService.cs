@@ -15,7 +15,7 @@ namespace BAL.ORM
 
         public CustomerService()
         {
-            _repo.FindAll();
+            //_repo.FindAll();
         }
         public object GetCustomersByFirstName(string firstName)
         {

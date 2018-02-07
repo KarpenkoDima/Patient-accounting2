@@ -303,7 +303,6 @@ namespace SOPB.GUI
             customerDataGridView.DataSource = _customerBindingSource;
             isLoadData = true;
             bindingNavigatorAddNewItem.Enabled = true;
-            //DisableEnableControls(customerBindingSource.Count > 0);
         }
 
         private void RegisterBindingSourceOnAddingNew(object sender, AddingNewEventArgs e)
@@ -336,6 +335,20 @@ namespace SOPB.GUI
             ConnectionManager.SetConnection("катя", "");
             CustomerService service = new CustomerService();
             BindingData(service.FillAllCustomers());
+        }
+
+        private void saveToolStripButton_Click(object sender, EventArgs e)
+        {
+            if (isLoadData)
+            {
+                _customerBindingSource.EndEdit();
+                _addressBindingSource.EndEdit();
+                _registerBindingSource.EndEdit();
+                _invalidBindingSource.EndEdit();
+                _invalidBenefitsBindingSource.EndEdit();
+                CustomerService servoce = new CustomerService();
+                servoce.UpdateAllCustomers();
+            }
         }
     }
 }
