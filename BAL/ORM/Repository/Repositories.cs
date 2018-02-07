@@ -15,15 +15,15 @@ namespace BAL.ORM.Repository
         public CustomRepository()
         {
 #if DEBUG
-            _isCorrertError = true;
+            _isCorrertError = false;
 #endif
             // proglems in time save
-            //if (_isCorrertError)
-            //{
-            //    Tables.CustomerDataTable.RowChanging += CustomerDataTableOnRowChanging;
-            //    Tables.CustomerDataTable.RowChanged += CustomerDataTableOnRowChanged;
-            //    Tables.RegisterDataTable.RowChanging += RegisterDataTableOnRowChanging;
-            //}
+            if (_isCorrertError)
+            {
+                Tables.CustomerDataTable.RowChanging += CustomerDataTableOnRowChanging;
+                Tables.CustomerDataTable.RowChanged += CustomerDataTableOnRowChanged;
+                Tables.RegisterDataTable.RowChanging += RegisterDataTableOnRowChanging;
+            }
         }
 
         private void RegisterDataTableOnRowChanging(object sender, DataRowChangeEventArgs e)
@@ -120,13 +120,13 @@ namespace BAL.ORM.Repository
             CustomerAccess.FillDictionary(Tables.DispancerDataSet);
             CustomerAccess.FillCustomerData(Tables.DispancerDataSet);
             //problems in time save
-            //if (_isCorrertError)
-            //{
+            if (_isCorrertError)
+            {
 
-            //    Tables.CustomerDataTable.RowChanging -= CustomerDataTableOnRowChanging;
-            //    Tables.CustomerDataTable.RowChanged -= CustomerDataTableOnRowChanged;
-            //    Tables.RegisterDataTable.RowChanging -= RegisterDataTableOnRowChanging;
-            //}
+                Tables.CustomerDataTable.RowChanging -= CustomerDataTableOnRowChanging;
+                Tables.CustomerDataTable.RowChanged -= CustomerDataTableOnRowChanged;
+                Tables.RegisterDataTable.RowChanging -= RegisterDataTableOnRowChanging;
+            }
             return Tables.DispancerDataSet;
         }
 
