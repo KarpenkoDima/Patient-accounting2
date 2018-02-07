@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Diagnostics;
 using System.Security;
-using System.Text;
 
 namespace SOPB.Accounting.DAL.ConnectionManager
 {

@@ -6,8 +6,8 @@ using System.Text;
 
 namespace SOPB.Accounting.DAL.ConnectionManager
 {
-    static class GenericAccess
-    {
+    //static class GenericAccess
+    //{
        
-    }
+    //}
 }

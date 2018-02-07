@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using BAL.ORM.Repository;
 
@@ -9,60 +10,64 @@ namespace BAL.ORM
 {
     public class CustomerService
     {
-        CustomRepository<string> repo = new CustomRepository<string>();
-        GlossaryRepository glossaryRepository = new GlossaryRepository();
+        readonly CustomRepository<string> _repo = new CustomRepository<string>();
+        readonly GlossaryRepository _glossaryRepository = new GlossaryRepository();
 
-        public void GetCustomersByFirstName(string firstName)
+        public CustomerService()
         {
-            repo.FindBy("firstName", firstName);
+            _repo.FindAll();
+        }
+        public object GetCustomersByFirstName(string firstName)
+        {
+           return  _repo.FindBy("firstName", firstName);
             // return _tables.DispancerDataSet;
         }
-        public void GetCustomersByLastName(string lastName)
+        public object GetCustomersByLastName(string lastName)
         {
-            repo.FindBy("lastname", lastName);
+           return  _repo.FindBy("lastname", lastName);
         }
-        public void GetCustomersByBirthdayBetween(DateTime from, DateTime to)
+        public object GetCustomersByBirthdayBetween(DateTime from, DateTime to)
         {
-            repo.FindByBetween("birthday", from.ToShortDateString(), to.ToShortDateString());
+            return _repo.FindByBetween("birthday", from.ToShortDateString(), to.ToShortDateString());
 
         }
-        public void GetCustomersByBirthday(DateTime date)
+        public object GetCustomersByBirthday(DateTime date)
         {
-            repo.FindBy("birthday", date.ToShortDateString());
+           return _repo.FindBy("birthday", date.ToShortDateString());
         }
 
         public void GetCustomerByAddress(string streetName)
         {
-            repo.FindBy("street", streetName);
+            _repo.FindBy("street", streetName);
 
         }
         public void GetCustomerByCity(string streetName)
         {
-            repo.FindBy("street", streetName);
+            _repo.FindBy("street", streetName);
 
         }
         public object FillAllCustomers()
         {
-            return repo.FindAll();
+            return _repo.FindAll();
         }
 
         public void UpdateAllCustomers()
         {
-            repo.Update(null);
+            _repo.Update(null);
         }
 
-        public void GetCustomerByLand(int numberLand)
+        public object GetCustomerByLand(int numberLand)
         {
-            glossaryRepository.FindBy("Land", numberLand);
+            return _glossaryRepository.FindBy("Land", numberLand);
         }
 
-        public void GetCustomerByApppTpr(int numberApppTpr)
+        public object GetCustomerByApppTpr(int numberApppTpr)
         {
-            glossaryRepository.FindBy("ApppTpr", numberApppTpr);
+            return _glossaryRepository.FindBy("ApppTpr", numberApppTpr);
         }
-        public void GetCustomerByBenefitsCategory(int benefitsCategory)
+        public object GetCustomerByBenefitsCategory(int benefitsCategory)
         {
-            glossaryRepository.FindBy("BenefitsCategory", benefitsCategory);
+            return _glossaryRepository.FindBy("BenefitsCategory", benefitsCategory);
         }
 
         public void ExportToExcel(params string[] columns)
@@ -72,7 +77,7 @@ namespace BAL.ORM
 
         public object GetGlossary(string name)
         {
-            return glossaryRepository.GetGlossaryByName(name);
+            return _glossaryRepository.GetGlossaryByName(name);
         }
 
     }

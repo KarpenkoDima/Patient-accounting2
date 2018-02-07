@@ -27,7 +27,7 @@ namespace BAL.ORM.Repository
 
         private void RegisterDataTableOnRowChanging(object sender, DataRowChangeEventArgs e)
         {
-            throw new NotImplementedException();
+            
         }
 
         private void CustomerDataTableOnRowChanged(object sender, DataRowChangeEventArgs dataRowChangeEventArgs)
@@ -115,6 +115,7 @@ namespace BAL.ORM.Repository
 
         public object FindAll()
         {
+            ClearCustomerData();
             CustomerAccess.FillDictionary(Tables.DispancerDataSet);
             CustomerAccess.FillCustomerData(Tables.DispancerDataSet);
             if (_isCorrertError)
@@ -169,8 +170,6 @@ namespace BAL.ORM.Repository
 
     internal class GlossaryRepository : RepositoryBase, IMutableRepository<Int32>
     {
-        
-        
 
         #region Override Methods
 
@@ -253,6 +252,7 @@ namespace BAL.ORM.Repository
             Tables.InvalidBenefitsDataTable.Clear();
             Tables.InvalidDataTable.Clear();
             Tables.RegisterDataTable.Clear();
+            Tables.ErrorDataTable.Clear();
             Tables.CustomerDataTable.Clear();
         }
     }

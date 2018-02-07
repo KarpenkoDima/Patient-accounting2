@@ -24,6 +24,7 @@ namespace BAL.ORM
     {
         public override object Execute(IListSource source)
         {
+            
             foreach (NewCriteria<int> criteria in _criterias)
             {
                 if (criteria != null)
@@ -101,6 +102,7 @@ namespace BAL.ORM
             switch (criteria.ToUpper())
             {
                 case "FIRSTNAME":
+                    //CustomerAccess.GetCustomersByFirstName(source as DataTable, value.ToString());
                     break;
                 case "LASTNAME":
                     CustomerAccess.GetCustomersByLastName(source as DataTable, value.ToString());

@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SOPB.BAL", "BAL\SOPB.BAL.cs
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SOPB.BALUnitTestProject", "SOPB.DALUnitTestProject\SOPB.BALUnitTestProject.csproj", "{442234AB-8E1A-475E-A68D-5C04FCD23967}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SOPB.GUI", "SOPB.GUI\SOPB.GUI.csproj", "{EF415ECA-EB7F-4FC9-88B1-3AD0A5421746}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{442234AB-8E1A-475E-A68D-5C04FCD23967}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{442234AB-8E1A-475E-A68D-5C04FCD23967}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{442234AB-8E1A-475E-A68D-5C04FCD23967}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF415ECA-EB7F-4FC9-88B1-3AD0A5421746}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF415ECA-EB7F-4FC9-88B1-3AD0A5421746}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF415ECA-EB7F-4FC9-88B1-3AD0A5421746}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF415ECA-EB7F-4FC9-88B1-3AD0A5421746}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
