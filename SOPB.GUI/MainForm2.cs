@@ -392,5 +392,18 @@ namespace SOPB.GUI
                 _customerBindingSource.EndEdit();
             }
         }
+        private void Registred_Validated(object sender, EventArgs e)
+        {
+            if (isLoadData)
+            {
+                if (_registerBindingSource.Current == null)
+                {
+                    string registerText = ((Control)sender).Text;
+                    _registerBindingSource.AddNew();
+                    ((Control)sender).Text = registerText;
+                }
+                _registerBindingSource.EndEdit();
+            }
+        }
     }
 }
