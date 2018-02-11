@@ -16,7 +16,7 @@ namespace SOPB.GUI
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm025());
+            Application.Run(new MainForm2());
         }
     }
 }

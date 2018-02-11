@@ -9,7 +9,7 @@ namespace BAL.ORM.Repository
     public interface IRepository<T> where T : IComparable<T>
     {
         object FindBy(object criteria, T value);
-        object FindAll();
+        object FillAll();
 
     }
 

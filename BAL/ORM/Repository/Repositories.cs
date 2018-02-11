@@ -9,7 +9,7 @@ namespace BAL.ORM.Repository
 {
     internal class CustomRepository<T> : RepositoryBase, IMutableRepository<T> where T : IComparable<T>
     {
-        private bool _isCorrertError = true;
+        public bool IsCorrertError { get; set; } = false;
         private string _errorText = string.Empty;
         DateTime _maxDateTime = DateTime.Now;
         public CustomRepository()
@@ -18,7 +18,7 @@ namespace BAL.ORM.Repository
             _isCorrertError = false;
 #endif
             // proglems in time save
-            if (_isCorrertError)
+            if (IsCorrertError)
             {
                 Tables.CustomerDataTable.RowChanging += CustomerDataTableOnRowChanging;
                 Tables.CustomerDataTable.RowChanged += CustomerDataTableOnRowChanged;
@@ -114,24 +114,26 @@ namespace BAL.ORM.Repository
             return Tables.DispancerDataSet;
         }
 
-        public object FindAll()
+        public object FillAll()
         {
             ClearCustomerData();
             CustomerAccess.FillDictionary(Tables.DispancerDataSet);
             CustomerAccess.FillCustomerData(Tables.DispancerDataSet);
-            //problems in time save
-            if (_isCorrertError)
-            {
 
-                Tables.CustomerDataTable.RowChanging -= CustomerDataTableOnRowChanging;
-                Tables.CustomerDataTable.RowChanged -= CustomerDataTableOnRowChanged;
-                Tables.RegisterDataTable.RowChanging -= RegisterDataTableOnRowChanging;
-            }
             return Tables.DispancerDataSet;
         }
 
         public void Update(IList<T> list)
         {
+            //problems in time save
+            if (IsCorrertError)
+            {
+
+                Tables.CustomerDataTable.RowChanging -= CustomerDataTableOnRowChanging;
+                Tables.CustomerDataTable.RowChanged -= CustomerDataTableOnRowChanged;
+                Tables.RegisterDataTable.RowChanging -= RegisterDataTableOnRowChanging;
+               
+            }
             CustomerAccess.Update(Tables.DispancerDataSet);
         }        
 
@@ -187,7 +189,7 @@ namespace BAL.ORM.Repository
             return Tables.DispancerDataSet;
         }
 
-        public object FindAll()
+        public object FillAll()
         {
             CustomerAccess.FillDictionary(Tables.DispancerDataSet);
             return Tables.DispancerDataSet;

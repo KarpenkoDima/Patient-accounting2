@@ -1,14 +1,18 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using BAL.ORM;
 using SOPB.Accounting.DAL.ConnectionManager;
-using SOPB.GUI.DialogForms;
 
 namespace SOPB.GUI
 {
-    public partial class MainForm025 : Form
+    public partial class MainForm2 : Form
     {
         #region Bindings source
 
@@ -36,7 +40,7 @@ namespace SOPB.GUI
         #endregion
 
         private bool isLoadData = false;
-        public MainForm025()
+        public MainForm2()
         {
             InitializeComponent();
             Initialize();
@@ -68,8 +72,8 @@ namespace SOPB.GUI
             MainBindingNavigator.BindingSource = _customerBindingSource;
 
             bindingNavigatorAddNewItem.Enabled = false;
-            customerDataGridView.RowValidating +=  CustomerDataGridViewOnCellFormatting;
         }
+        
         private void SetDataGridView()
         {
             customerDataGridView.Columns.Clear();
@@ -247,7 +251,7 @@ namespace SOPB.GUI
             //// Binding data to Invalid contrls  ////
             _benefitsBindingSource.DataSource = data;
             _benefitsBindingSource.DataMember = "BenefitsCategory";
-            
+
             _disabilityBindingSource.DataSource = data;
             _disabilityBindingSource.DataMember = "DisabilityGroup";
 
@@ -303,7 +307,28 @@ namespace SOPB.GUI
             isLoadData = true;
         }
 
-        
+        private void bindingNavigatorAddNewItem_Click(object sender, EventArgs e)
+        {
+            if (isLoadData)
+            {
+                textBoxFirstName.Text = textBoxLastName.Text = @"[Новое Имя]";
+                comboBoxApppTpr.SelectedIndex = comboBoxGender.SelectedIndex = 0;
+                _customerBindingSource.EndEdit();
+            }
+        }
+        private void AddressBindingSourceOnAddingNew(object sender, AddingNewEventArgs e)
+        {
+            if (_addressBindingSource.List.Count >= 1) return;
+            DataView view = _addressBindingSource.List as DataView;
+
+            DataRowView row = view.AddNew();
+            row["City"] = "Славянск";
+            row["AdminDivisionID"] = 5;
+            row["CustomerID"] = ((DataRowView)_customerBindingSource.Current)[0];
+            e.NewObject = (object)row;
+            _addressBindingSource.MoveLast();
+        }
+
         private void RegisterBindingSourceOnAddingNew(object sender, AddingNewEventArgs e)
         {
             if (_registerBindingSource.List.Count >= 1) return;
@@ -316,6 +341,15 @@ namespace SOPB.GUI
             _registerBindingSource.MoveLast();
         }
 
+        private void BoundChkBoxBenefitsOnLostFocus(object sender, EventArgs e)
+        {
+            if (isLoadData)
+            {
+                _invalidBindingSource.EndEdit();
+                _benefitsBindingSource.EndEdit();
+                _invalidBenefitsBindingSource.EndEdit();
+            }
+        }
         private void InvalidBindingSourceOnAddingNew(object sender, AddingNewEventArgs e)
         {
             if (_invalidBindingSource.List.Count >= 1) return;
@@ -329,44 +363,11 @@ namespace SOPB.GUI
             _invalidBindingSource.MoveLast();
         }
 
-        private void BoundChkBoxBenefitsOnLostFocus(object sender, EventArgs e)
-        {
-            if (isLoadData)
-            {
-                _invalidBindingSource.EndEdit();
-                _benefitsBindingSource.EndEdit();
-                _invalidBenefitsBindingSource.EndEdit();
-            }
-        }
-
-        private void AddressBindingSourceOnAddingNew(object sender, AddingNewEventArgs addingNewEventArgs)
-        {
-            if (_addressBindingSource.List.Count >= 1) return;
-            DataView view = _addressBindingSource.List as DataView;
-
-            DataRowView row = view.AddNew();
-            row["City"] = "Славянск";
-            row["AdminDivisionID"] = 5;
-            row["CustomerID"] = ((DataRowView)_customerBindingSource.Current)[0];
-            addingNewEventArgs.NewObject = (object)row;
-            _addressBindingSource.MoveLast();
-        }
-        private void Cusrtomer_Validated(object sender, EventArgs e)
-        {
-            if (isLoadData)
-            {
-                _customerBindingSource.EndEdit();
-            }
-        }
-        private void CustomerDataGridViewOnCellFormatting(object sender, DataGridViewCellCancelEventArgs e)
-        {
-            
-        }
-
         private void toolStripButtonFillAll_Click(object sender, EventArgs e)
         {
             ConnectionManager.SetConnection("катя", "");
             CustomerService service = new CustomerService();
+            
             BindingData(service.FillAllCustomers());
         }
 
@@ -379,62 +380,15 @@ namespace SOPB.GUI
                 _registerBindingSource.EndEdit();
                 _invalidBindingSource.EndEdit();
                 _invalidBenefitsBindingSource.EndEdit();
-                CustomerService servoce = new CustomerService();
-                servoce.UpdateAllCustomers();
+                CustomerService service = new CustomerService();
+                service.UpdateAllCustomers();
             }
         }
 
-        private void toolStripButton1_Click(object sender, EventArgs e)
-        {
-            // If you are not at the end of the list, move to the next item
-            // in the BindingSource.
-            while (true)
-            {
-
-
-                if (_customerBindingSource.Position + 1 < _customerBindingSource.Count)
-                {
-                    DataRowView curr = (DataRowView) _customerBindingSource.Current;
-                    string str = curr[3].ToString();
-                    if (str.IndexOf("'", 0, StringComparison.Ordinal) >= 0)
-                    {
-                        str = str.Remove(0, 1);
-                       // str = str.Remove(str.Length - 1);
-                        curr[3] = str;
-
-                    }
-
-                    _customerBindingSource.MoveNext();
-                }
-                // Otherwise, move back to the first item.
-                else
-                {
-                    _customerBindingSource.MoveFirst();
-                    break;
-                }
-            }
-
-            // Force the form to repaint.
-            this.Invalidate();
-        }
-
-        private void findToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            FindForm find = new FindForm();
-            find.ShowDialog();
-            string lName = find.LastName;
-            CustomerService customer = new CustomerService();
-            BindingData(customer.GetCustomersByLastName(lName));
-        }
-
-        private void bindingNavigatorAddNewItem_Click(object sender, EventArgs e)
+        private void Cusrtomer_Validated(object sender, EventArgs e)
         {
             if (isLoadData)
             {
-                _customerBindingSource.EndEdit();
-                //_customerBindingSource.AddNew();
-                textBoxFirstName.Text = textBoxLastName.Text = @"[Новое Имя]";
-                comboBoxApppTpr.SelectedIndex = comboBoxGender.SelectedIndex = 0;
                 _customerBindingSource.EndEdit();
             }
         }

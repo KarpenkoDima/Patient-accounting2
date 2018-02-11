@@ -48,7 +48,7 @@ namespace BAL.ORM
         }
         public object FillAllCustomers()
         {
-            return _repo.FindAll();
+            return _repo.FillAll();
         }
 
         public void UpdateAllCustomers()
