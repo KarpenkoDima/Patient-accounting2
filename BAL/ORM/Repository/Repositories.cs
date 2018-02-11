@@ -132,30 +132,8 @@ namespace BAL.ORM.Repository
 
         public void Update(IList<T> list)
         {
-            Update();
-        }
-
-        private void Update()
-        {
-            TransactionWork transactionWork = null;
-            try
-            {
-                using (transactionWork = (TransactionWork)TransactionFactory.Create())
-                {
-                    for (int i = 0; i < Tables.DispancerDataSet.Tables.Count; i++)
-                    {
-                        transactionWork.UpdateData(Tables.DispancerDataSet.Tables[i]);
-                    }
-
-                    transactionWork.Commit();
-                }
-            }
-            catch (Exception)
-            {
-                transactionWork?.Rollback();
-                throw;
-            }
-        }
+            CustomerAccess.Update(Tables.DispancerDataSet);
+        }        
 
         #endregion
 
