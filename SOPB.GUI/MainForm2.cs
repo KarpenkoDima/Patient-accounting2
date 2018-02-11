@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using BAL.ORM;
 using SOPB.Accounting.DAL.ConnectionManager;
+using SOPB.GUI.Utils;
 
 namespace SOPB.GUI
 {
@@ -403,6 +401,57 @@ namespace SOPB.GUI
                     ((Control)sender).Text = registerText;
                 }
                 _registerBindingSource.EndEdit();
+            }
+        }
+
+        private void maskedTextBoxBirthOfDay_Validating(object sender, CancelEventArgs e)
+        {
+            if (isLoadData)
+            {
+                Debug.WriteLine("BirthDay");
+                if (maskedTextBoxBirthOfDay.MaskedTextProvider != null &&
+                    (maskedTextBoxBirthOfDay.MaskedTextProvider.MaskCompleted))
+                {
+                    if (Utilits.ValidateText(maskedTextBoxBirthOfDay))
+                    {
+                        DateTime minDate = new DateTime(1900, 1, 1);
+                        DateTime birthday = DateTime.Parse(maskedTextBoxBirthOfDay.Text);
+
+                        if (birthday > DateTime.Now || birthday <= minDate)
+                        {
+                            errorProviderRegDate.SetError((Control)sender, "Error!! Date out of range");
+                            ((Control)sender).ResetText();
+                            maskedTextBoxBirthOfDay.ForeColor = Color.Red;
+                            maskedTextBoxBirthOfDay.BackColor = Color.Yellow;
+                            e.Cancel = true;
+                        }
+
+
+                        if (Utilits.ValidateText(maskedTextBoxFirstRegister))
+                        {
+                            DateTime date = DateTime.Parse(maskedTextBoxFirstRegister.Text);
+                            if (date <= birthday)
+                            {
+                                errorProviderRegDate.SetError((Control)sender,
+                                    "Error!! BirthDate grate than or equal first register date. Correct it");
+                                maskedTextBoxBirthOfDay.ForeColor = Color.Red;
+                                maskedTextBoxBirthOfDay.BackColor = Color.Yellow;
+                                e.Cancel = true;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    ((Control)sender).ResetText();
+                }
+                if (e.Cancel == false)
+                {
+                    maskedTextBoxBirthOfDay.ForeColor = DefaultForeColor;
+                    maskedTextBoxBirthOfDay.BackColor = Color.White;
+                    errorProviderRegDate.SetError(maskedTextBoxBirthOfDay, "");
+                }
+
             }
         }
     }

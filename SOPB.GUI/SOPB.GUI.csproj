@@ -68,6 +68,7 @@
     <Compile Include="UserControls\BoundCheckedListBox.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Utils\Utilits.cs" />
     <EmbeddedResource Include="DialogForms\FindForm.resx">
       <DependentUpon>FindForm.cs</DependentUpon>
     </EmbeddedResource>
