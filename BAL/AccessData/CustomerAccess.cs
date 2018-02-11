@@ -105,7 +105,7 @@ namespace BAL.AccessData
             TransactionWork transactionWork = null;
 
 
-            string storageProcedureName = "uspGet" + table.TableName + "byLastName";
+            string storageProcedureName = "uspGet" + table.TableName + "ByLastName";
             SqlParameter parameter = new SqlParameter();
             parameter.DbType = DbType.String;
             parameter.Size = 100;

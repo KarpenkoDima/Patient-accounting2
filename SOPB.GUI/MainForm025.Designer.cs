@@ -80,6 +80,7 @@
             this.MainBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorSeparator = new System.Windows.Forms.ToolStripSeparator();
             this.helpToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.textBoxError = new System.Windows.Forms.TextBox();
             this.errorTabPage = new System.Windows.Forms.TabPage();
             this.customerDataGridView = new System.Windows.Forms.DataGridView();
@@ -132,6 +133,7 @@
             this.tableLayoutPanel10 = new System.Windows.Forms.TableLayoutPanel();
             this.textBoxDiagnosis = new System.Windows.Forms.TextBox();
             this.comboBoxCipherRecept = new System.Windows.Forms.ComboBox();
+            this.boundChkBoxBenefits = new SOPB.GUI.UserControls.BoundCheckedListBox();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -164,7 +166,7 @@
             this.searchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.boundChkBoxBenefits = new SOPB.GUI.UserControls.BoundCheckedListBox();
+            this.findToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.CustomertabControl.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.tableLayoutPanel8.SuspendLayout();
@@ -237,7 +239,7 @@
             this.label14.AutoSize = true;
             this.label14.Location = new System.Drawing.Point(3, 5);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(87, 13);
+            this.label14.Size = new System.Drawing.Size(85, 13);
             this.label14.TabIndex = 0;
             this.label14.Text = "Взят на учёт";
             // 
@@ -247,7 +249,7 @@
             this.label16.AutoSize = true;
             this.label16.Location = new System.Drawing.Point(3, 28);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(87, 13);
+            this.label16.Size = new System.Drawing.Size(85, 13);
             this.label16.TabIndex = 0;
             this.label16.Text = "Взят на учёт";
             // 
@@ -257,7 +259,7 @@
             this.label17.AutoSize = true;
             this.label17.Location = new System.Drawing.Point(3, 51);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(87, 13);
+            this.label17.Size = new System.Drawing.Size(85, 13);
             this.label17.TabIndex = 0;
             this.label17.Text = "Снят с учёта";
             // 
@@ -267,7 +269,7 @@
             this.label18.AutoSize = true;
             this.label18.Location = new System.Drawing.Point(3, 74);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(87, 13);
+            this.label18.Size = new System.Drawing.Size(85, 13);
             this.label18.TabIndex = 0;
             this.label18.Text = "Снят с учёта";
             // 
@@ -275,9 +277,9 @@
             // 
             this.label19.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(311, 5);
+            this.label19.Location = new System.Drawing.Point(304, 5);
             this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(74, 13);
+            this.label19.Size = new System.Drawing.Size(72, 13);
             this.label19.TabIndex = 0;
             this.label19.Text = "В связи";
             // 
@@ -285,9 +287,9 @@
             // 
             this.label20.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(311, 28);
+            this.label20.Location = new System.Drawing.Point(304, 28);
             this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(74, 13);
+            this.label20.Size = new System.Drawing.Size(72, 13);
             this.label20.TabIndex = 0;
             this.label20.Text = "В связи";
             // 
@@ -309,7 +311,7 @@
             this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 41.02564F));
             this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15.38461F));
             this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25.82417F));
-            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 139F));
+            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 152F));
             this.tableLayoutPanel8.Controls.Add(this.label14, 0, 0);
             this.tableLayoutPanel8.Controls.Add(this.label16, 0, 1);
             this.tableLayoutPanel8.Controls.Add(this.label17, 0, 2);
@@ -341,9 +343,9 @@
             // 
             this.label21.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(311, 51);
+            this.label21.Location = new System.Drawing.Point(304, 51);
             this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(74, 13);
+            this.label21.Size = new System.Drawing.Size(72, 13);
             this.label21.TabIndex = 0;
             this.label21.Text = "По причине";
             // 
@@ -351,9 +353,9 @@
             // 
             this.label22.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(311, 74);
+            this.label22.Location = new System.Drawing.Point(304, 74);
             this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(74, 13);
+            this.label22.Size = new System.Drawing.Size(72, 13);
             this.label22.TabIndex = 0;
             this.label22.Text = "По причине";
             // 
@@ -362,10 +364,10 @@
             this.maskedTextBoxFirstRegister.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.maskedTextBoxFirstRegister.Location = new System.Drawing.Point(96, 3);
+            this.maskedTextBoxFirstRegister.Location = new System.Drawing.Point(94, 3);
             this.maskedTextBoxFirstRegister.Mask = "00/00/0000";
             this.maskedTextBoxFirstRegister.Name = "maskedTextBoxFirstRegister";
-            this.maskedTextBoxFirstRegister.Size = new System.Drawing.Size(209, 20);
+            this.maskedTextBoxFirstRegister.Size = new System.Drawing.Size(204, 20);
             this.maskedTextBoxFirstRegister.TabIndex = 1;
             this.maskedTextBoxFirstRegister.ValidatingType = typeof(System.DateTime);
             // 
@@ -374,10 +376,10 @@
             this.maskedTextBoxSecondRegister.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.maskedTextBoxSecondRegister.Location = new System.Drawing.Point(96, 26);
+            this.maskedTextBoxSecondRegister.Location = new System.Drawing.Point(94, 26);
             this.maskedTextBoxSecondRegister.Mask = "00/00/0000";
             this.maskedTextBoxSecondRegister.Name = "maskedTextBoxSecondRegister";
-            this.maskedTextBoxSecondRegister.Size = new System.Drawing.Size(209, 20);
+            this.maskedTextBoxSecondRegister.Size = new System.Drawing.Size(204, 20);
             this.maskedTextBoxSecondRegister.TabIndex = 1;
             this.maskedTextBoxSecondRegister.ValidatingType = typeof(System.DateTime);
             // 
@@ -386,10 +388,10 @@
             this.maskedTextBoxFirstDeRegister.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.maskedTextBoxFirstDeRegister.Location = new System.Drawing.Point(96, 49);
+            this.maskedTextBoxFirstDeRegister.Location = new System.Drawing.Point(94, 49);
             this.maskedTextBoxFirstDeRegister.Mask = "00/00/0000";
             this.maskedTextBoxFirstDeRegister.Name = "maskedTextBoxFirstDeRegister";
-            this.maskedTextBoxFirstDeRegister.Size = new System.Drawing.Size(209, 20);
+            this.maskedTextBoxFirstDeRegister.Size = new System.Drawing.Size(204, 20);
             this.maskedTextBoxFirstDeRegister.TabIndex = 1;
             this.maskedTextBoxFirstDeRegister.ValidatingType = typeof(System.DateTime);
             // 
@@ -398,10 +400,10 @@
             this.maskedTextBoxSecondDeRegister.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.maskedTextBoxSecondDeRegister.Location = new System.Drawing.Point(96, 72);
+            this.maskedTextBoxSecondDeRegister.Location = new System.Drawing.Point(94, 72);
             this.maskedTextBoxSecondDeRegister.Mask = "00/00/0000";
             this.maskedTextBoxSecondDeRegister.Name = "maskedTextBoxSecondDeRegister";
-            this.maskedTextBoxSecondDeRegister.Size = new System.Drawing.Size(209, 20);
+            this.maskedTextBoxSecondDeRegister.Size = new System.Drawing.Size(204, 20);
             this.maskedTextBoxSecondDeRegister.TabIndex = 1;
             this.maskedTextBoxSecondDeRegister.ValidatingType = typeof(System.DateTime);
             // 
@@ -410,9 +412,9 @@
             this.comboBoxFirstRegisterType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxFirstRegisterType.FormattingEnabled = true;
-            this.comboBoxFirstRegisterType.Location = new System.Drawing.Point(391, 3);
+            this.comboBoxFirstRegisterType.Location = new System.Drawing.Point(382, 3);
             this.comboBoxFirstRegisterType.Name = "comboBoxFirstRegisterType";
-            this.comboBoxFirstRegisterType.Size = new System.Drawing.Size(129, 21);
+            this.comboBoxFirstRegisterType.Size = new System.Drawing.Size(126, 21);
             this.comboBoxFirstRegisterType.TabIndex = 2;
             // 
             // comboBoxSecondRegisterType
@@ -421,9 +423,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxSecondRegisterType.FormattingEnabled = true;
-            this.comboBoxSecondRegisterType.Location = new System.Drawing.Point(391, 26);
+            this.comboBoxSecondRegisterType.Location = new System.Drawing.Point(382, 26);
             this.comboBoxSecondRegisterType.Name = "comboBoxSecondRegisterType";
-            this.comboBoxSecondRegisterType.Size = new System.Drawing.Size(129, 21);
+            this.comboBoxSecondRegisterType.Size = new System.Drawing.Size(126, 21);
             this.comboBoxSecondRegisterType.TabIndex = 2;
             // 
             // comboBoxFirstDeRegisterType
@@ -432,9 +434,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxFirstDeRegisterType.FormattingEnabled = true;
-            this.comboBoxFirstDeRegisterType.Location = new System.Drawing.Point(391, 49);
+            this.comboBoxFirstDeRegisterType.Location = new System.Drawing.Point(382, 49);
             this.comboBoxFirstDeRegisterType.Name = "comboBoxFirstDeRegisterType";
-            this.comboBoxFirstDeRegisterType.Size = new System.Drawing.Size(129, 21);
+            this.comboBoxFirstDeRegisterType.Size = new System.Drawing.Size(126, 21);
             this.comboBoxFirstDeRegisterType.TabIndex = 2;
             // 
             // comboBoxSecondDeRegisterType
@@ -443,9 +445,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxSecondDeRegisterType.FormattingEnabled = true;
-            this.comboBoxSecondDeRegisterType.Location = new System.Drawing.Point(391, 72);
+            this.comboBoxSecondDeRegisterType.Location = new System.Drawing.Point(382, 72);
             this.comboBoxSecondDeRegisterType.Name = "comboBoxSecondDeRegisterType";
-            this.comboBoxSecondDeRegisterType.Size = new System.Drawing.Size(129, 21);
+            this.comboBoxSecondDeRegisterType.Size = new System.Drawing.Size(126, 21);
             this.comboBoxSecondDeRegisterType.TabIndex = 2;
             // 
             // label23
@@ -696,7 +698,8 @@
             this.printToolStripButton,
             this.toolStripSeparator,
             this.toolStripSeparator2,
-            this.helpToolStripButton});
+            this.helpToolStripButton,
+            this.toolStripButton1});
             this.MainBindingNavigator.Location = new System.Drawing.Point(3, 24);
             this.MainBindingNavigator.MoveFirstItem = this.bindingNavigatorMoveFirstItem;
             this.MainBindingNavigator.MoveLastItem = this.bindingNavigatorMoveLastItem;
@@ -704,7 +707,7 @@
             this.MainBindingNavigator.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
             this.MainBindingNavigator.Name = "MainBindingNavigator";
             this.MainBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.MainBindingNavigator.Size = new System.Drawing.Size(419, 25);
+            this.MainBindingNavigator.Size = new System.Drawing.Size(411, 25);
             this.MainBindingNavigator.TabIndex = 1;
             // 
             // bindingNavigatorSeparator
@@ -720,6 +723,17 @@
             this.helpToolStripButton.Name = "helpToolStripButton";
             this.helpToolStripButton.Size = new System.Drawing.Size(23, 22);
             this.helpToolStripButton.Text = "He&lp";
+            // 
+            // toolStripButton1
+            // 
+            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton1.Text = "toolStripButtonMytest";
+            this.toolStripButton1.ToolTipText = "Тестирование сохранеия массовых изменений данных";
+            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
             // textBoxError
             // 
@@ -1215,7 +1229,7 @@
             this.tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 46.03175F));
             this.tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 53.96825F));
             this.tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 18F));
-            this.tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 144F));
+            this.tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
             this.tableLayoutPanel11.Controls.Add(this.textBoxCodeCustomer, 3, 0);
             this.tableLayoutPanel11.Controls.Add(this.textBoxMedCard, 1, 0);
             this.tableLayoutPanel11.Controls.Add(this.labelCodePacient, 0, 0);
@@ -1232,17 +1246,17 @@
             // 
             this.textBoxCodeCustomer.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.textBoxCodeCustomer.Location = new System.Drawing.Point(227, 3);
+            this.textBoxCodeCustomer.Location = new System.Drawing.Point(221, 3);
             this.textBoxCodeCustomer.Name = "textBoxCodeCustomer";
-            this.textBoxCodeCustomer.Size = new System.Drawing.Size(139, 20);
+            this.textBoxCodeCustomer.Size = new System.Drawing.Size(141, 20);
             this.textBoxCodeCustomer.TabIndex = 2;
             // 
             // textBoxMedCard
             // 
             this.textBoxMedCard.Dock = System.Windows.Forms.DockStyle.Left;
-            this.textBoxMedCard.Location = new System.Drawing.Point(98, 3);
+            this.textBoxMedCard.Location = new System.Drawing.Point(95, 3);
             this.textBoxMedCard.Name = "textBoxMedCard";
-            this.textBoxMedCard.Size = new System.Drawing.Size(105, 20);
+            this.textBoxMedCard.Size = new System.Drawing.Size(102, 20);
             this.textBoxMedCard.TabIndex = 1;
             // 
             // labelCodePacient
@@ -1251,7 +1265,7 @@
             this.labelCodePacient.AutoSize = true;
             this.labelCodePacient.Location = new System.Drawing.Point(3, 5);
             this.labelCodePacient.Name = "labelCodePacient";
-            this.labelCodePacient.Size = new System.Drawing.Size(89, 13);
+            this.labelCodePacient.Size = new System.Drawing.Size(86, 13);
             this.labelCodePacient.TabIndex = 1;
             this.labelCodePacient.Text = "Код пациента";
             // 
@@ -1260,7 +1274,7 @@
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(209, 0);
+            this.label2.Location = new System.Drawing.Point(203, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(12, 24);
             this.label2.TabIndex = 6;
@@ -1363,6 +1377,15 @@
             this.comboBoxCipherRecept.Name = "comboBoxCipherRecept";
             this.comboBoxCipherRecept.Size = new System.Drawing.Size(194, 21);
             this.comboBoxCipherRecept.TabIndex = 2;
+            // 
+            // boundChkBoxBenefits
+            // 
+            this.boundChkBoxBenefits.FormattingEnabled = true;
+            this.boundChkBoxBenefits.Location = new System.Drawing.Point(330, 27);
+            this.boundChkBoxBenefits.Name = "boundChkBoxBenefits";
+            this.tableLayoutPanel10.SetRowSpan(this.boundChkBoxBenefits, 3);
+            this.boundChkBoxBenefits.Size = new System.Drawing.Size(326, 64);
+            this.boundChkBoxBenefits.TabIndex = 6;
             // 
             // splitContainer1
             // 
@@ -1579,7 +1602,8 @@
             // 
             this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.customizeToolStripMenuItem,
-            this.optionsToolStripMenuItem});
+            this.optionsToolStripMenuItem,
+            this.findToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
             this.toolsToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
             this.toolsToolStripMenuItem.Text = "&Tools";
@@ -1587,13 +1611,13 @@
             // customizeToolStripMenuItem
             // 
             this.customizeToolStripMenuItem.Name = "customizeToolStripMenuItem";
-            this.customizeToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
+            this.customizeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.customizeToolStripMenuItem.Text = "&Customize";
             // 
             // optionsToolStripMenuItem
             // 
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.optionsToolStripMenuItem.Text = "&Options";
             // 
             // helpToolStripMenuItem
@@ -1637,14 +1661,12 @@
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.aboutToolStripMenuItem.Text = "&About...";
             // 
-            // boundChkBoxBenefits
+            // findToolStripMenuItem
             // 
-            this.boundChkBoxBenefits.FormattingEnabled = true;
-            this.boundChkBoxBenefits.Location = new System.Drawing.Point(330, 27);
-            this.boundChkBoxBenefits.Name = "boundChkBoxBenefits";
-            this.tableLayoutPanel10.SetRowSpan(this.boundChkBoxBenefits, 3);
-            this.boundChkBoxBenefits.Size = new System.Drawing.Size(326, 64);
-            this.boundChkBoxBenefits.TabIndex = 6;
+            this.findToolStripMenuItem.Name = "findToolStripMenuItem";
+            this.findToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.findToolStripMenuItem.Text = "Find";
+            this.findToolStripMenuItem.Click += new System.EventHandler(this.findToolStripMenuItem_Click);
             // 
             // MainForm025
             // 
@@ -1842,6 +1864,8 @@
         private System.Windows.Forms.ToolStripMenuItem searchToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+        private System.Windows.Forms.ToolStripButton toolStripButton1;
+        private System.Windows.Forms.ToolStripMenuItem findToolStripMenuItem;
     }
 }
 

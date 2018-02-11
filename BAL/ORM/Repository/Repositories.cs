@@ -109,7 +109,7 @@ namespace BAL.ORM.Repository
 
         public object FindBy(object criteria, T value)
         {
-            // ClearCustomerData();
+             ClearCustomerData();
             this.GetCustomerBy(criteria.ToString(), value);
             return Tables.DispancerDataSet;
         }

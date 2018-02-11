@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using BAL.ORM;
 using SOPB.Accounting.DAL.ConnectionManager;
+using SOPB.GUI.DialogForms;
 
 namespace SOPB.GUI
 {
@@ -349,6 +350,49 @@ namespace SOPB.GUI
                 CustomerService servoce = new CustomerService();
                 servoce.UpdateAllCustomers();
             }
+        }
+
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            // If you are not at the end of the list, move to the next item
+            // in the BindingSource.
+            while (true)
+            {
+
+
+                if (_customerBindingSource.Position + 1 < _customerBindingSource.Count)
+                {
+                    DataRowView curr = (DataRowView) _customerBindingSource.Current;
+                    string str = curr[3].ToString();
+                    if (str.IndexOf("'", 0, StringComparison.Ordinal) >= 0)
+                    {
+                        str = str.Remove(0, 1);
+                       // str = str.Remove(str.Length - 1);
+                        curr[3] = str;
+
+                    }
+
+                    _customerBindingSource.MoveNext();
+                }
+                // Otherwise, move back to the first item.
+                else
+                {
+                    _customerBindingSource.MoveFirst();
+                    break;
+                }
+            }
+
+            // Force the form to repaint.
+            this.Invalidate();
+        }
+
+        private void findToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FindForm find = new FindForm();
+            find.ShowDialog();
+            string lName = find.LastName;
+            CustomerService customer = new CustomerService();
+            BindingData(customer.GetCustomersByLastName(lName));
         }
     }
 }
