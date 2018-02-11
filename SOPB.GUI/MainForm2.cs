@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
@@ -6,6 +7,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using BAL.ORM;
 using SOPB.Accounting.DAL.ConnectionManager;
+using SOPB.GUI.DialogForms;
 using SOPB.GUI.Utils;
 
 namespace SOPB.GUI
@@ -71,7 +73,7 @@ namespace SOPB.GUI
 
             bindingNavigatorAddNewItem.Enabled = false;
         }
-        
+
         private void SetDataGridView()
         {
             customerDataGridView.Columns.Clear();
@@ -273,7 +275,7 @@ namespace SOPB.GUI
             comboBoxCipherRecept.DataBindings.Clear();
             comboBoxCipherRecept.DataBindings.Add("SelectedValue", _invalidBindingSource, "ChiperReceptID");
             comboBoxCipherRecept.DisplayMember = "Name";
-
+            
             boundChkBoxBenefits.ChildDisplayMember = "Name";
             boundChkBoxBenefits.ChildValueMember = "BenefitsID";
             boundChkBoxBenefits.ParentValueMember = "InvID";
@@ -300,7 +302,6 @@ namespace SOPB.GUI
 
             customerDataGridView.DataSource = _customerBindingSource;
             MainBindingNavigator.BindingSource = _customerBindingSource;
-            isLoadData = true;
             bindingNavigatorAddNewItem.Enabled = true;
             isLoadData = true;
         }
@@ -363,9 +364,7 @@ namespace SOPB.GUI
 
         private void toolStripButtonFillAll_Click(object sender, EventArgs e)
         {
-            ConnectionManager.SetConnection("катя", "");
             CustomerService service = new CustomerService();
-            
             BindingData(service.FillAllCustomers());
         }
 
@@ -453,6 +452,408 @@ namespace SOPB.GUI
                 }
 
             }
+        }
+
+        private void maskedTextBoxFirstRegister_Validating(object sender, CancelEventArgs e)
+        {
+            if (isLoadData)
+            {
+                if (errorProviderRegDate.GetError(maskedTextBoxFirstDeRegister).Length != 0)
+                {
+                    errorProviderRegDate.SetError(maskedTextBoxFirstDeRegister, "");
+                }
+                if (errorProviderRegDate.GetError(maskedTextBoxSecondDeRegister).Length != 0)
+                {
+                    errorProviderRegDate.SetError(maskedTextBoxSecondDeRegister, "");
+                }
+                if (errorProviderRegDate.GetError(maskedTextBoxSecondRegister).Length != 0)
+                {
+                    errorProviderRegDate.SetError(maskedTextBoxSecondRegister, "");
+                }
+                Debug.WriteLine("FirstReg Validting");
+                if (maskedTextBoxFirstRegister.MaskedTextProvider != null && (maskedTextBoxFirstRegister.MaskedTextProvider.MaskCompleted))
+                {
+                    if (!Utilits.ValidateText(maskedTextBoxFirstRegister))
+                    {
+                        errorProviderRegDate.SetError((Control)sender, "Ошибка! Значение введёное в поле Ввзят на учёт не является корректной датой. Введите корректную дату в поле Взят на учёт.");
+                        ((Control)sender).ResetText();
+                        e.Cancel = true;
+                    }
+                    else
+                    {
+                        DateTime minDate = new DateTime(1900, 1, 1);
+                        DateTime date = DateTime.Parse(maskedTextBoxFirstRegister.Text);
+
+                        if (date > DateTime.Now || date <= minDate)
+                        {
+                            errorProviderRegDate.SetError((Control)sender, "Ошибка!!! Дата выходит за допустимый диапозон");
+                            ((Control)sender).ResetText();
+                            maskedTextBoxFirstRegister.ForeColor = Color.Red;
+                            maskedTextBoxFirstRegister.BackColor = Color.Yellow;
+                            e.Cancel = true;
+                        }
+                        if (Utilits.ValidateText(maskedTextBoxBirthOfDay))
+                        {
+                            DateTime birthday = DateTime.Parse(maskedTextBoxBirthOfDay.Text);
+                            if (date <= birthday)
+                            {
+                                errorProviderRegDate.SetError((Control)sender,
+                                    "Ошибка!! Дата Взятия на учёт не может быть меньше или равной дате рождения пациента.");
+                                ((Control)sender).ResetText();
+                                maskedTextBoxFirstRegister.ForeColor = Color.Red;
+                                maskedTextBoxFirstRegister.BackColor = Color.Yellow;
+                                e.Cancel = true;
+                            }
+                        }
+                        if (Utilits.ValidateText(maskedTextBoxFirstDeRegister))
+                        {
+                            DateTime postdate = DateTime.Parse(maskedTextBoxFirstDeRegister.Text);
+                            if (date >= postdate)
+                            {
+                                errorProviderRegDate.SetError((Control)sender,
+                                    "Ошибка!! Дата Взятия на учёт не может быть больше или равной дате снятия с учёта.");
+                                ((Control)sender).ResetText();
+                                maskedTextBoxFirstRegister.ForeColor = Color.Red;
+                                maskedTextBoxFirstRegister.BackColor = Color.Yellow;
+                                e.Cancel = true;
+                            }
+                        }
+
+                    }
+                }
+                else
+                {
+                    if (Utilits.ValidateText(maskedTextBoxFirstDeRegister))
+                    {
+                        errorProviderRegDate.SetError((Control)sender,
+                                "Ошибка!! Дата Взятия на учёт не может отсутствовать если есть дата снятия с учёта");
+                        ((Control)sender).ResetText();
+                        maskedTextBoxFirstRegister.ForeColor = Color.Red;
+                        maskedTextBoxFirstRegister.BackColor = Color.Yellow;
+                        e.Cancel = true;
+                    }
+                    ((Control)sender).ResetText();
+                }
+                if (e.Cancel == false)
+                {
+                    maskedTextBoxFirstRegister.BackColor = Color.White;
+                    maskedTextBoxFirstRegister.ForeColor = DefaultForeColor;
+                    errorProviderRegDate.SetError(maskedTextBoxFirstRegister, "");
+                }
+
+            }
+        }
+
+        private void maskedTextBoxFirstDeRegister_Validating(object sender, CancelEventArgs e)
+        {
+            if (isLoadData)
+            {
+                Debug.WriteLine("FirstDe__Reg Validting");
+                if ((maskedTextBoxFirstDeRegister.MaskedTextProvider.MaskCompleted))
+                {
+                    if (!Utilits.ValidateText(maskedTextBoxFirstRegister))
+                    {
+                        errorProviderRegDate.SetError((Control)sender, "Ошибка! Поле Взяти на учёт пустое. Введите сначала дату Взятие на учёт");
+                        ((Control)sender).ResetText();
+                        e.Cancel = true;
+                    }
+                    else if (!Utilits.ValidateText(maskedTextBoxFirstDeRegister))
+                    {
+                        errorProviderRegDate.SetError((Control)sender, "Ошибка!!! Значение не является датой.");
+                        e.Cancel = true;
+                    }
+                    else
+                    {
+                        DateTime minDate = new DateTime(1900, 1, 1);
+                        DateTime date = DateTime.Parse(maskedTextBoxFirstDeRegister.Text);
+                        DateTime preDate = DateTime.Parse(maskedTextBoxFirstRegister.Text);
+                        if (date > DateTime.Now || date <= minDate)
+                        {
+                            errorProviderRegDate.SetError((Control)sender, "Ошибка!! Дата выходит за допустимый диапозон");
+                            ((Control)sender).ResetText();
+                            maskedTextBoxFirstDeRegister.ForeColor = Color.Red;
+                            maskedTextBoxFirstDeRegister.BackColor = Color.Yellow;
+                            e.Cancel = true;
+                        }
+                        else if (date <= preDate)
+                        {
+                            errorProviderRegDate.SetError((Control)sender,
+                                "Ошибка!! Дата Снятие с учёта не может быть меньше или равной дате взятия на учёт.");
+                            ((Control)sender).ResetText();
+                            maskedTextBoxFirstDeRegister.ForeColor = Color.Red;
+                            maskedTextBoxFirstDeRegister.BackColor = Color.Yellow;
+                            e.Cancel = true;
+                        }
+                        else
+                        {
+                            if (Utilits.ValidateText(maskedTextBoxSecondRegister))
+                            {
+                                DateTime secondDate = DateTime.Parse(maskedTextBoxSecondRegister.Text);
+                                if (date >= secondDate)
+                                {
+                                    errorProviderRegDate.SetError((Control)sender,
+                                "Ошибка!! Дата снятия с учёта не может быть больше или равна дате повторного взятия на учёт.");
+                                    ((Control)sender).ResetText();
+                                    maskedTextBoxFirstDeRegister.ForeColor = Color.Red;
+                                    maskedTextBoxFirstDeRegister.BackColor = Color.Yellow;
+                                    e.Cancel = true;
+                                }
+                            }
+                            if (Utilits.ValidateText(maskedTextBoxSecondDeRegister))
+                            {
+                                DateTime seondReDate = DateTime.Parse(maskedTextBoxSecondDeRegister.Text);
+                                if (date >= seondReDate)
+                                {
+                                    errorProviderRegDate.SetError((Control)sender,
+                                "Ошибка!! Дата снятия с учёта не может быть больше или равна дате повторного снятия с учёта.");
+                                    ((Control)sender).ResetText();
+                                    maskedTextBoxFirstDeRegister.ForeColor = Color.Red;
+                                    maskedTextBoxFirstDeRegister.BackColor = Color.Yellow;
+                                    e.Cancel = true;
+                                }
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    if (Utilits.ValidateText(maskedTextBoxSecondRegister))
+                    {
+                        errorProviderRegDate.SetError((Control)sender,
+                                "Ошибка!! Дата снтия с учёт не может быть пустой если есть дата повторного взтия на учёт.");
+                        ((Control)sender).ResetText();
+                        maskedTextBoxFirstDeRegister.ForeColor = Color.Red;
+                        maskedTextBoxFirstDeRegister.BackColor = Color.Yellow;
+                        e.Cancel = true;
+                    }
+                    ((Control)sender).ResetText();
+                }
+                if (e.Cancel == false)
+                {
+                    maskedTextBoxFirstDeRegister.ForeColor = DefaultForeColor;
+                    maskedTextBoxFirstDeRegister.BackColor = Color.White;
+                    errorProviderRegDate.SetError(maskedTextBoxFirstDeRegister, "");
+                }
+            }
+        }
+
+        private void maskedTextBoxSecondRegister_Validating(object sender, CancelEventArgs e)
+        {
+            if (isLoadData)
+            {
+                Debug.WriteLine("SecondReg Validting");
+                if (maskedTextBoxSecondRegister.MaskedTextProvider != null && (maskedTextBoxSecondRegister.MaskedTextProvider.MaskCompleted))
+                {
+                    if (!Utilits.ValidateText(maskedTextBoxFirstDeRegister))
+                    {
+                        errorProviderRegDate.SetError((Control)sender, "Ошибка!! Сначало нужно ввести дату в поле Снятие с учёта.");
+                        ((Control)sender).ResetText();
+                        e.Cancel = true;
+                    }
+                    else if (!Utilits.ValidateText(maskedTextBoxSecondRegister))
+                    {
+                        errorProviderRegDate.SetError((Control)sender, "Ошибка!!! Значение не является датой.");
+                        e.Cancel = true;
+                    }
+                    else
+                    {
+                        DateTime minDate = new DateTime(1900, 1, 1);
+                        DateTime date = DateTime.Parse(maskedTextBoxSecondRegister.Text);
+                        DateTime preDate = DateTime.Parse(maskedTextBoxFirstDeRegister.Text);
+                        if (date > DateTime.Now || date <= minDate)
+                        {
+                            errorProviderRegDate.SetError((Control)sender, "Ошибка!! Дата выходит за допустимый диапозон.");
+                            ((Control)sender).ResetText();
+                            maskedTextBoxSecondRegister.ForeColor = Color.Red;
+                            maskedTextBoxSecondRegister.BackColor = Color.Yellow;
+                            e.Cancel = true;
+                        }
+                        else if (date <= preDate)
+                        {
+                            errorProviderRegDate.SetError((Control)sender,
+                                "Ошибка!! Дата меньше или равна дате первый раз снят с учёта.");
+                            ((Control)sender).ResetText();
+                            maskedTextBoxSecondRegister.ForeColor = Color.Red;
+                            maskedTextBoxSecondRegister.BackColor = Color.Yellow;
+                            e.Cancel = true;
+                        }
+                        else
+                        {
+                            if (Utilits.ValidateText(maskedTextBoxSecondDeRegister))
+                            {
+                                DateTime secondDate = DateTime.Parse(maskedTextBoxSecondDeRegister.Text);
+                                if (date >= secondDate)
+                                {
+                                    errorProviderRegDate.SetError((Control)sender,
+                                "Ошибка!! Дата больше или равна дате повторно снят с учёта.");
+                                    ((Control)sender).ResetText();
+                                    maskedTextBoxSecondRegister.ForeColor = Color.Red;
+                                    maskedTextBoxSecondRegister.BackColor = Color.Yellow;
+                                    e.Cancel = true;
+                                }
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    if (Utilits.ValidateText(maskedTextBoxSecondDeRegister))
+                    {
+                        errorProviderRegDate.SetError((Control)sender,
+                                "Ошибка!! Дата не может отсутствовть если есть дата повторного снятия с учёта.");
+                        ((Control)sender).ResetText();
+                        maskedTextBoxSecondRegister.ForeColor = Color.Red;
+                        maskedTextBoxSecondRegister.BackColor = Color.Yellow;
+                        e.Cancel = true;
+                    }
+                    ((Control)sender).ResetText();
+                }
+                if (e.Cancel == false)
+                {
+                    maskedTextBoxSecondRegister.BackColor = Color.White;
+                    maskedTextBoxSecondRegister.ForeColor = DefaultForeColor;
+                    errorProviderRegDate.SetError(maskedTextBoxSecondRegister, "");
+                }
+            }
+        }
+
+        private void maskedTextBoxSecondDeRegister_Validating(object sender, CancelEventArgs e)
+        {
+            if (isLoadData)
+            {
+                Debug.WriteLine("SecondDe_Reg Validting");
+                if (maskedTextBoxSecondDeRegister.MaskedTextProvider != null && (maskedTextBoxSecondDeRegister.MaskedTextProvider.MaskCompleted))
+                {
+                    if (!Utilits.ValidateText(maskedTextBoxSecondRegister))
+                    {
+                        errorProviderRegDate.SetError((Control)sender, "Ошибка!! Введите сначало дату в поле повторно снят с учёта.");
+                        ((Control)sender).ResetText();
+                        e.Cancel = true;
+                    }
+                    else if (!Utilits.ValidateText(maskedTextBoxSecondDeRegister))
+                    {
+                        errorProviderRegDate.SetError((Control)sender, "Ошибка!!! Значние не является датой.");
+                        e.Cancel = true;
+                    }
+                    else
+                    {
+                        DateTime minDate = new DateTime(1900, 1, 1);
+                        DateTime date = DateTime.Parse(maskedTextBoxSecondDeRegister.Text);
+                        DateTime preDate = DateTime.Parse(maskedTextBoxSecondRegister.Text);
+                        if (date > DateTime.Now || date <= minDate)
+                        {
+                            errorProviderRegDate.SetError((Control)sender, "Ошибка!! Дата выходит за допустимый диапазон.");
+                            ((Control)sender).ResetText();
+                            maskedTextBoxSecondDeRegister.ForeColor = Color.Red;
+                            maskedTextBoxSecondDeRegister.BackColor = Color.Yellow;
+                            e.Cancel = true;
+                        }
+                        else if (date <= preDate)
+                        {
+                            errorProviderRegDate.SetError((Control)sender,
+                                "Ошибка!! Дата не может быть меньше чем или равна дате повторного взятия на учёт.");
+                            ((Control)sender).ResetText();
+                            maskedTextBoxSecondDeRegister.ForeColor = Color.Red;
+                            maskedTextBoxSecondDeRegister.BackColor = Color.Yellow;
+                            e.Cancel = true;
+                        }
+
+                    }
+                }
+                else
+                {
+                    ((Control)sender).ResetText();
+                }
+                if (e.Cancel == false)
+                {
+                    maskedTextBoxSecondDeRegister.ForeColor = DefaultForeColor;
+                    maskedTextBoxSecondDeRegister.BackColor = Color.White;
+                    errorProviderRegDate.SetError(maskedTextBoxSecondDeRegister, "");
+                }
+            }
+        }
+
+        private void findToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FindForm find = new FindForm();
+            find.ShowDialog();
+            string lName = find.LastName;
+            CustomerService customer = new CustomerService();
+            BindingData(customer.GetCustomersByLastName(lName));
+        }
+
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            //test
+            // If you are not at the end of the list, move to the next item
+            // in the BindingSource.
+            while (true)
+            {
+
+
+                if (_customerBindingSource.Position + 1 < _customerBindingSource.Count)
+                {
+                    DataRowView curr = (DataRowView)_customerBindingSource.Current;
+                    string str = curr[3].ToString();
+                    if (str.Length > 0 && str[0]=='\'')
+                    {
+                        str = str.Remove(0, 1);
+                        // str = str.Remove(str.Length - 1);
+                        curr[3] = str;
+
+                    }
+                    else
+                    {
+                        str = "'"+str;
+                        curr[3] = str;
+                    }
+
+                    _customerBindingSource.MoveNext();
+                }
+                // Otherwise, move back to the first item.
+                else
+                {
+                    _customerBindingSource.MoveFirst();
+                    break;
+                }
+            }
+
+            // Force the form to repaint.
+            this.Invalidate();
+        }
+
+        private void boundChkBoxBenefits_Validated(object sender, EventArgs e)
+        {
+            if (isLoadData)
+            {
+                if (_invalidBindingSource.Current == null)
+                {
+                    List<int> checkedList = new List<int>(boundChkBoxBenefits.Items.Count);
+                    for (int i = 0; i < boundChkBoxBenefits.Items.Count; i++)
+                    {
+                        if (boundChkBoxBenefits.GetItemChecked(i))
+                        {
+                            checkedList.Add(i);
+                        }
+                    }
+                    _invalidBindingSource.AddNew();
+                    _invalidBindingSource.EndEdit();
+                    for (int i = 0; i < checkedList.Count; i++)
+                    {
+                        boundChkBoxBenefits.SetItemChecked(checkedList[i], true);
+                    }
+
+                }
+                _invalidBindingSource.EndEdit();
+            }
+        }
+
+        private void MainForm2_Shown(object sender, EventArgs e)
+        {
+            EnterForm enterForm = new EnterForm();
+            DialogResult result = enterForm.ShowDialog();
+            if (result == DialogResult.Cancel)
+                this.Close();
         }
     }
 }

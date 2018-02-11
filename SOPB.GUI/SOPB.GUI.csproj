@@ -45,6 +45,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DialogForms\EnterForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DialogForms\EnterForm.Designer.cs">
+      <DependentUpon>EnterForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="DialogForms\FindForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -69,6 +75,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Utils\Utilits.cs" />
+    <EmbeddedResource Include="DialogForms\EnterForm.resx">
+      <DependentUpon>EnterForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DialogForms\FindForm.resx">
       <DependentUpon>FindForm.cs</DependentUpon>
     </EmbeddedResource>

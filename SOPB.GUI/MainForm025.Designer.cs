@@ -277,7 +277,7 @@
             // 
             this.label19.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(296, 5);
+            this.label19.Location = new System.Drawing.Point(295, 5);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(70, 13);
             this.label19.TabIndex = 0;
@@ -287,7 +287,7 @@
             // 
             this.label20.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(296, 28);
+            this.label20.Location = new System.Drawing.Point(295, 28);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(70, 13);
             this.label20.TabIndex = 0;
@@ -311,7 +311,7 @@
             this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 41.02564F));
             this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15.38461F));
             this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25.82417F));
-            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 165F));
+            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 167F));
             this.tableLayoutPanel8.Controls.Add(this.label14, 0, 0);
             this.tableLayoutPanel8.Controls.Add(this.label16, 0, 1);
             this.tableLayoutPanel8.Controls.Add(this.label17, 0, 2);
@@ -343,7 +343,7 @@
             // 
             this.label21.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(296, 51);
+            this.label21.Location = new System.Drawing.Point(295, 51);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(70, 13);
             this.label21.TabIndex = 0;
@@ -353,7 +353,7 @@
             // 
             this.label22.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(296, 74);
+            this.label22.Location = new System.Drawing.Point(295, 74);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(70, 13);
             this.label22.TabIndex = 0;
@@ -367,7 +367,7 @@
             this.maskedTextBoxFirstRegister.Location = new System.Drawing.Point(91, 3);
             this.maskedTextBoxFirstRegister.Mask = "00/00/0000";
             this.maskedTextBoxFirstRegister.Name = "maskedTextBoxFirstRegister";
-            this.maskedTextBoxFirstRegister.Size = new System.Drawing.Size(199, 20);
+            this.maskedTextBoxFirstRegister.Size = new System.Drawing.Size(198, 20);
             this.maskedTextBoxFirstRegister.TabIndex = 1;
             this.maskedTextBoxFirstRegister.ValidatingType = typeof(System.DateTime);
             // 
@@ -379,7 +379,7 @@
             this.maskedTextBoxSecondRegister.Location = new System.Drawing.Point(91, 26);
             this.maskedTextBoxSecondRegister.Mask = "00/00/0000";
             this.maskedTextBoxSecondRegister.Name = "maskedTextBoxSecondRegister";
-            this.maskedTextBoxSecondRegister.Size = new System.Drawing.Size(199, 20);
+            this.maskedTextBoxSecondRegister.Size = new System.Drawing.Size(198, 20);
             this.maskedTextBoxSecondRegister.TabIndex = 1;
             this.maskedTextBoxSecondRegister.ValidatingType = typeof(System.DateTime);
             // 
@@ -391,7 +391,7 @@
             this.maskedTextBoxFirstDeRegister.Location = new System.Drawing.Point(91, 49);
             this.maskedTextBoxFirstDeRegister.Mask = "00/00/0000";
             this.maskedTextBoxFirstDeRegister.Name = "maskedTextBoxFirstDeRegister";
-            this.maskedTextBoxFirstDeRegister.Size = new System.Drawing.Size(199, 20);
+            this.maskedTextBoxFirstDeRegister.Size = new System.Drawing.Size(198, 20);
             this.maskedTextBoxFirstDeRegister.TabIndex = 1;
             this.maskedTextBoxFirstDeRegister.ValidatingType = typeof(System.DateTime);
             // 
@@ -403,7 +403,7 @@
             this.maskedTextBoxSecondDeRegister.Location = new System.Drawing.Point(91, 72);
             this.maskedTextBoxSecondDeRegister.Mask = "00/00/0000";
             this.maskedTextBoxSecondDeRegister.Name = "maskedTextBoxSecondDeRegister";
-            this.maskedTextBoxSecondDeRegister.Size = new System.Drawing.Size(199, 20);
+            this.maskedTextBoxSecondDeRegister.Size = new System.Drawing.Size(198, 20);
             this.maskedTextBoxSecondDeRegister.TabIndex = 1;
             this.maskedTextBoxSecondDeRegister.ValidatingType = typeof(System.DateTime);
             // 
@@ -412,9 +412,9 @@
             this.comboBoxFirstRegisterType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxFirstRegisterType.FormattingEnabled = true;
-            this.comboBoxFirstRegisterType.Location = new System.Drawing.Point(372, 3);
+            this.comboBoxFirstRegisterType.Location = new System.Drawing.Point(371, 3);
             this.comboBoxFirstRegisterType.Name = "comboBoxFirstRegisterType";
-            this.comboBoxFirstRegisterType.Size = new System.Drawing.Size(123, 21);
+            this.comboBoxFirstRegisterType.Size = new System.Drawing.Size(122, 21);
             this.comboBoxFirstRegisterType.TabIndex = 2;
             // 
             // comboBoxSecondRegisterType
@@ -423,9 +423,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxSecondRegisterType.FormattingEnabled = true;
-            this.comboBoxSecondRegisterType.Location = new System.Drawing.Point(372, 26);
+            this.comboBoxSecondRegisterType.Location = new System.Drawing.Point(371, 26);
             this.comboBoxSecondRegisterType.Name = "comboBoxSecondRegisterType";
-            this.comboBoxSecondRegisterType.Size = new System.Drawing.Size(123, 21);
+            this.comboBoxSecondRegisterType.Size = new System.Drawing.Size(122, 21);
             this.comboBoxSecondRegisterType.TabIndex = 2;
             // 
             // comboBoxFirstDeRegisterType
@@ -434,9 +434,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxFirstDeRegisterType.FormattingEnabled = true;
-            this.comboBoxFirstDeRegisterType.Location = new System.Drawing.Point(372, 49);
+            this.comboBoxFirstDeRegisterType.Location = new System.Drawing.Point(371, 49);
             this.comboBoxFirstDeRegisterType.Name = "comboBoxFirstDeRegisterType";
-            this.comboBoxFirstDeRegisterType.Size = new System.Drawing.Size(123, 21);
+            this.comboBoxFirstDeRegisterType.Size = new System.Drawing.Size(122, 21);
             this.comboBoxFirstDeRegisterType.TabIndex = 2;
             // 
             // comboBoxSecondDeRegisterType
@@ -445,9 +445,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxSecondDeRegisterType.FormattingEnabled = true;
-            this.comboBoxSecondDeRegisterType.Location = new System.Drawing.Point(372, 72);
+            this.comboBoxSecondDeRegisterType.Location = new System.Drawing.Point(371, 72);
             this.comboBoxSecondDeRegisterType.Name = "comboBoxSecondDeRegisterType";
-            this.comboBoxSecondDeRegisterType.Size = new System.Drawing.Size(123, 21);
+            this.comboBoxSecondDeRegisterType.Size = new System.Drawing.Size(122, 21);
             this.comboBoxSecondDeRegisterType.TabIndex = 2;
             // 
             // label23
@@ -708,7 +708,7 @@
             this.MainBindingNavigator.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
             this.MainBindingNavigator.Name = "MainBindingNavigator";
             this.MainBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.MainBindingNavigator.Size = new System.Drawing.Size(442, 25);
+            this.MainBindingNavigator.Size = new System.Drawing.Size(411, 25);
             this.MainBindingNavigator.TabIndex = 1;
             // 
             // bindingNavigatorSeparator
@@ -1237,7 +1237,7 @@
             this.tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 46.03175F));
             this.tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 53.96825F));
             this.tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 18F));
-            this.tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 157F));
+            this.tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 158F));
             this.tableLayoutPanel11.Controls.Add(this.textBoxCodeCustomer, 3, 0);
             this.tableLayoutPanel11.Controls.Add(this.textBoxMedCard, 1, 0);
             this.tableLayoutPanel11.Controls.Add(this.labelCodePacient, 0, 0);
@@ -1254,7 +1254,7 @@
             // 
             this.textBoxCodeCustomer.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.textBoxCodeCustomer.Location = new System.Drawing.Point(214, 3);
+            this.textBoxCodeCustomer.Location = new System.Drawing.Point(213, 3);
             this.textBoxCodeCustomer.Name = "textBoxCodeCustomer";
             this.textBoxCodeCustomer.Size = new System.Drawing.Size(141, 20);
             this.textBoxCodeCustomer.TabIndex = 2;
@@ -1263,7 +1263,7 @@
             // textBoxMedCard
             // 
             this.textBoxMedCard.Dock = System.Windows.Forms.DockStyle.Left;
-            this.textBoxMedCard.Location = new System.Drawing.Point(92, 3);
+            this.textBoxMedCard.Location = new System.Drawing.Point(91, 3);
             this.textBoxMedCard.Name = "textBoxMedCard";
             this.textBoxMedCard.Size = new System.Drawing.Size(98, 20);
             this.textBoxMedCard.TabIndex = 1;
@@ -1275,7 +1275,7 @@
             this.labelCodePacient.AutoSize = true;
             this.labelCodePacient.Location = new System.Drawing.Point(3, 5);
             this.labelCodePacient.Name = "labelCodePacient";
-            this.labelCodePacient.Size = new System.Drawing.Size(83, 13);
+            this.labelCodePacient.Size = new System.Drawing.Size(82, 13);
             this.labelCodePacient.TabIndex = 1;
             this.labelCodePacient.Text = "Код пациента";
             // 
@@ -1284,7 +1284,7 @@
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(196, 0);
+            this.label2.Location = new System.Drawing.Point(195, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(12, 24);
             this.label2.TabIndex = 6;

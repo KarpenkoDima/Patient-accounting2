@@ -15,7 +15,7 @@ namespace BAL.ORM.Repository
         public CustomRepository()
         {
 #if DEBUG
-            _isCorrertError = false;
+            IsCorrertError = false;
 #endif
             // proglems in time save
             if (IsCorrertError)

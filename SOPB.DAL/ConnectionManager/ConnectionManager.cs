@@ -87,10 +87,7 @@ namespace SOPB.Accounting.DAL.ConnectionManager
                     return connection.State == ConnectionState.Open;
                 }
             }
-            catch (SqlException)
-            {
-                throw;
-            }
+          
             catch (Exception)
             {
                 return false;

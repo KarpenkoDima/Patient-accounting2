@@ -30,7 +30,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <OutputPath>bin\x86\Debug\</OutputPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
@@ -52,6 +52,7 @@
     <Compile Include="DataTables\Tables.cs" />
     <Compile Include="ORM\Criteria.cs" />
     <Compile Include="ORM\CustomerService.cs" />
+    <Compile Include="ORM\LogInApplication.cs" />
     <Compile Include="ORM\Query.cs" />
     <Compile Include="ORM\Repository\IRepository.cs" />
     <Compile Include="ORM\Repository\Repositories.cs" />
