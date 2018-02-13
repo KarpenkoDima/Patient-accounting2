@@ -379,7 +379,7 @@ namespace SOPB.GUI
                 _invalidBindingSource.EndEdit();
                 _invalidBenefitsBindingSource.EndEdit();
                 CustomerService service = new CustomerService();
-                service.UpdateAllCustomers();
+                BindingData(service.UpdateAllCustomers());
             }
         }
 

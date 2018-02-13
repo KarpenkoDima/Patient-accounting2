@@ -655,7 +655,7 @@
             this.tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 46.03175F));
             this.tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 53.96825F));
             this.tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 18F));
-            this.tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 188F));
+            this.tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 189F));
             this.tableLayoutPanel11.Controls.Add(this.textBoxCodeCustomer, 3, 0);
             this.tableLayoutPanel11.Controls.Add(this.textBoxMedCard, 1, 0);
             this.tableLayoutPanel11.Controls.Add(this.labelCodePacient, 0, 0);
@@ -672,7 +672,7 @@
             // 
             this.textBoxCodeCustomer.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.textBoxCodeCustomer.Location = new System.Drawing.Point(183, 3);
+            this.textBoxCodeCustomer.Location = new System.Drawing.Point(182, 3);
             this.textBoxCodeCustomer.Name = "textBoxCodeCustomer";
             this.textBoxCodeCustomer.Size = new System.Drawing.Size(141, 20);
             this.textBoxCodeCustomer.TabIndex = 2;
@@ -681,7 +681,7 @@
             // textBoxMedCard
             // 
             this.textBoxMedCard.Dock = System.Windows.Forms.DockStyle.Left;
-            this.textBoxMedCard.Location = new System.Drawing.Point(78, 3);
+            this.textBoxMedCard.Location = new System.Drawing.Point(77, 3);
             this.textBoxMedCard.Name = "textBoxMedCard";
             this.textBoxMedCard.Size = new System.Drawing.Size(81, 20);
             this.textBoxMedCard.TabIndex = 1;
@@ -693,7 +693,7 @@
             this.labelCodePacient.AutoSize = true;
             this.labelCodePacient.Location = new System.Drawing.Point(3, 1);
             this.labelCodePacient.Name = "labelCodePacient";
-            this.labelCodePacient.Size = new System.Drawing.Size(69, 26);
+            this.labelCodePacient.Size = new System.Drawing.Size(68, 26);
             this.labelCodePacient.TabIndex = 1;
             this.labelCodePacient.Text = "Код пациента";
             // 
@@ -702,7 +702,7 @@
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(165, 0);
+            this.label2.Location = new System.Drawing.Point(164, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(12, 28);
             this.label2.TabIndex = 6;
@@ -900,7 +900,7 @@
             this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 21.60612F));
             this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.6348F));
             this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 35.18164F));
-            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 113F));
+            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 115F));
             this.tableLayoutPanel8.Controls.Add(this.label14, 0, 0);
             this.tableLayoutPanel8.Controls.Add(this.label18, 0, 3);
             this.tableLayoutPanel8.Controls.Add(this.label19, 2, 0);
@@ -956,7 +956,7 @@
             this.label19.BackColor = System.Drawing.SystemColors.ControlLight;
             this.label19.Location = new System.Drawing.Point(233, 7);
             this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(74, 13);
+            this.label19.Size = new System.Drawing.Size(73, 13);
             this.label19.TabIndex = 0;
             this.label19.Text = "В связи";
             // 
@@ -966,7 +966,7 @@
             this.label22.AutoSize = true;
             this.label22.Location = new System.Drawing.Point(233, 89);
             this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(74, 13);
+            this.label22.Size = new System.Drawing.Size(73, 13);
             this.label22.TabIndex = 0;
             this.label22.Text = "По причине";
             // 
@@ -1003,9 +1003,9 @@
             this.comboBoxFirstRegisterType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxFirstRegisterType.FormattingEnabled = true;
-            this.comboBoxFirstRegisterType.Location = new System.Drawing.Point(313, 3);
+            this.comboBoxFirstRegisterType.Location = new System.Drawing.Point(312, 3);
             this.comboBoxFirstRegisterType.Name = "comboBoxFirstRegisterType";
-            this.comboBoxFirstRegisterType.Size = new System.Drawing.Size(163, 21);
+            this.comboBoxFirstRegisterType.Size = new System.Drawing.Size(162, 21);
             this.comboBoxFirstRegisterType.TabIndex = 2;
             this.comboBoxFirstRegisterType.Validated += new System.EventHandler(this.Registred_Validated);
             // 
@@ -1015,9 +1015,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxSecondDeRegisterType.FormattingEnabled = true;
-            this.comboBoxSecondDeRegisterType.Location = new System.Drawing.Point(313, 84);
+            this.comboBoxSecondDeRegisterType.Location = new System.Drawing.Point(312, 84);
             this.comboBoxSecondDeRegisterType.Name = "comboBoxSecondDeRegisterType";
-            this.comboBoxSecondDeRegisterType.Size = new System.Drawing.Size(163, 21);
+            this.comboBoxSecondDeRegisterType.Size = new System.Drawing.Size(162, 21);
             this.comboBoxSecondDeRegisterType.TabIndex = 2;
             this.comboBoxSecondDeRegisterType.Validated += new System.EventHandler(this.Registred_Validated);
             // 
@@ -1077,7 +1077,7 @@
             this.label20.BackColor = System.Drawing.SystemColors.ControlLight;
             this.label20.Location = new System.Drawing.Point(233, 61);
             this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(74, 13);
+            this.label20.Size = new System.Drawing.Size(73, 13);
             this.label20.TabIndex = 0;
             this.label20.Text = "В связи";
             // 
@@ -1087,9 +1087,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxFirstDeRegisterType.FormattingEnabled = true;
-            this.comboBoxFirstDeRegisterType.Location = new System.Drawing.Point(313, 30);
+            this.comboBoxFirstDeRegisterType.Location = new System.Drawing.Point(312, 30);
             this.comboBoxFirstDeRegisterType.Name = "comboBoxFirstDeRegisterType";
-            this.comboBoxFirstDeRegisterType.Size = new System.Drawing.Size(163, 21);
+            this.comboBoxFirstDeRegisterType.Size = new System.Drawing.Size(162, 21);
             this.comboBoxFirstDeRegisterType.TabIndex = 2;
             this.comboBoxFirstDeRegisterType.Validated += new System.EventHandler(this.Registred_Validated);
             // 
@@ -1099,9 +1099,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxSecondRegisterType.FormattingEnabled = true;
-            this.comboBoxSecondRegisterType.Location = new System.Drawing.Point(313, 58);
+            this.comboBoxSecondRegisterType.Location = new System.Drawing.Point(312, 58);
             this.comboBoxSecondRegisterType.Name = "comboBoxSecondRegisterType";
-            this.comboBoxSecondRegisterType.Size = new System.Drawing.Size(163, 21);
+            this.comboBoxSecondRegisterType.Size = new System.Drawing.Size(162, 21);
             this.comboBoxSecondRegisterType.TabIndex = 2;
             this.comboBoxSecondRegisterType.Validated += new System.EventHandler(this.Registred_Validated);
             // 
@@ -1111,7 +1111,7 @@
             this.label21.AutoSize = true;
             this.label21.Location = new System.Drawing.Point(233, 34);
             this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(74, 13);
+            this.label21.Size = new System.Drawing.Size(73, 13);
             this.label21.TabIndex = 0;
             this.label21.Text = "По причине";
             // 
@@ -1518,7 +1518,7 @@
             this.MainBindingNavigator.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
             this.MainBindingNavigator.Name = "MainBindingNavigator";
             this.MainBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.MainBindingNavigator.Size = new System.Drawing.Size(411, 25);
+            this.MainBindingNavigator.Size = new System.Drawing.Size(442, 25);
             this.MainBindingNavigator.TabIndex = 1;
             // 
             // bindingNavigatorAddNewItem
