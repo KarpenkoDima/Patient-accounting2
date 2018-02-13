@@ -9,6 +9,7 @@ using BAL.ORM;
 using SOPB.Accounting.DAL.ConnectionManager;
 using SOPB.GUI.DialogForms;
 using SOPB.GUI.Utils;
+using static System.Windows.Forms.DialogResult;
 
 namespace SOPB.GUI
 {
@@ -850,10 +851,23 @@ namespace SOPB.GUI
 
         private void MainForm2_Shown(object sender, EventArgs e)
         {
-            EnterForm enterForm = new EnterForm();
-            DialogResult result = enterForm.ShowDialog();
-            if (result == DialogResult.Cancel)
-                this.Close();
+            
+            while (true)
+            {
+                EnterForm enterForm = new EnterForm();
+                DialogResult result = enterForm.ShowDialog();
+                if (result == Cancel)
+                {
+                    this.Close();
+                    break;
+                }
+                if (result == Retry)
+                {
+                    continue;
+                }
+
+                break;
+            }
         }
     }
 }

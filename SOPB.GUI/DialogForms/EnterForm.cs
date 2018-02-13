@@ -30,6 +30,8 @@ namespace SOPB.GUI.DialogForms
                 ClearTextBox();
                 textBoxLogin.BackColor = Color.Yellow;
                 textBoxPassword.BackColor = Color.Yellow;
+                
+                this.DialogResult = DialogResult.Retry;
             }
 
         }
