@@ -14,6 +14,7 @@ namespace BAL.ORM.Repository
         DateTime _maxDateTime = DateTime.Now;
         public CustomRepository()
         {
+            
 #if DEBUG
             IsCorrertError = false;
 #endif
@@ -74,15 +75,12 @@ namespace BAL.ORM.Repository
         {
             
             Query<T> query;
-            //Tables.DispancerDataSet.Clear();
-            CustomerAccess.FillDictionary();
             switch (newCriteria.Predicate)
             {
                 case Predicate.Equals:
                     query = new CustomerQuery<T>();
                     query.Criterias(newCriteria);
                     return query.Execute();
-               
                     
                 //case Predicate.GreatThan:
                 //    query = new CustomerQuery<T>();
@@ -110,7 +108,6 @@ namespace BAL.ORM.Repository
         }
         public object FindByBetween(object criteria, T start, T end)
         {
-            //ClearCustomerData();
             Query<T> query = new CustomerQuery<T>();
             query.Criterias(new NewCriteria<T>(Predicate.Between, criteria.ToString(), start, end));
             return query.Execute();
@@ -183,13 +180,6 @@ namespace BAL.ORM.Repository
         private void ClearCustomerData()
         {
             CustomerAccess.ClearData();
-            //Tables.AddressDataTable.Clear();
-            //Tables.InvalidBenefitsDataTable.Clear();
-            //Tables.InvalidDataTable.Clear();
-            //Tables.RegisterDataTable.Clear();
-            //Tables.ErrorDataTable.Clear();
-            //Tables.CustomerDataTable.Clear();
-
         }
 
         public object GetEmpty()
@@ -230,7 +220,6 @@ namespace BAL.ORM.Repository
 
         public object FindBy(object criteria, int value)
         {
-            ClearCustomerData();
             Query<int> query = new GlossaryQuery();
             query.Criterias(new NewCriteria<int>(Predicate.Equals, criteria.ToString(), value));
             return query.Execute();

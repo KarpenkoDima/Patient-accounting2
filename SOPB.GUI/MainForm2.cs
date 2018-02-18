@@ -912,7 +912,7 @@ namespace SOPB.GUI
             find.ShowDialog();
             int id = find._ID;
             CustomerService customer = new CustomerService();
-            BindingData(customer.GetCustomerByBenefitsCategory(id));
+            BindingData(customer.GetCustomerByGlossary("BenefitsCategory", id));
         }
 
         private void landsToolStripMenuItem_Click(object sender, EventArgs e)

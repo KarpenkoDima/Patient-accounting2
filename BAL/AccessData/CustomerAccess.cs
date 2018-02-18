@@ -12,7 +12,11 @@ namespace BAL.AccessData
     public class CustomerAccess
     {
         private static Tables _tables = new Tables();
-        
+
+        static CustomerAccess()
+        {
+            FillDictionary();
+        }
         public static object GetData()
         {
             return _tables.DispancerDataSet;
@@ -165,17 +169,27 @@ namespace BAL.AccessData
                 throw;
             }
         }
-        public static void GetCustomersByBirthdayBetween(string name, DateTime fromDateTime, DateTime toDateTime)
+        public static void GetCustomersByBirthdayBetween(DateTime fromDateTime, DateTime toDateTime)
         {
             ClearData();
             GetDataByBirthOfDay("", fromDateTime, toDateTime, "МЕЖДУ");
+        }
+
+        public static void GetCustomersByBirthOfDay(DateTime fromDateTime, DateTime tillDateTime = new DateTime(), string predicate = "=")
+        {
+            ClearData();
+            DateTime time = new DateTime();
+            if (tillDateTime == time)
+            {
+                tillDateTime = DateTime.Now;
+            }
+            GetDataByBirthOfDay("", fromDateTime, tillDateTime, predicate);
         }
         public static void GetCustomersByBirthdayWithPredicate(DateTime fromDateTime, string predicate)
         {
             ClearData();
             GetDataByBirthOfDay("uspGetCustomerByBirthOfDay", fromDateTime, DateTime.Now, predicate);
         }
-       
         public static void GetCustomersByBirthday(DateTime fromDateTime)
         {
             ClearData();
@@ -243,11 +257,11 @@ namespace BAL.AccessData
             }
         }
 
+
         public static void GetCustomersByGlossary(string name, string glossaryName, int criteria)
         {
             ClearData();
             GetDataByGlossary(glossaryName, criteria);
-           
         }
 
         private static void GetDataByGlossary(string glossaryName, int criteria)

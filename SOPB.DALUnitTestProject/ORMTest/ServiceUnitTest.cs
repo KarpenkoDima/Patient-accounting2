@@ -15,10 +15,14 @@ namespace SOPB.DALUnitTestProject.ORMTest
             ConnectionManager.SetConnection(UserSettings.UserName, UserSettings.Password);
         }
         [TestMethod]
-        public void CustomerService_GetCustomersByLastName_TestMethod()
+        [DataRow("Козлова")]
+        [DataRow("Петров")]
+        [DataRow("Ива")]
+        [DataRow("Аба")]
+        public void CustomerService_GetCustomersByLastName_TestMethod(string name)
         {
             CustomerService service = new CustomerService();
-            DataSet ds = (DataSet)service.GetCustomersByLastName("Козлова");
+            DataSet ds = (DataSet)service.GetCustomersByLastName(name);
             int count = ds.Tables["Customer"].Rows.Count;
             Assert.IsTrue(count > 0);
         }
@@ -39,29 +43,19 @@ namespace SOPB.DALUnitTestProject.ORMTest
             Assert.IsTrue(count > 0);
         }
         [TestMethod]
-        public void CustomerService_GetCustomersByApppTpr_TestMethod()
+        [DataRow("appptpr")]
+        [DataRow("gender")]
+        [DataRow("land")]
+        [DataRow("benefitscategory")]
+        public void CustomerService_GetCustomersByGlossary_TestMethod(string name)
         {
             CustomerService service = new CustomerService();
-            DataSet ds = (DataSet)service.GetCustomerByApppTpr(1);
+            DataSet ds = (DataSet)service.GetCustomerByGlossary(name, 1);
             int count = ds.Tables["Customer"].Rows.Count;
             Assert.IsTrue(count > 0);
         }
-        [TestMethod]
-        public void CustomerService_GetCustomersByBenefitsCategory_TestMethod()
-        {
-            CustomerService service = new CustomerService();
-            DataSet ds = (DataSet)service.GetCustomerByBenefitsCategory(1);
-            int count = ds.Tables["Customer"].Rows.Count;
-            Assert.IsTrue(count > 0);
-        }
-        [TestMethod]
-        public void CustomerService_GetCustomersByLand_TestMethod()
-        {
-            CustomerService service = new CustomerService();
-            DataSet ds = (DataSet)service.GetCustomerByLand(1);
-            int count = ds.Tables["Customer"].Rows.Count;
-            Assert.IsTrue(count > 0);
-        }
+       
+       
         [TestMethod]
         public void CustomerService_FillAllCustomers_TestMethod()
         {

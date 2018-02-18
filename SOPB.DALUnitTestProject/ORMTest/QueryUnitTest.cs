@@ -18,19 +18,21 @@ namespace SOPB.DALUnitTestProject.ORMTest
             ConnectionManager.SetConnection(UserSettings.UserName, UserSettings.Password);
         }
         [TestMethod]
-        public void Query_GlossaryQuery_ExecuteMethod_TestMethod()
+        [DataRow("Gender", 2)]
+        [DataRow("Gender", 1)]
+        [DataRow("ApppTpr", 2)]
+        [DataRow("BenefitsCategory", 1)]
+        public void Query_GlossaryQuery_ExecuteMethod_TestMethod(string nameGlossary, int id)
         {
             SqlConnection connection = ConnectionManager.Connection;
             connection.Open();
-         
             CustomerAccess.FillDictionary();
             CustomerAccess.FillCustomerData();
             DataSet dataSet = (DataSet)CustomerAccess.GetData();
-            NewCriteria<int> criteria = new NewCriteria<int>(Predicate.Equals, "ApppTpr", 2);
+            NewCriteria<int> criteria = new NewCriteria<int>(Predicate.Equals, nameGlossary, id);
             GlossaryQuery glossary = new GlossaryQuery();
             glossary.Criterias(criteria);
             dataSet = (DataSet)glossary.Execute();
-
             Assert.IsTrue(dataSet.Tables["Customer"].Rows.Count > 0);
         }
         [TestMethod]
@@ -39,9 +41,6 @@ namespace SOPB.DALUnitTestProject.ORMTest
             SqlConnection connection = ConnectionManager.Connection;
             connection.Open();
             DataSet dataSet = new DataSet();
-            //CustomerAccess.FillDictionary(tables.DispancerDataSet);
-            //CustomerAccess.FillCustomerData(tables.DispancerDataSet);
-
             NewCriteria<int> criteria = new NewCriteria<int>(Predicate.Equals, "Gender", -2);
             GlossaryQuery glossary = new GlossaryQuery();
             glossary.Criterias(criteria);
@@ -55,16 +54,13 @@ namespace SOPB.DALUnitTestProject.ORMTest
         {
             SqlConnection connection = ConnectionManager.Connection;
             connection.Open();
-            Tables tables = new Tables();
             CustomerAccess.FillDictionary();
-            DataSet dataSet = (DataSet)CustomerAccess.GetData();
-
+            DataSet dataSet;
             NewCriteria<int> criteria = new NewCriteria<int>(Predicate.ID, "Id", 1 );
             CustomerQuery<int> customerQuery = new CustomerQuery<int>();
             customerQuery.Criterias(criteria);
             dataSet = (DataSet)customerQuery.Execute();
-
-            Assert.IsTrue(tables.CustomerDataTable.Rows.Count > 0);
+            Assert.IsTrue(dataSet.Tables["Customer"].Rows.Count > 0);
         }
 
         [TestMethod]

@@ -11,11 +11,7 @@ namespace BAL.ORM
 
         private static string _lastQuery;
         static List<object> _paramsObjects = new List<object>();
-
-        public CustomerService()
-        {
-            //_repo.FindAll();
-        }
+    
         public object GetCustomersByFirstName(string firstName)
         {
             _lastQuery = "GetCustomersByFirstName";
@@ -62,14 +58,6 @@ namespace BAL.ORM
             _paramsObjects.Add(streetName);
             return _repo.FindBy("address", streetName);
         }
-        public void GetCustomerByCity(string streetName)
-        {
-            _lastQuery = "GetCustomerByCity";
-            _paramsObjects.Clear();
-            _paramsObjects.Add(streetName);
-           
-            _repo.FindBy("street", streetName);
-        }
         public object FillAllCustomers()
         {
             _lastQuery = "FillAllCustomers";
@@ -99,36 +87,26 @@ namespace BAL.ORM
                 case "GetCustomersByLastName":
                     return _repo.FindBy("lastname", _paramsObjects[0].ToString());
                 case "GetCustomersByBirthdayWithPredicate":
-                    return _repo.FindByPredicate("birthday", _paramsObjects[0].ToString(), _paramsObjects[1].ToString());
+                    return _repo.FindByPredicate("birthday", _paramsObjects[0].ToString(),
+                        _paramsObjects[1].ToString());
+                case "GetCustomerByGlossary":
+                    return _glossaryRepository.FindBy(_paramsObjects[0], (int)_paramsObjects[1]);
                 default:
                 {
-                   return FillAllCustomers();
+                    return FillAllCustomers();
                 }
             }
         }
 
-        public object GetCustomerByLand(int numberLand)
-        {
-            _lastQuery = "GetCustomerByLand";
-            _paramsObjects.Clear();
-            _paramsObjects.Add(numberLand);
-            return _glossaryRepository.FindBy("Land", numberLand);
-        }
 
-        public object GetCustomerByApppTpr(int numberApppTpr)
+
+        public object GetCustomerByGlossary(string name, int id)
         {
-            _lastQuery = "GetCustomerByApppTpr";
+            _lastQuery = "GetCustomerByGlossary";
             _paramsObjects.Clear();
-            _paramsObjects.Add(numberApppTpr);
-           
-            return _glossaryRepository.FindBy("ApppTpr", numberApppTpr);
-        }
-        public object GetCustomerByBenefitsCategory(int benefitsCategory)
-        {
-            _lastQuery = "GetCustomerByBenefitsCategory";
-            _paramsObjects.Clear();
-            _paramsObjects.Add(benefitsCategory);
-            return _glossaryRepository.FindBy("BenefitsCategory", benefitsCategory);
+            _paramsObjects.Add(name);
+           _paramsObjects.Add(id);
+            return _glossaryRepository.FindBy(name, id);
         }
 
         public void ExportToExcel(params string[] columns)
@@ -154,7 +132,7 @@ namespace BAL.ORM
         }
         public object GetEmptyData()
         {
-            return null;
+            return _repo.FillAll();
         }
     }
 }

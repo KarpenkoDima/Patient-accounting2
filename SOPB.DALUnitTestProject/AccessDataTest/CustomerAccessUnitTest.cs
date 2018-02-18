@@ -67,7 +67,7 @@ namespace SOPB.DALUnitTestProject.AccessDataTest
             connection.Open();
             CustomerAccess.FillDictionary();
             CustomerAccess.FillCustomerData();
-            CustomerAccess.GetCustomersByBirthdayBetween("Customer", new DateTime(1970, 1, 1), new DateTime(2016, 01, 01));
+            CustomerAccess.GetCustomersByBirthOfDay(new DateTime(1970, 1, 1), new DateTime(2016, 01, 01), "МЕЖДУ");
             DataSet dataSet = (DataSet)CustomerAccess.GetData();
             Assert.IsTrue(dataSet.Tables["Customer"].Rows.Count > 0);
         }
