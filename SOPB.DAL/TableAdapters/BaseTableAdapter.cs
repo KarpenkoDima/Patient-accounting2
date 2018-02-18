@@ -128,18 +128,18 @@ namespace SOPB.Accounting.DAL.TableAdapters
 
         public virtual void Execute(DataTable table, string storageProc, params SqlParameter[] parameters)
         {
-            SqlCommand command = GenericDataAccess.CreateCommand() as SqlCommand;
-            if (command != null)
+            SqlCommand command =this.Transaction.Connection.CreateCommand();
+            command.CommandType = CommandType.StoredProcedure;
+            command.CommandText = storageProc;
+            command.Transaction = Transaction;
+            foreach (SqlParameter sqlParameter in parameters)
             {
-                command.CommandType = CommandType.StoredProcedure;
-                command.CommandText = storageProc;
-                foreach (SqlParameter sqlParameter in parameters)
-                {
-                    command.Parameters.Add(sqlParameter);
-                }
-
-                GenericDataAccess.ExecuteSelectCommand(command, table);
+                command.Parameters.Add(sqlParameter);
             }
+
+            this.CommandCollection[0] = command;
+            this.Fill(table);
+            //GenericDataAccess.ExecuteSelectCommand(command, table);
         }
 
         #region Abstract memebrs

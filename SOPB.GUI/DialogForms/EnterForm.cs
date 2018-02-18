@@ -26,7 +26,7 @@ namespace SOPB.GUI.DialogForms
             }
             else
             {
-                MessageBox.Show("Неверный логин или пароль!","Error!" );
+                MessageBox.Show("Неверный логин или пароль!","Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 ClearTextBox();
                 textBoxLogin.BackColor = Color.Yellow;
                 textBoxPassword.BackColor = Color.Yellow;

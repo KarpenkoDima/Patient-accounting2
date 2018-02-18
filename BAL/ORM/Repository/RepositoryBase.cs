@@ -9,7 +9,12 @@ namespace BAL.ORM.Repository
 {
     abstract class RepositoryBase
     {
-        protected static Tables Tables = new Tables();
+        //protected Tables Tables = new Tables();
+
+        //public  object GetEmpty()
+        //{
+        //    return Tables.DispancerDataSet;
+        //}
         protected abstract string GetBaseQuery();
         protected abstract string GetBaseWhereClause();
         protected abstract string GetEntityName();

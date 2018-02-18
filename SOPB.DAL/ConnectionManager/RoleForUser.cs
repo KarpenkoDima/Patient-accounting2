@@ -13,10 +13,10 @@ namespace SOPB.Accounting.DAL.ConnectionManager
         {
             string role = null;
             ConnectionManager.SetConnection(login, password);
-            SqlConnection connection = ConnectionManager.Connection;
+            //SqlConnection connection = ConnectionManager.Connection;
 
 
-            using (SqlCommand command = GenericDataAccess.CreateCommand() as SqlCommand)
+            using (SqlCommand command = GenericDataAccess.CreateCommand(ConnectionManager.Connection.CreateCommand()) as SqlCommand)
             {
                 {
                     if (command != null)
@@ -35,6 +35,7 @@ namespace SOPB.Accounting.DAL.ConnectionManager
                         command.Connection.Open();
                         command.ExecuteNonQuery();
                         role = ((string) command.Parameters["@Role"].Value).Trim();
+                        command.Connection.Close();
                     }
                 }
 

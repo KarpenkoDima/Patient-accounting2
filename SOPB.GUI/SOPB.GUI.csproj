@@ -51,11 +51,29 @@
     <Compile Include="DialogForms\EnterForm.Designer.cs">
       <DependentUpon>EnterForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="DialogForms\FindByBirthday.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DialogForms\FindByBirthday.Designer.cs">
+      <DependentUpon>FindByBirthday.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DialogForms\FindByGlossary.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DialogForms\FindByGlossary.Designer.cs">
+      <DependentUpon>FindByGlossary.cs</DependentUpon>
+    </Compile>
     <Compile Include="DialogForms\FindForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="DialogForms\FindForm.Designer.cs">
       <DependentUpon>FindForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DialogForms\GlossaryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DialogForms\GlossaryForm.Designer.cs">
+      <DependentUpon>GlossaryForm.cs</DependentUpon>
     </Compile>
     <Compile Include="MainForm025.cs">
       <SubType>Form</SubType>
@@ -78,8 +96,17 @@
     <EmbeddedResource Include="DialogForms\EnterForm.resx">
       <DependentUpon>EnterForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="DialogForms\FindByBirthday.resx">
+      <DependentUpon>FindByBirthday.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DialogForms\FindByGlossary.resx">
+      <DependentUpon>FindByGlossary.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DialogForms\FindForm.resx">
       <DependentUpon>FindForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DialogForms\GlossaryForm.resx">
+      <DependentUpon>GlossaryForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm025.resx">
       <DependentUpon>MainForm025.cs</DependentUpon>

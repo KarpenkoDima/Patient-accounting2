@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using BAL.ORM.Repository;
 
 namespace BAL.ORM
@@ -51,14 +47,20 @@ namespace BAL.ORM
             _paramsObjects.Add(date);
            return _repo.FindBy("birthday", date.ToShortDateString());
         }
-
-        public void GetCustomerByAddress(string streetName)
+        public object GetCustomersByBirthdayWithPredicate(DateTime date, string predicate)
+        {
+            _lastQuery = "GetCustomersByBirthdayWithPredicate";
+            _paramsObjects.Clear();
+            _paramsObjects.Add(date);
+            _paramsObjects.Add(predicate);
+            return _repo.FindByPredicate("birthday", date.ToShortDateString(), predicate);
+        }
+        public object GetCustomerByAddress(string streetName)
         {
             _lastQuery = "GetCustomerByAddress";
             _paramsObjects.Clear();
             _paramsObjects.Add(streetName);
-            _repo.FindBy("street", streetName);
-
+            return _repo.FindBy("address", streetName);
         }
         public void GetCustomerByCity(string streetName)
         {
@@ -96,6 +98,8 @@ namespace BAL.ORM
             {
                 case "GetCustomersByLastName":
                     return _repo.FindBy("lastname", _paramsObjects[0].ToString());
+                case "GetCustomersByBirthdayWithPredicate":
+                    return _repo.FindByPredicate("birthday", _paramsObjects[0].ToString(), _paramsObjects[1].ToString());
                 default:
                 {
                    return FillAllCustomers();
@@ -137,5 +141,20 @@ namespace BAL.ORM
             return _glossaryRepository.GetGlossaryByName(name);
         }
 
+        public void SaveGlossary(string name)
+        {
+           
+            _glossaryRepository.SaveGlossary(name);
+            FillData();
+        }
+
+        public object GetGlossaries()
+        {
+            return _glossaryRepository.FillAll();
+        }
+        public object GetEmptyData()
+        {
+            return null;
+        }
     }
 }

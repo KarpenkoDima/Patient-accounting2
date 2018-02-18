@@ -40,18 +40,19 @@ namespace SOPB.Accounting.DAL.ConnectionManager
             get
             {
                 SqlCredential cred = new SqlCredential(_userID, _secureString);
-                if (_sqlConnection != null  && _sqlConnection.State == ConnectionState.Closed)
+                //if (_sqlConnection != null  && _sqlConnection.State == ConnectionState.Closed)
+                //{
+                //    _sqlConnection.ConnectionString = _connectionString;
+                //    _sqlConnection.Credential = cred;
+                //}
+
+                //else if(_sqlConnection == null)
                 {
-                    _sqlConnection.ConnectionString = _connectionString;
-                    _sqlConnection.Credential = cred;
+                   _sqlConnection = new SqlConnection();
+                   _sqlConnection.ConnectionString = _connectionString;
+                   _sqlConnection.Credential = cred;
                 }
-                else
-                {
-                    _sqlConnection = new SqlConnection();
-                    _sqlConnection.ConnectionString = _connectionString;
-                    _sqlConnection.Credential = cred;
-                }
-                
+
                 return _sqlConnection;
             }
         }
@@ -78,13 +79,15 @@ namespace SOPB.Accounting.DAL.ConnectionManager
 
         public static bool TestConnection(string login, string password)
         {
+            bool isOpen = false;
             try
             {
                 SetConnection(login, password);
                 using (SqlConnection connection = Connection)
                 {
                     connection.Open();
-                    return connection.State == ConnectionState.Open;
+                    isOpen= connection.State == ConnectionState.Open;
+                    connection.Close();
                 }
             }
           
@@ -92,6 +95,8 @@ namespace SOPB.Accounting.DAL.ConnectionManager
             {
                 return false;
             }
+
+            return isOpen;
         }
     }
 }

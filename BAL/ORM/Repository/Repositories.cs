@@ -17,68 +17,104 @@ namespace BAL.ORM.Repository
 #if DEBUG
             IsCorrertError = false;
 #endif
+
+            #region add events for correction error
+
             // proglems in time save
-            if (IsCorrertError)
-            {
-                Tables.CustomerDataTable.RowChanging += CustomerDataTableOnRowChanging;
-                Tables.CustomerDataTable.RowChanged += CustomerDataTableOnRowChanged;
-                Tables.RegisterDataTable.RowChanging += RegisterDataTableOnRowChanging;
-            }
+            ////if (IsCorrertError)
+            ////{
+            ////    Tables.CustomerDataTable.RowChanging += CustomerDataTableOnRowChanging;
+            ////    Tables.CustomerDataTable.RowChanged += CustomerDataTableOnRowChanged;
+            ////    Tables.RegisterDataTable.RowChanging += RegisterDataTableOnRowChanging;
+            ////}
+
+            #endregion
         }
 
-        private void RegisterDataTableOnRowChanging(object sender, DataRowChangeEventArgs e)
+        //private void RegisterDataTableOnRowChanging(object sender, DataRowChangeEventArgs e)
+        //{
+            
+        //}
+
+        //private void CustomerDataTableOnRowChanged(object sender, DataRowChangeEventArgs dataRowChangeEventArgs)
+        //{
+        //    if (dataRowChangeEventArgs.Action == DataRowAction.Commit && !string.IsNullOrEmpty(_errorText))
+        //    {
+        //        DataRow row = Tables.ErrorDataTable.NewRow();
+        //        row[0] = dataRowChangeEventArgs.Row[0];
+        //        row[1] = _errorText;
+        //        Tables.ErrorDataTable.Rows.Add(row);
+
+        //    }
+        //    _errorText = String.Empty;
+        //}
+        
+        //private void CustomerDataTableOnRowChanging(object sender, DataRowChangeEventArgs dataRowChangeEventArgs)
+        //{
+        //    if (Utilites.ValidateTextInputNotName(dataRowChangeEventArgs.Row["LastName"].ToString()))
+        //    {
+        //        //throw new ArgumentException("Not correct input valut","LastName");
+        //        Debug.Write("BAL: Not correct input value", "LastName" + dataRowChangeEventArgs.Row["LastName"]);
+        //        Debug.WriteLine(dataRowChangeEventArgs.Row[0]);
+        //        _errorText += "Фамлия содержит некорректные символы. " + dataRowChangeEventArgs.Row["LastName"];
+        //    }
+        //    DateTime birthday;
+        //    if (DateTime.TryParse(dataRowChangeEventArgs.Row["Birthday"].ToString(), out birthday))
+        //    {
+        //        if (birthday > _maxDateTime)
+        //        {
+        //            //throw new ArgumentException("Not correct date time", "Birthday");
+        //            Debug.WriteLine("Not correct date time", "Birthday");
+        //            _errorText += "\nНекорректная дата в поле День рождения. " + dataRowChangeEventArgs.Row["Birthday"];
+        //        }
+        //    }
+        //}
+
+        public object GetCustomerBy<T>(NewCriteria<T> newCriteria) where T : IComparable<T>
         {
             
-        }
-
-        private void CustomerDataTableOnRowChanged(object sender, DataRowChangeEventArgs dataRowChangeEventArgs)
-        {
-            if (dataRowChangeEventArgs.Action == DataRowAction.Commit && !string.IsNullOrEmpty(_errorText))
+            Query<T> query;
+            //Tables.DispancerDataSet.Clear();
+            CustomerAccess.FillDictionary();
+            switch (newCriteria.Predicate)
             {
-                DataRow row = Tables.ErrorDataTable.NewRow();
-                row[0] = dataRowChangeEventArgs.Row[0];
-                row[1] = _errorText;
-                Tables.ErrorDataTable.Rows.Add(row);
+                case Predicate.Equals:
+                    query = new CustomerQuery<T>();
+                    query.Criterias(newCriteria);
+                    return query.Execute();
+               
+                    
+                //case Predicate.GreatThan:
+                //    query = new CustomerQuery<T>();
+                //    query.Criterias(newCriteria);
+                //    query.Execute(Tables.CustomerDataTable);
+                //    break;
+                //case Predicate.LessThan:
+                //    query = new CustomerQuery<T>();
+                //    query.Criterias(newCriteria);
+                //    query.Execute(Tables.CustomerDataTable);
+                //    break;
+                //case Predicate.GeatThanOrEquals:
+                //    query = new CustomerQuery<T>();
+                //    query.Criterias(newCriteria);
+                //    query.Execute(Tables.CustomerDataTable);
+                //    break;
+                //case Predicate.LessThanOrEquals:
+                //    query = new CustomerQuery<T>();
+                //    query.Criterias(newCriteria);
+                //    query.Execute(Tables.CustomerDataTable);
+                //    break;
+            }
 
-            }
-            _errorText = String.Empty;
-        }
-        
-        private void CustomerDataTableOnRowChanging(object sender, DataRowChangeEventArgs dataRowChangeEventArgs)
-        {
-            if (Utilites.ValidateTextInputNotName(dataRowChangeEventArgs.Row["LastName"].ToString()))
-            {
-                //throw new ArgumentException("Not correct input valut","LastName");
-                Debug.Write("BAL: Not correct input value", "LastName" + dataRowChangeEventArgs.Row["LastName"]);
-                Debug.WriteLine(dataRowChangeEventArgs.Row[0]);
-                _errorText += "Фамлия содержит некорректные символы. " + dataRowChangeEventArgs.Row["LastName"];
-            }
-            DateTime birthday;
-            if (DateTime.TryParse(dataRowChangeEventArgs.Row["Birthday"].ToString(), out birthday))
-            {
-                if (birthday > _maxDateTime)
-                {
-                    //throw new ArgumentException("Not correct date time", "Birthday");
-                    Debug.WriteLine("Not correct date time", "Birthday");
-                    _errorText += "\nНекорректная дата в поле День рождения. " + dataRowChangeEventArgs.Row["Birthday"];
-                }
-            }
-        }
-
-        public void GetCustomerBy<T>(string item, T value) where T : IComparable<T>
-        {
-            Query<T> query = new CustomerQuery<T>();
-            query.Criterias(new NewCriteria<T>(Predicate.Equals, item, value));
-            query.Execute(Tables.CustomerDataTable);
+            return null;
         }
         public object FindByBetween(object criteria, T start, T end)
         {
             //ClearCustomerData();
             Query<T> query = new CustomerQuery<T>();
             query.Criterias(new NewCriteria<T>(Predicate.Between, criteria.ToString(), start, end));
-            query.Execute(Tables.CustomerDataTable);
-            return Tables.DispancerDataSet;
-
+            return query.Execute();
+          
         }
         #region Interface and BaseClass Methods
 
@@ -109,44 +145,56 @@ namespace BAL.ORM.Repository
 
         public object FindBy(object criteria, T value)
         {
+            NewCriteria<T> newCriteria = NewCriteria<T>.CreateCriteria("=",criteria.ToString(), value);
              ClearCustomerData();
-            this.GetCustomerBy(criteria.ToString(), value);
-            return Tables.DispancerDataSet;
+           return this.GetCustomerBy(newCriteria);
+            
         }
-
-        public object FillAll()
+        public object FindByPredicate(object criteria, T value, string predicate)
         {
             ClearCustomerData();
-            CustomerAccess.FillDictionary(Tables.DispancerDataSet);
-            CustomerAccess.FillCustomerData(Tables.DispancerDataSet);
-
-            return Tables.DispancerDataSet;
+            NewCriteria<T> newCriteria = NewCriteria<T>.CreateCriteria(predicate, criteria.ToString(), value);
+            return this.GetCustomerBy(newCriteria);
+            
+        }
+        public object FillAll()
+        {
+            CustomerAccess.FillDictionary();
+            CustomerAccess.FillCustomerData();
+            return CustomerAccess.GetData();
         }
 
         public void Update(IList<T> list)
         {
             //problems in time save
-            if (IsCorrertError)
-            {
+            ////if (IsCorrertError)
+            ////{
 
-                Tables.CustomerDataTable.RowChanging -= CustomerDataTableOnRowChanging;
-                Tables.CustomerDataTable.RowChanged -= CustomerDataTableOnRowChanged;
-                Tables.RegisterDataTable.RowChanging -= RegisterDataTableOnRowChanging;
+            ////    Tables.CustomerDataTable.RowChanging -= CustomerDataTableOnRowChanging;
+            ////    Tables.CustomerDataTable.RowChanged -= CustomerDataTableOnRowChanged;
+            ////    Tables.RegisterDataTable.RowChanging -= RegisterDataTableOnRowChanging;
                
-            }
-            CustomerAccess.Update(Tables.DispancerDataSet);
+            ////}
+            CustomerAccess.Update();
         }        
 
         #endregion
 
         private void ClearCustomerData()
         {
-            Tables.AddressDataTable.Clear();
-            Tables.InvalidBenefitsDataTable.Clear();
-            Tables.InvalidDataTable.Clear();
-            Tables.RegisterDataTable.Clear();
-            Tables.ErrorDataTable.Clear();
-            Tables.CustomerDataTable.Clear();
+            CustomerAccess.ClearData();
+            //Tables.AddressDataTable.Clear();
+            //Tables.InvalidBenefitsDataTable.Clear();
+            //Tables.InvalidDataTable.Clear();
+            //Tables.RegisterDataTable.Clear();
+            //Tables.ErrorDataTable.Clear();
+            //Tables.CustomerDataTable.Clear();
+
+        }
+
+        public object GetEmpty()
+        {
+            return null;
         }
     }
 
@@ -185,57 +233,36 @@ namespace BAL.ORM.Repository
             ClearCustomerData();
             Query<int> query = new GlossaryQuery();
             query.Criterias(new NewCriteria<int>(Predicate.Equals, criteria.ToString(), value));
-            query.Execute(Tables.DispancerDataSet.Tables["Customer"]);
-            return Tables.DispancerDataSet;
+            return query.Execute();
         }
 
         public object FillAll()
         {
-            CustomerAccess.FillDictionary(Tables.DispancerDataSet);
-            return Tables.DispancerDataSet;
+            CustomerAccess.FillDictionary();
+            return CustomerAccess.GetData();
         }
 
         public void Update(IList<int> list)
         {
-            Update();
-        }
-
-        private void Update()
-        {
-            TransactionWork transactionWork = null;
-            try
-            {
-                using (transactionWork = (TransactionWork)TransactionFactory.Create())
-                {
-                    for (int i = 0; i < Tables.DispancerDataSet.Tables.Count; i++)
-                    {
-                        transactionWork.UpdateData(Tables.DispancerDataSet.Tables[i]);
-                    }
-
-                    transactionWork.Commit();
-                }
-            }
-            catch (Exception)
-            {
-                transactionWork?.Rollback();
-                throw;
-            }
+            CustomerAccess.Update();
         }
 
         #endregion
 
         public object GetGlossaryByName(string name)
         {
-            return Tables.DispancerDataSet.Tables[name];
+            return CustomerAccess.GetByEntityName(name);
         }
         private void ClearCustomerData()
         {
-            Tables.AddressDataTable.Clear();
-            Tables.InvalidBenefitsDataTable.Clear();
-            Tables.InvalidDataTable.Clear();
-            Tables.RegisterDataTable.Clear();
-            Tables.ErrorDataTable.Clear();
-            Tables.CustomerDataTable.Clear();
+            CustomerAccess.ClearData();
         }
+
+        public void SaveGlossary(string nameGlossary)
+        {
+            CustomerAccess.SaveEntity(nameGlossary);
+        }
+
+
     }
 }

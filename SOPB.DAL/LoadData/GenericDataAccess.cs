@@ -19,16 +19,13 @@ namespace SOPB.Accounting.DAL.LoadData
                 {
                     table.Load(reader, LoadOption.OverwriteChanges);
                 }
-                reader.Close();
+                //reader.Close();
             }
             catch (Exception ex)
             {
                 throw;
             }
-            finally
-            {
-                command.Connection.Close();
-            }
+           
         }
 
         public static void ExecuteSelectCommand(IDbCommand command, DataSet dataSet)
@@ -58,9 +55,9 @@ namespace SOPB.Accounting.DAL.LoadData
             }
         }
 
-        public static DbCommand CreateCommand()
+        public static DbCommand CreateCommand(DbCommand createCommand)
         {
-            var command = ConnectionManager.ConnectionManager.Connection.CreateCommand();
+            var command = createCommand;
             command.CommandType = CommandType.StoredProcedure;
             return command;
         }

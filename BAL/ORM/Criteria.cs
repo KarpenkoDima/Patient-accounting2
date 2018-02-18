@@ -13,8 +13,8 @@ namespace BAL.ORM
         GreatThan,
         LessThan,
         Between,
-        GeatThanOrEquals = GreatThan | Equals,
-        LessThanOrEquals = LessThan | Equals
+        GeatThanOrEquals,
+        LessThanOrEquals
     }
     public class NewCriteria<T>
     {
@@ -71,6 +71,34 @@ namespace BAL.ORM
         public static NewCriteria<T> Between(string criteria, T start, T end)
         {
             return new NewCriteria<T>(Predicate.Between, criteria, start, end);
+        }
+
+        public static NewCriteria<T> CreateCriteria(string predicate, string criteria, params T[] values)
+        {
+            NewCriteria<T> newCriteria;
+            switch (predicate)
+            {
+                case ">":
+                    newCriteria = new NewCriteria<T>(Predicate.GreatThan, criteria, values);
+                    break;
+                case "ID":
+                    newCriteria = new NewCriteria<T>(Predicate.ID, criteria, values);
+                    break;
+                case ">=":
+                    newCriteria = new NewCriteria<T>(Predicate.GeatThanOrEquals, criteria, values);
+                    break;
+                case "<":
+                    newCriteria = new NewCriteria<T>(Predicate.LessThan, criteria, values);
+                    break;
+                case "<=":
+                    newCriteria = new NewCriteria<T>(Predicate.LessThanOrEquals, criteria, values);
+                    break;
+                    default:
+                        newCriteria = new NewCriteria<T>(Predicate.Equals, criteria, values);
+                        break;
+            }
+
+            return newCriteria;
         }
     }
 }

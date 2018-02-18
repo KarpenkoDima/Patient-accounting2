@@ -22,32 +22,32 @@ namespace SOPB.DALUnitTestProject.ORMTest
         {
             SqlConnection connection = ConnectionManager.Connection;
             connection.Open();
-            Tables tables = new Tables();
-            CustomerAccess.FillDictionary(tables.DispancerDataSet);
-            CustomerAccess.FillCustomerData(tables.DispancerDataSet);
-
+         
+            CustomerAccess.FillDictionary();
+            CustomerAccess.FillCustomerData();
+            DataSet dataSet = (DataSet)CustomerAccess.GetData();
             NewCriteria<int> criteria = new NewCriteria<int>(Predicate.Equals, "ApppTpr", 2);
             GlossaryQuery glossary = new GlossaryQuery();
             glossary.Criterias(criteria);
-            tables.DispancerDataSet = (DataSet)glossary.Execute(tables.DispancerDataSet.Tables["Customer"]);
+            dataSet = (DataSet)glossary.Execute();
 
-            Assert.IsTrue(tables.CustomerDataTable.Rows.Count > 0);
+            Assert.IsTrue(dataSet.Tables["Customer"].Rows.Count > 0);
         }
         [TestMethod]
         public void Query_GlossaryQuery_ExecuteMethodWrongParametrValue_TestMethod()
         {
             SqlConnection connection = ConnectionManager.Connection;
             connection.Open();
-            Tables tables = new Tables();
+            DataSet dataSet = new DataSet();
             //CustomerAccess.FillDictionary(tables.DispancerDataSet);
             //CustomerAccess.FillCustomerData(tables.DispancerDataSet);
 
             NewCriteria<int> criteria = new NewCriteria<int>(Predicate.Equals, "Gender", -2);
             GlossaryQuery glossary = new GlossaryQuery();
             glossary.Criterias(criteria);
-            tables.DispancerDataSet = (DataSet)glossary.Execute(tables.DispancerDataSet.Tables["Customer"]);
+            dataSet = (DataSet)glossary.Execute();
 
-            Assert.IsTrue(tables.CustomerDataTable.Rows.Count <= 0);
+            Assert.IsTrue(dataSet.Tables["Customer"].Rows.Count <= 0);
         }
 
         [TestMethod]
@@ -56,13 +56,13 @@ namespace SOPB.DALUnitTestProject.ORMTest
             SqlConnection connection = ConnectionManager.Connection;
             connection.Open();
             Tables tables = new Tables();
-            CustomerAccess.FillDictionary(tables.DispancerDataSet);
-            //CustomerAccess.FillCustomerData(tables.DispancerDataSet);
+            CustomerAccess.FillDictionary();
+            DataSet dataSet = (DataSet)CustomerAccess.GetData();
 
             NewCriteria<int> criteria = new NewCriteria<int>(Predicate.ID, "Id", 1 );
             CustomerQuery<int> customerQuery = new CustomerQuery<int>();
             customerQuery.Criterias(criteria);
-            tables.DispancerDataSet = (DataSet)customerQuery.Execute(tables.DispancerDataSet.Tables["Customer"]);
+            dataSet = (DataSet)customerQuery.Execute();
 
             Assert.IsTrue(tables.CustomerDataTable.Rows.Count > 0);
         }
@@ -72,16 +72,16 @@ namespace SOPB.DALUnitTestProject.ORMTest
         {
             SqlConnection connection = ConnectionManager.Connection;
             connection.Open();
-            Tables tables = new Tables();
-            CustomerAccess.FillDictionary(tables.DispancerDataSet);
-           
+            
+            CustomerAccess.FillDictionary();
+            DataSet dataSet = (DataSet)CustomerAccess.GetData();
 
             NewCriteria<int> criteria = new NewCriteria<int>(Predicate.ID, "Id", -1);
             CustomerQuery<int> customerQuery = new CustomerQuery<int>();
             customerQuery.Criterias(criteria);
-            tables.DispancerDataSet = (DataSet)customerQuery.Execute(tables.DispancerDataSet.Tables["Customer"]);
+           dataSet = (DataSet)customerQuery.Execute();
 
-            Assert.IsTrue(tables.CustomerDataTable.Rows.Count <= 0);
+            Assert.IsTrue(dataSet.Tables["Customer"].Rows.Count <= 0);
         }
     }
 }

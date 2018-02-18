@@ -70,6 +70,8 @@ namespace SOPB.Accounting.DAL.LoadData
         public void Execute(DataTable table, string storageProc, params SqlParameter[] parameters)
         {
             BaseTableAdapter baseTableAdapter = TableAdapterFactory.AdapterFactory(table.TableName);
+            baseTableAdapter.Connection = _transaction.Connection;
+            baseTableAdapter.Transaction = this._transaction;
             baseTableAdapter.Execute(table, storageProc, parameters);
         }
         public void Rollback()
@@ -84,7 +86,12 @@ namespace SOPB.Accounting.DAL.LoadData
 
         public void Dispose()
         {
-            //_transaction?.Dispose();
+            _transaction.Dispose();
+            if (_connection.State == ConnectionState.Open)
+            {
+                _connection.Close();
+            }
+            _connection.Dispose();
         }
 
 

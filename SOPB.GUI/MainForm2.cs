@@ -304,17 +304,22 @@ namespace SOPB.GUI
             customerDataGridView.DataSource = _customerBindingSource;
             MainBindingNavigator.BindingSource = _customerBindingSource;
             bindingNavigatorAddNewItem.Enabled = true;
-            isLoadData = true;
+            if (_customerBindingSource.Count > 0)
+                isLoadData = true;
+            else isLoadData = false;
         }
 
         private void bindingNavigatorAddNewItem_Click(object sender, EventArgs e)
         {
-            if (isLoadData)
+            if (!isLoadData)
             {
-                textBoxFirstName.Text = textBoxLastName.Text = @"[Новое Имя]";
+                CustomerService service = new CustomerService();
+                BindingData(service.GetGlossaries());
+            }
+
+            textBoxFirstName.Text = textBoxLastName.Text = @"[Новое Имя]";
                 comboBoxApppTpr.SelectedIndex = comboBoxGender.SelectedIndex = 0;
                 _customerBindingSource.EndEdit();
-            }
         }
         private void AddressBindingSourceOnAddingNew(object sender, AddingNewEventArgs e)
         {
@@ -780,7 +785,7 @@ namespace SOPB.GUI
             find.ShowDialog();
             string lName = find.LastName;
             CustomerService customer = new CustomerService();
-            BindingData(customer.GetCustomersByLastName(lName));
+           customer.GetCustomersByLastName(lName);
         }
 
         private void toolStripButton1_Click(object sender, EventArgs e)
@@ -867,6 +872,88 @@ namespace SOPB.GUI
                 }
 
                 break;
+            }
+            CustomerService service = new CustomerService();
+
+            BindingData(service.GetEmptyData());
+        }
+
+        private void findByFirstNameToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //FindForm find = new FindForm();
+            //find.ShowDialog();
+            //string name = find.LastName;
+            //CustomerService customer = new CustomerService();
+            //BindingData(customer.GetCustomersByFirstName(name));
+        }
+
+        private void findByBirthdayToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FindByBirthday findByBirthday = new FindByBirthday();
+            if (findByBirthday.ShowDialog() == DialogResult.OK)
+            {
+                CustomerService customer = new CustomerService();
+                BindingData(customer.GetCustomersByBirthdayWithPredicate(findByBirthday.BithDay, findByBirthday.Predicate));
+            }
+        }
+
+        private void findByAddressToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FindForm find = new FindForm();
+            find.ShowDialog();
+            string name = find.LastName;
+            CustomerService customer = new CustomerService();
+            customer.GetCustomerByAddress(name);
+        }
+
+        private void findByInvalidsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FindByGlossary find = new FindByGlossary(_benefitsBindingSource);
+            find.ShowDialog();
+            int id = find._ID;
+            CustomerService customer = new CustomerService();
+            BindingData(customer.GetCustomerByBenefitsCategory(id));
+        }
+
+        private void landsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            
+            string glossary = ((ToolStripMenuItem)sender).Tag.ToString();
+            DialogResult result = DialogResult.No;
+            if (string.Equals(glossary, "regType"))
+            {
+                GlossaryForm glossaryForm = new GlossaryForm("Тип регистрации", _registerTypeBindingSource);
+                result = glossaryForm.ShowDialog();
+            }
+            else if (string.Equals(glossary, "Disability"))
+            {
+                GlossaryForm glossaryForm = new GlossaryForm("Группа инвалидности", _disabilityBindingSource);
+                result = glossaryForm.ShowDialog();
+            }
+            else if (string.Equals(glossary, "apppTpr"))
+            {
+                GlossaryForm glossaryForm = new GlossaryForm("АППП/ТПР", _apppTprBindingSource);
+                result = glossaryForm.ShowDialog();
+            }
+            else if (string.Equals(glossary, "Benefits"))
+            {
+                GlossaryForm glossaryForm = new GlossaryForm("Льготы", _benefitsBindingSource);
+                result = glossaryForm.ShowDialog();
+            }
+            else if (string.Equals(glossary, "chiperRecept"))
+            {
+                GlossaryForm glossaryForm = new GlossaryForm("Шифр рецепта", _chiperBindingSource);
+                result = glossaryForm.ShowDialog();
+            }
+            else if (string.Equals(glossary, "Land"))
+            {
+                GlossaryForm glossaryForm = new GlossaryForm("Участок", _landBindingSource);
+                result = glossaryForm.ShowDialog();
+            }
+            else if (string.Equals(glossary, "whyDeReg"))
+            {
+                GlossaryForm glossaryForm = new GlossaryForm("Причина снятия с учета", _whyDeRegisterBindingSource);
+                result = glossaryForm.ShowDialog();
             }
         }
     }
