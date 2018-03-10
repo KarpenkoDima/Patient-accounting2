@@ -900,7 +900,7 @@ namespace SOPB.GUI
 
         private void findByAddressToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FindForm find = new FindForm();
+            FindForm find = new FindForm("Адрес");
             find.ShowDialog();
             string name = find.LastName;
             CustomerService customer = new CustomerService();

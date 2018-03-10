@@ -32,12 +32,14 @@
             this.textBoxLastName = new System.Windows.Forms.TextBox();
             this.buttonOk = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
+            this.FindGroupBox = new System.Windows.Forms.GroupBox();
+            this.FindGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 33);
+            this.label1.Location = new System.Drawing.Point(6, 61);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(58, 13);
             this.label1.TabIndex = 0;
@@ -45,14 +47,15 @@
             // 
             // textBoxLastName
             // 
-            this.textBoxLastName.Location = new System.Drawing.Point(85, 30);
+            this.textBoxLastName.Location = new System.Drawing.Point(90, 58);
             this.textBoxLastName.Name = "textBoxLastName";
-            this.textBoxLastName.Size = new System.Drawing.Size(181, 20);
+            this.textBoxLastName.Size = new System.Drawing.Size(158, 20);
             this.textBoxLastName.TabIndex = 1;
             // 
             // buttonOk
             // 
-            this.buttonOk.Location = new System.Drawing.Point(12, 144);
+            this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonOk.Location = new System.Drawing.Point(6, 126);
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(75, 23);
             this.buttonOk.TabIndex = 2;
@@ -62,14 +65,31 @@
             // 
             // buttonCancel
             // 
+            this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.AutoEllipsis = true;
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(191, 144);
+            this.buttonCancel.Location = new System.Drawing.Point(173, 126);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 3;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
+            // 
+            // FindGroupBox
+            // 
+            this.FindGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.FindGroupBox.Controls.Add(this.textBoxLastName);
+            this.FindGroupBox.Controls.Add(this.buttonOk);
+            this.FindGroupBox.Controls.Add(this.label1);
+            this.FindGroupBox.Controls.Add(this.buttonCancel);
+            this.FindGroupBox.Location = new System.Drawing.Point(12, 12);
+            this.FindGroupBox.Name = "FindGroupBox";
+            this.FindGroupBox.Size = new System.Drawing.Size(254, 155);
+            this.FindGroupBox.TabIndex = 4;
+            this.FindGroupBox.TabStop = false;
+            this.FindGroupBox.Text = "Критерий поиска";
             // 
             // FindForm
             // 
@@ -78,14 +98,17 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(278, 179);
-            this.Controls.Add(this.buttonCancel);
-            this.Controls.Add(this.buttonOk);
-            this.Controls.Add(this.textBoxLastName);
-            this.Controls.Add(this.label1);
+            this.ControlBox = false;
+            this.Controls.Add(this.FindGroupBox);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "FindForm";
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FindForm";
+            this.FindGroupBox.ResumeLayout(false);
+            this.FindGroupBox.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -95,5 +118,6 @@
         private System.Windows.Forms.TextBox textBoxLastName;
         private System.Windows.Forms.Button buttonOk;
         private System.Windows.Forms.Button buttonCancel;
+        private System.Windows.Forms.GroupBox FindGroupBox;
     }
 }
