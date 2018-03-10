@@ -51,12 +51,15 @@ namespace SOPB.DALUnitTestProject.AccessDataTest
         }
 
         [TestMethod]
-        public void CustomerAccess_GetCustomersByLastName_TestMethod()
+        [DataRow("Bogodur")]
+        [DataRow("Ленин")]
+        [DataRow("")]
+        public void CustomerAccess_GetCustomersByLastName_TestMethod(string lastName)
         {
             SqlConnection connection = ConnectionManager.Connection;
             connection.Open();
             CustomerAccess.FillDictionary();
-            CustomerAccess.GetCustomersByLastName("Bogodur");
+            CustomerAccess.GetCustomersByLastName(lastName);
             DataSet dataSet = (DataSet)CustomerAccess.GetData();
             Assert.IsTrue(dataSet.Tables["Customer"].Rows.Count > 0);
         }

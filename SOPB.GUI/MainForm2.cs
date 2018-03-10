@@ -864,7 +864,8 @@ namespace SOPB.GUI
                 if (result == Cancel)
                 {
                     this.Close();
-                    break;
+                    
+                    return;
                 }
                 if (result == Retry)
                 {
