@@ -909,11 +909,12 @@ namespace SOPB.GUI
 
         private void findByInvalidsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FindByGlossary find = new FindByGlossary(_benefitsBindingSource);
+            string name =  ((ToolStripMenuItem)sender).Tag.ToString();
+            FindByGlossary find = new FindByGlossary(GetSource(name), name);
             find.ShowDialog();
             int id = find._ID;
             CustomerService customer = new CustomerService();
-            BindingData(customer.GetCustomerByGlossary("BenefitsCategory", id));
+            BindingData(customer.GetCustomerByGlossary(name, id));
         }
 
         private void landsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -957,5 +958,26 @@ namespace SOPB.GUI
                 result = glossaryForm.ShowDialog();
             }
         }
+
+
+        #region My Functions
+
+        private BindingSource GetSource(string name)
+        {
+            switch (name.ToUpper())
+            {
+                case "BENEFITSCATEGORY":
+                    return _benefitsBindingSource;
+                case "LAND":
+                    return _landBindingSource;
+                case "APPPTPR":
+                    return _apppTprBindingSource;
+
+            }
+
+            return _benefitsBindingSource;
+        }
+
+        #endregion
     }
 }

@@ -178,6 +178,7 @@
             this.helpToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.errorProviderRegDate = new System.Windows.Forms.ErrorProvider(this.components);
+            this.findByLandToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -1265,8 +1266,8 @@
             this.fileToolStripMenuItem,
             this.editToolStripMenuItem,
             this.toolsToolStripMenuItem,
-            this.helpToolStripMenuItem,
-            this.glossayToolStripMenuItem});
+            this.glossayToolStripMenuItem,
+            this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1008, 24);
@@ -1446,7 +1447,8 @@
             this.findByBirthdayToolStripMenuItem,
             this.findByAddressToolStripMenuItem,
             this.findByAPPPTPRToolStripMenuItem,
-            this.findByInvalidsToolStripMenuItem});
+            this.findByInvalidsToolStripMenuItem,
+            this.findByLandToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
             this.toolsToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
             this.toolsToolStripMenuItem.Text = "&Tools";
@@ -1495,12 +1497,15 @@
             // 
             this.findByAPPPTPRToolStripMenuItem.Name = "findByAPPPTPRToolStripMenuItem";
             this.findByAPPPTPRToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.findByAPPPTPRToolStripMenuItem.Tag = "APPPTPR";
             this.findByAPPPTPRToolStripMenuItem.Text = "Find By APPP/TPR";
+            this.findByAPPPTPRToolStripMenuItem.Click += new System.EventHandler(this.findByInvalidsToolStripMenuItem_Click);
             // 
             // findByInvalidsToolStripMenuItem
             // 
             this.findByInvalidsToolStripMenuItem.Name = "findByInvalidsToolStripMenuItem";
             this.findByInvalidsToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.findByInvalidsToolStripMenuItem.Tag = "BenefitsCategory";
             this.findByInvalidsToolStripMenuItem.Text = "Find By Invalids";
             this.findByInvalidsToolStripMenuItem.Click += new System.EventHandler(this.findByInvalidsToolStripMenuItem_Click);
             // 
@@ -1795,6 +1800,14 @@
             // 
             this.errorProviderRegDate.ContainerControl = this;
             // 
+            // findByLandToolStripMenuItem
+            // 
+            this.findByLandToolStripMenuItem.Name = "findByLandToolStripMenuItem";
+            this.findByLandToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.findByLandToolStripMenuItem.Tag = "Land";
+            this.findByLandToolStripMenuItem.Text = "Find by #Land";
+            this.findByLandToolStripMenuItem.Click += new System.EventHandler(this.findByInvalidsToolStripMenuItem_Click);
+            // 
             // MainForm2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2004,5 +2017,6 @@
         private System.Windows.Forms.ToolStripMenuItem whyDeRegisterToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem apppTPRToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem benefitsCategoryToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem findByLandToolStripMenuItem;
     }
 }

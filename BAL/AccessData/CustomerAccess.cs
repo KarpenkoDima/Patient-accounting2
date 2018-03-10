@@ -224,6 +224,14 @@ namespace BAL.AccessData
             parametersInv[2] = new SqlParameter(parameters[2].ParameterName, parameters[2].SqlDbType, parameters[2].Size);
             parametersInv[2].Value = parameters[2].Value;
 
+            SqlParameter[] parametersInvBenefits = new SqlParameter[3];
+            parametersInvBenefits[0] = new SqlParameter(parameters[0].ParameterName, parameters[0].SqlDbType);
+            parametersInvBenefits[0].Value = parameters[0].Value;
+            parametersInvBenefits[1] = new SqlParameter(parameters[1].ParameterName, parameters[1].SqlDbType);
+            parametersInvBenefits[1].Value = parameters[1].Value;
+            parametersInvBenefits[2] = new SqlParameter(parameters[2].ParameterName, parameters[2].SqlDbType, parameters[2].Size);
+            parametersInvBenefits[2].Value = parameters[2].Value;
+
             SqlParameter[] parametersReg = new SqlParameter[3];
             parametersReg[0] = new SqlParameter(parameters[0].ParameterName, parameters[0].SqlDbType);
             parametersReg[0].Value = parameters[0].Value;
@@ -245,6 +253,7 @@ namespace BAL.AccessData
                 {
                     transactionWork.Execute(_tables.CustomerDataTable, "uspGetCustomerByBirthOfDay", parameters);
                     transactionWork.Execute(_tables.InvalidDataTable, "uspGetInvalidByBirthOfDay", parametersInv);
+                    transactionWork.Execute(_tables.InvalidBenefitsDataTable, "uspGetInvalidBenefitsByBirthOfDay", parametersInvBenefits);
                     transactionWork.Execute(_tables.RegisterDataTable, "uspGetRegisterByBirthOfDay", parametersReg);
                     transactionWork.Execute(_tables.AddressDataTable, "uspGetAddressByBirthOfDay", parametersAddr);
                     transactionWork.Commit();
@@ -282,6 +291,13 @@ namespace BAL.AccessData
             parameterInv.DbType = DbType.Int32;
             parameterInv.ParameterName = "@ID";
             parameterInv.Value = criteria;
+
+            string storageProcedureNameInvBenefits = string.Format("uspGet{0}By{1}", "InvalidBenefits", glossaryName);
+            SqlParameter parameterInvBenefits = new SqlParameter();
+            parameterInvBenefits.DbType = DbType.Int32;
+            parameterInvBenefits.ParameterName = "@ID";
+            parameterInvBenefits.Value = criteria;
+
             string storageProcedureNameAddr = string.Format("uspGet{0}By{1}", "Address", glossaryName);
             SqlParameter parameterAddr = new SqlParameter();
             parameterAddr.DbType = DbType.Int32;
@@ -294,6 +310,7 @@ namespace BAL.AccessData
                     transactionWork.Execute(_tables.CustomerDataTable, storageProcedureName, parameter);
                     transactionWork.Execute(_tables.RegisterDataTable, storageProcedureNameReg, parameterReg);
                     transactionWork.Execute(_tables.InvalidDataTable, storageProcedureNameInv, parameterInv);
+                    transactionWork.Execute(_tables.InvalidBenefitsDataTable, storageProcedureNameInvBenefits, parameterInvBenefits);
                     transactionWork.Execute(_tables.AddressDataTable, storageProcedureNameAddr, parameterAddr);
                     transactionWork.Commit();
                 }
@@ -357,6 +374,14 @@ namespace BAL.AccessData
             parameterCityInv.DbType = DbType.String;
             parameterCityInv.Size = 100;
             parameterCityInv.ParameterName = "@city";
+            SqlParameter parameterInvBenefits = new SqlParameter();
+            parameterInvBenefits.DbType = DbType.String;
+            parameterInvBenefits.Size = 100;
+            parameterInvBenefits.ParameterName = parameterName;
+            SqlParameter parameterCityInvBenefits = new SqlParameter();
+            parameterCityInvBenefits.DbType = DbType.String;
+            parameterCityInvBenefits.Size = 100;
+            parameterCityInvBenefits.ParameterName = "@city";
             SqlParameter parameterAddr = new SqlParameter();
             parameterAddr.DbType = DbType.String;
             parameterAddr.Size = 100;
@@ -373,6 +398,8 @@ namespace BAL.AccessData
                 parameterCityReg.Value = "";
                 parameterInv.Value = value;
                 parameterCityInv.Value = "";
+                parameterCityInvBenefits.Value = "";
+                parameterInvBenefits.Value = value;
                 parameterAddr.Value = value;
                 parameterCityAddr.Value = "";
                 using (transactionWork = (TransactionWork)TransactionFactory.Create())
@@ -380,6 +407,7 @@ namespace BAL.AccessData
                     transactionWork.Execute(_tables.CustomerDataTable, storageProcedureName, parameter, parameterCity);
                     transactionWork.Execute(_tables.RegisterDataTable, "uspGetRegisterByAddress", parameterReg, parameterCityReg);
                     transactionWork.Execute(_tables.InvalidDataTable,  "uspGetInvalidByAddress", parameterInv, parameterCityInv);
+                    transactionWork.Execute(_tables.InvalidBenefitsDataTable, "uspGetInvalidBenefitsByAddress", parameterInvBenefits, parameterCityInvBenefits);
                     transactionWork.Execute(_tables.AddressDataTable, "uspGetAddress", parameterAddr, parameterCityAddr);
                     transactionWork.Commit();
                 }

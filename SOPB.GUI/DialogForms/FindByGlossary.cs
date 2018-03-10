@@ -18,14 +18,15 @@ namespace SOPB.GUI.DialogForms
         {
             get;private set;
         }
-        public FindByGlossary(BindingSource glossary)
+        public FindByGlossary(BindingSource glossary, string name)
         {
             InitializeComponent();
             _glossary = glossary;
             comboBoxGlossary.DataSource = _glossary;
-            comboBoxGlossary.ValueMember = "BenefitsCategoryID";
+
+            comboBoxGlossary.ValueMember = name + "ID";
             comboBoxGlossary.DataBindings.Clear();
-            comboBoxGlossary.DataBindings.Add("SelectedValue", _glossary, "BenefitsCategoryID");
+            comboBoxGlossary.DataBindings.Add("SelectedValue", _glossary, name +"ID");
             comboBoxGlossary.DisplayMember = "Name";
         }
 

@@ -161,7 +161,7 @@ namespace BAL.DataTables
             #region APPP Date Table
 
             DataColumn apppColumn = new DataColumn("APPPTPRID");
-            apppColumn.ReadOnly = false;
+            apppColumn.ReadOnly = true;
             apppColumn.AllowDBNull = false;
             apppColumn.AutoIncrement = true;
             apppColumn.AutoIncrementSeed = -1;

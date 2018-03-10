@@ -57,6 +57,8 @@ namespace BAL.ORM
                         case Predicate.Between:
                             MakeEquals(criteria);
                             break;
+                        default: MakeWithPredicate(criteria);
+                            break;
                     }
             }
             return CustomerAccess.GetData();
