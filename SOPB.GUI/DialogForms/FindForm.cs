@@ -22,8 +22,33 @@ namespace SOPB.GUI.DialogForms
 
         private void buttonOk_Click(object sender, EventArgs e)
         {
-            LastName = textBoxLastName.Text;
-            this.Close();
+            if (string.IsNullOrEmpty(textBoxLastName.Text))
+            {
+                this.DialogResult = MessageBox.Show(@"Вы не ввели текст для поиска! Повторить ввод?", @"Пустая Строка", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                ClearTextBox();
+                if (this.DialogResult == DialogResult.No)
+                {
+                    LastName = String.Empty;
+                    this.Close();
+                }
+
+            }
+            else
+            {
+                 LastName = textBoxLastName.Text;
+                DialogResult = DialogResult.OK;
+                this.Close();
+            }
+        }
+        private void ClearTextBox()
+        {
+            textBoxLastName.Clear();
+        }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            base.OnClosing(e);
+            if ((DialogResult == DialogResult.Yes)) e.Cancel = true;
         }
     }
 }

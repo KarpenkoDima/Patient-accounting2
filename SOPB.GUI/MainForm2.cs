@@ -782,10 +782,12 @@ namespace SOPB.GUI
         private void findToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FindForm find = new FindForm();
-            find.ShowDialog();
-            string lName = find.LastName;
-            CustomerService customer = new CustomerService();
-           customer.GetCustomersByLastName(lName);
+            if (find.ShowDialog() == DialogResult.OK)
+            {
+                string lName = find.LastName;
+                CustomerService customer = new CustomerService();
+                customer.GetCustomersByLastName(lName);
+            }
         }
 
         private void toolStripButton1_Click(object sender, EventArgs e)
@@ -901,10 +903,12 @@ namespace SOPB.GUI
         private void findByAddressToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FindForm find = new FindForm("Адрес");
-            find.ShowDialog();
-            string name = find.LastName;
-            CustomerService customer = new CustomerService();
-            customer.GetCustomerByAddress(name);
+            if (find.ShowDialog() == DialogResult.OK)
+            {
+                string name = find.LastName;
+                CustomerService customer = new CustomerService();
+                customer.GetCustomerByAddress(name);
+            }
         }
 
         private void findByInvalidsToolStripMenuItem_Click(object sender, EventArgs e)

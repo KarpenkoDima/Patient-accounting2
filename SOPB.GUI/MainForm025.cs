@@ -421,7 +421,8 @@ namespace SOPB.GUI
         private void findToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FindForm find = new FindForm();
-            find.ShowDialog();
+            
+            if(find.ShowDialog()== DialogResult.Cancel)return;
             string lName = find.LastName;
             CustomerService customer = new CustomerService();
             BindingData(customer.GetCustomersByLastName(lName));
