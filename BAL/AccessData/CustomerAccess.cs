@@ -408,7 +408,7 @@ namespace BAL.AccessData
                     transactionWork.Execute(_tables.RegisterDataTable, "uspGetRegisterByAddress", parameterReg, parameterCityReg);
                     transactionWork.Execute(_tables.InvalidDataTable,  "uspGetInvalidByAddress", parameterInv, parameterCityInv);
                     transactionWork.Execute(_tables.InvalidBenefitsDataTable, "uspGetInvalidBenefitsByAddress", parameterInvBenefits, parameterCityInvBenefits);
-                    transactionWork.Execute(_tables.AddressDataTable, "uspGetAddress", parameterAddr, parameterCityAddr);
+                    transactionWork.Execute(_tables.AddressDataTable, "uspGetAddress", parameterAddr,parameterCityAddr);
                     transactionWork.Commit();
                 }
             }

@@ -23,15 +23,17 @@ namespace SOPB.GUI.DialogForms
 
         private void buttonOK_Click(object sender, EventArgs e)
         {
-            if (maskedTextBoxBirthOfDay.Text.Length <= 0)
+            DateTime bithDay;
+            if (maskedTextBoxBirthOfDay.Text.Length <= 0 || !DateTime.TryParse(maskedTextBoxBirthOfDay.Text, out bithDay))
             {
-                this.DialogResult = MessageBox.Show(@"Вы не ввели дату рождения! \n Повторить ввод?", @"Пустая Дата", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                this.DialogResult = MessageBox.Show(@"Вы не ввели дату рождения! \n Повторить ввод?", @"Пустая Дата", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 ClearTextBox();
-                if(this.DialogResult == DialogResult.Cancel)
+                if(this.DialogResult == DialogResult.No)
                 {
                     Predicate =String.Empty;
                     this.Close();
                 }
+                
             }
             else
             {
@@ -40,12 +42,17 @@ namespace SOPB.GUI.DialogForms
                 DialogResult = DialogResult.OK;
                 this.Close();
             }
-
         }
         private void ClearTextBox()
         {
             comboBoxPreicate.SelectedIndex = 0;
             maskedTextBoxBirthOfDay.Clear();
+        }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            base.OnClosing(e);
+            if ((DialogResult == DialogResult.Yes) ) e.Cancel = true;
         }
     }
 }

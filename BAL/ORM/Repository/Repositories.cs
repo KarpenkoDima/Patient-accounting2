@@ -73,38 +73,10 @@ namespace BAL.ORM.Repository
 
         public object GetCustomerBy<T>(NewCriteria<T> newCriteria) where T : IComparable<T>
         {
-            
             Query<T> query;
-            switch (newCriteria.Predicate)
-            {
-                case Predicate.Equals:
-                    query = new CustomerQuery<T>();
-                    query.Criterias(newCriteria);
-                    return query.Execute();
-
-                case Predicate.GreatThan:
-                    query = new CustomerQuery<T>();
-                    query.Criterias(newCriteria);
-                    return query.Execute();
-                   
-                    //case Predicate.LessThan:
-                    //    query = new CustomerQuery<T>();
-                    //    query.Criterias(newCriteria);
-                    //    query.Execute(Tables.CustomerDataTable);
-                    //    break;
-                    //case Predicate.GeatThanOrEquals:
-                    //    query = new CustomerQuery<T>();
-                    //    query.Criterias(newCriteria);
-                    //    query.Execute(Tables.CustomerDataTable);
-                    //    break;
-                    //case Predicate.LessThanOrEquals:
-                    //    query = new CustomerQuery<T>();
-                    //    query.Criterias(newCriteria);
-                    //    query.Execute(Tables.CustomerDataTable);
-                    //    break;
-            }
-
-            return null;
+            query = new CustomerQuery<T>();
+            query.Criterias(newCriteria);
+            return query.Execute();
         }
         public object FindByBetween(object criteria, T start, T end)
         {

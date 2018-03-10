@@ -912,6 +912,7 @@ namespace SOPB.GUI
             string name =  ((ToolStripMenuItem)sender).Tag.ToString();
             FindByGlossary find = new FindByGlossary(GetSource(name), name);
             find.ShowDialog();
+           
             int id = find._ID;
             CustomerService customer = new CustomerService();
             BindingData(customer.GetCustomerByGlossary(name, id));
