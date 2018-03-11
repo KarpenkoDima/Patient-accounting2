@@ -134,6 +134,7 @@
             this.pasteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.selectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportToToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.customizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -178,8 +179,16 @@
             this.helpToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.errorProviderRegDate = new System.Windows.Forms.ErrorProvider(this.components);
-            this.exportToToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.textBoxCustomerNotaBene = new System.Windows.Forms.TextBox();
+            this.textBoxRegisterNotaBene = new System.Windows.Forms.TextBox();
+            this.disabilityGroupsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.maskedTextBoxDateInvalid = new System.Windows.Forms.MaskedTextBox();
+            this.maskedTextBoxPeriodInvalid = new System.Windows.Forms.MaskedTextBox();
+            this.maskedTextBoxDateIncapable = new System.Windows.Forms.MaskedTextBox();
+            this.labelDateInvalid = new System.Windows.Forms.Label();
+            this.labelPeriodInvalid = new System.Windows.Forms.Label();
+            this.labelDateIncapable = new System.Windows.Forms.Label();
             this.boundChkBoxBenefits = new SOPB.GUI.UserControls.BoundCheckedListBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -202,6 +211,8 @@
             this.groupBox4.SuspendLayout();
             this.tableLayoutPanel8.SuspendLayout();
             this.CustomertabControl.SuspendLayout();
+            this.customerTabPage.SuspendLayout();
+            this.registerTabPage.SuspendLayout();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel12.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.customerDataGridView)).BeginInit();
@@ -446,6 +457,7 @@
             this.textBoxNumberApartment.Name = "textBoxNumberApartment";
             this.textBoxNumberApartment.Size = new System.Drawing.Size(100, 20);
             this.textBoxNumberApartment.TabIndex = 12;
+            this.textBoxNumberApartment.Validated += new System.EventHandler(this.Address_Validated);
             // 
             // label8
             // 
@@ -466,6 +478,7 @@
             this.textBoxNumberHouse.Name = "textBoxNumberHouse";
             this.textBoxNumberHouse.Size = new System.Drawing.Size(57, 20);
             this.textBoxNumberHouse.TabIndex = 11;
+            this.textBoxNumberHouse.Validated += new System.EventHandler(this.Address_Validated);
             // 
             // label10
             // 
@@ -496,6 +509,7 @@
             this.textBoxNameStreet.Name = "textBoxNameStreet";
             this.textBoxNameStreet.Size = new System.Drawing.Size(232, 20);
             this.textBoxNameStreet.TabIndex = 10;
+            this.textBoxNameStreet.Validated += new System.EventHandler(this.Address_Validated);
             // 
             // label9
             // 
@@ -516,6 +530,7 @@
             this.textBoxCity.Name = "textBoxCity";
             this.textBoxCity.Size = new System.Drawing.Size(232, 20);
             this.textBoxCity.TabIndex = 9;
+            this.textBoxCity.Validated += new System.EventHandler(this.Address_Validated);
             // 
             // labelRegion
             // 
@@ -536,13 +551,14 @@
             this.textBoxRegion.Name = "textBoxRegion";
             this.textBoxRegion.Size = new System.Drawing.Size(232, 20);
             this.textBoxRegion.TabIndex = 9;
+            this.textBoxRegion.Validated += new System.EventHandler(this.Address_Validated);
             // 
             // tableLayoutPanel7
             // 
             this.tableLayoutPanel7.ColumnCount = 8;
             this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10.96346F));
-            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 13.62126F));
-            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15.77287F));
+            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 17.9661F));
+            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 11.18644F));
             this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25.55205F));
             this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 79F));
             this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 85F));
@@ -566,7 +582,7 @@
             // 
             this.checkBoxInCapability.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.checkBoxInCapability.AutoSize = true;
-            this.checkBoxInCapability.Location = new System.Drawing.Point(360, 4);
+            this.checkBoxInCapability.Location = new System.Drawing.Point(361, 4);
             this.checkBoxInCapability.Name = "checkBoxInCapability";
             this.checkBoxInCapability.Size = new System.Drawing.Size(117, 17);
             this.checkBoxInCapability.TabIndex = 0;
@@ -587,7 +603,7 @@
             // 
             this.label15.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(196, 6);
+            this.label15.Location = new System.Drawing.Point(197, 6);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(65, 13);
             this.label15.TabIndex = 0;
@@ -597,7 +613,7 @@
             // 
             this.checkBoxArch.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.checkBoxArch.AutoSize = true;
-            this.checkBoxArch.Location = new System.Drawing.Point(275, 4);
+            this.checkBoxArch.Location = new System.Drawing.Point(276, 4);
             this.checkBoxArch.Name = "checkBoxArch";
             this.checkBoxArch.Size = new System.Drawing.Size(56, 17);
             this.checkBoxArch.TabIndex = 1;
@@ -670,7 +686,7 @@
             this.tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 46.03175F));
             this.tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 53.96825F));
             this.tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 18F));
-            this.tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 214F));
+            this.tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 227F));
             this.tableLayoutPanel11.Controls.Add(this.textBoxCodeCustomer, 3, 0);
             this.tableLayoutPanel11.Controls.Add(this.textBoxMedCard, 1, 0);
             this.tableLayoutPanel11.Controls.Add(this.labelCodePacient, 0, 0);
@@ -687,7 +703,7 @@
             // 
             this.textBoxCodeCustomer.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.textBoxCodeCustomer.Location = new System.Drawing.Point(157, 3);
+            this.textBoxCodeCustomer.Location = new System.Drawing.Point(144, 3);
             this.textBoxCodeCustomer.Name = "textBoxCodeCustomer";
             this.textBoxCodeCustomer.Size = new System.Drawing.Size(141, 20);
             this.textBoxCodeCustomer.TabIndex = 2;
@@ -696,9 +712,9 @@
             // textBoxMedCard
             // 
             this.textBoxMedCard.Dock = System.Windows.Forms.DockStyle.Left;
-            this.textBoxMedCard.Location = new System.Drawing.Point(66, 3);
+            this.textBoxMedCard.Location = new System.Drawing.Point(60, 3);
             this.textBoxMedCard.Name = "textBoxMedCard";
-            this.textBoxMedCard.Size = new System.Drawing.Size(67, 20);
+            this.textBoxMedCard.Size = new System.Drawing.Size(60, 20);
             this.textBoxMedCard.TabIndex = 1;
             this.textBoxMedCard.Validated += new System.EventHandler(this.Cusrtomer_Validated);
             // 
@@ -706,9 +722,9 @@
             // 
             this.labelCodePacient.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.labelCodePacient.AutoSize = true;
-            this.labelCodePacient.Location = new System.Drawing.Point(3, 1);
+            this.labelCodePacient.Location = new System.Drawing.Point(3, 0);
             this.labelCodePacient.Name = "labelCodePacient";
-            this.labelCodePacient.Size = new System.Drawing.Size(57, 26);
+            this.labelCodePacient.Size = new System.Drawing.Size(51, 28);
             this.labelCodePacient.TabIndex = 1;
             this.labelCodePacient.Text = "Код пациента";
             // 
@@ -717,7 +733,7 @@
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(139, 0);
+            this.label2.Location = new System.Drawing.Point(126, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(12, 28);
             this.label2.TabIndex = 6;
@@ -900,12 +916,13 @@
             // 
             // tableLayoutPanel8
             // 
-            this.tableLayoutPanel8.ColumnCount = 5;
+            this.tableLayoutPanel8.ColumnCount = 6;
             this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 26.57744F));
             this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 21.60612F));
-            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.6348F));
-            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 35.18164F));
-            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 165F));
+            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20.46632F));
+            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 31.34715F));
+            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 106F));
+            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 102F));
             this.tableLayoutPanel8.Controls.Add(this.label14, 0, 0);
             this.tableLayoutPanel8.Controls.Add(this.label18, 0, 3);
             this.tableLayoutPanel8.Controls.Add(this.label19, 2, 0);
@@ -922,6 +939,12 @@
             this.tableLayoutPanel8.Controls.Add(this.comboBoxFirstDeRegisterType, 3, 1);
             this.tableLayoutPanel8.Controls.Add(this.comboBoxSecondRegisterType, 3, 2);
             this.tableLayoutPanel8.Controls.Add(this.label21, 2, 1);
+            this.tableLayoutPanel8.Controls.Add(this.maskedTextBoxDateInvalid, 5, 0);
+            this.tableLayoutPanel8.Controls.Add(this.maskedTextBoxPeriodInvalid, 5, 1);
+            this.tableLayoutPanel8.Controls.Add(this.maskedTextBoxDateIncapable, 5, 2);
+            this.tableLayoutPanel8.Controls.Add(this.labelDateInvalid, 4, 0);
+            this.tableLayoutPanel8.Controls.Add(this.labelPeriodInvalid, 4, 1);
+            this.tableLayoutPanel8.Controls.Add(this.labelDateIncapable, 4, 2);
             this.tableLayoutPanel8.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel8.Location = new System.Drawing.Point(3, 16);
             this.tableLayoutPanel8.Name = "tableLayoutPanel8";
@@ -930,6 +953,7 @@
             this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25.80645F));
             this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 23.65591F));
             this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel8.Size = new System.Drawing.Size(594, 112);
             this.tableLayoutPanel8.TabIndex = 3;
             // 
@@ -937,10 +961,10 @@
             // 
             this.label14.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label14.AutoSize = true;
-            this.label14.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.label14.BackColor = System.Drawing.SystemColors.Window;
             this.label14.Location = new System.Drawing.Point(3, 1);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(108, 26);
+            this.label14.Size = new System.Drawing.Size(96, 26);
             this.label14.TabIndex = 0;
             this.label14.Text = "Взят на учёт 1-й раз";
             // 
@@ -948,30 +972,36 @@
             // 
             this.label18.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label18.AutoSize = true;
+            this.label18.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.label18.Location = new System.Drawing.Point(3, 84);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(108, 26);
+            this.label18.Size = new System.Drawing.Size(96, 26);
             this.label18.TabIndex = 0;
             this.label18.Text = "Снят с учёта повторно";
             // 
             // label19
             // 
-            this.label19.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label19.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.label19.AutoSize = true;
-            this.label19.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.label19.Location = new System.Drawing.Point(209, 7);
+            this.label19.BackColor = System.Drawing.SystemColors.Window;
+            this.label19.Location = new System.Drawing.Point(188, 0);
             this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(65, 13);
+            this.label19.Size = new System.Drawing.Size(73, 28);
             this.label19.TabIndex = 0;
             this.label19.Text = "В связи";
             // 
             // label22
             // 
-            this.label22.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label22.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(209, 91);
+            this.label22.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.label22.Location = new System.Drawing.Point(188, 83);
             this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(65, 13);
+            this.label22.Size = new System.Drawing.Size(73, 29);
             this.label22.TabIndex = 0;
             this.label22.Text = "По причине";
             // 
@@ -980,10 +1010,10 @@
             this.maskedTextBoxFirstRegister.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.maskedTextBoxFirstRegister.Location = new System.Drawing.Point(117, 3);
+            this.maskedTextBoxFirstRegister.Location = new System.Drawing.Point(105, 3);
             this.maskedTextBoxFirstRegister.Mask = "00/00/0000";
             this.maskedTextBoxFirstRegister.Name = "maskedTextBoxFirstRegister";
-            this.maskedTextBoxFirstRegister.Size = new System.Drawing.Size(86, 20);
+            this.maskedTextBoxFirstRegister.Size = new System.Drawing.Size(77, 20);
             this.maskedTextBoxFirstRegister.TabIndex = 1;
             this.maskedTextBoxFirstRegister.ValidatingType = typeof(System.DateTime);
             this.maskedTextBoxFirstRegister.Validating += new System.ComponentModel.CancelEventHandler(this.maskedTextBoxFirstRegister_Validating);
@@ -994,10 +1024,10 @@
             this.maskedTextBoxSecondDeRegister.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.maskedTextBoxSecondDeRegister.Location = new System.Drawing.Point(117, 86);
+            this.maskedTextBoxSecondDeRegister.Location = new System.Drawing.Point(105, 86);
             this.maskedTextBoxSecondDeRegister.Mask = "00/00/0000";
             this.maskedTextBoxSecondDeRegister.Name = "maskedTextBoxSecondDeRegister";
-            this.maskedTextBoxSecondDeRegister.Size = new System.Drawing.Size(86, 20);
+            this.maskedTextBoxSecondDeRegister.Size = new System.Drawing.Size(77, 20);
             this.maskedTextBoxSecondDeRegister.TabIndex = 1;
             this.maskedTextBoxSecondDeRegister.ValidatingType = typeof(System.DateTime);
             this.maskedTextBoxSecondDeRegister.Validating += new System.ComponentModel.CancelEventHandler(this.maskedTextBoxSecondDeRegister_Validating);
@@ -1008,9 +1038,9 @@
             this.comboBoxFirstRegisterType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxFirstRegisterType.FormattingEnabled = true;
-            this.comboBoxFirstRegisterType.Location = new System.Drawing.Point(280, 3);
+            this.comboBoxFirstRegisterType.Location = new System.Drawing.Point(267, 3);
             this.comboBoxFirstRegisterType.Name = "comboBoxFirstRegisterType";
-            this.comboBoxFirstRegisterType.Size = new System.Drawing.Size(144, 21);
+            this.comboBoxFirstRegisterType.Size = new System.Drawing.Size(115, 21);
             this.comboBoxFirstRegisterType.TabIndex = 2;
             this.comboBoxFirstRegisterType.Validated += new System.EventHandler(this.Registred_Validated);
             // 
@@ -1020,9 +1050,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxSecondDeRegisterType.FormattingEnabled = true;
-            this.comboBoxSecondDeRegisterType.Location = new System.Drawing.Point(280, 86);
+            this.comboBoxSecondDeRegisterType.Location = new System.Drawing.Point(267, 86);
             this.comboBoxSecondDeRegisterType.Name = "comboBoxSecondDeRegisterType";
-            this.comboBoxSecondDeRegisterType.Size = new System.Drawing.Size(144, 21);
+            this.comboBoxSecondDeRegisterType.Size = new System.Drawing.Size(115, 21);
             this.comboBoxSecondDeRegisterType.TabIndex = 2;
             this.comboBoxSecondDeRegisterType.Validated += new System.EventHandler(this.Registred_Validated);
             // 
@@ -1030,9 +1060,10 @@
             // 
             this.label16.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label16.AutoSize = true;
+            this.label16.BackColor = System.Drawing.SystemColors.Window;
             this.label16.Location = new System.Drawing.Point(3, 57);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(108, 26);
+            this.label16.Size = new System.Drawing.Size(96, 26);
             this.label16.TabIndex = 0;
             this.label16.Text = "Взят на учёт повторно";
             // 
@@ -1041,10 +1072,10 @@
             this.maskedTextBoxSecondRegister.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.maskedTextBoxSecondRegister.Location = new System.Drawing.Point(117, 60);
+            this.maskedTextBoxSecondRegister.Location = new System.Drawing.Point(105, 60);
             this.maskedTextBoxSecondRegister.Mask = "00/00/0000";
             this.maskedTextBoxSecondRegister.Name = "maskedTextBoxSecondRegister";
-            this.maskedTextBoxSecondRegister.Size = new System.Drawing.Size(86, 20);
+            this.maskedTextBoxSecondRegister.Size = new System.Drawing.Size(77, 20);
             this.maskedTextBoxSecondRegister.TabIndex = 1;
             this.maskedTextBoxSecondRegister.ValidatingType = typeof(System.DateTime);
             this.maskedTextBoxSecondRegister.Validating += new System.ComponentModel.CancelEventHandler(this.maskedTextBoxSecondRegister_Validating);
@@ -1054,10 +1085,10 @@
             // 
             this.label17.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label17.AutoSize = true;
-            this.label17.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.label17.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.label17.Location = new System.Drawing.Point(3, 29);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(108, 26);
+            this.label17.Size = new System.Drawing.Size(96, 26);
             this.label17.TabIndex = 0;
             this.label17.Text = "Снят с учёта 1-й раз";
             // 
@@ -1066,10 +1097,10 @@
             this.maskedTextBoxFirstDeRegister.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.maskedTextBoxFirstDeRegister.Location = new System.Drawing.Point(117, 31);
+            this.maskedTextBoxFirstDeRegister.Location = new System.Drawing.Point(105, 31);
             this.maskedTextBoxFirstDeRegister.Mask = "00/00/0000";
             this.maskedTextBoxFirstDeRegister.Name = "maskedTextBoxFirstDeRegister";
-            this.maskedTextBoxFirstDeRegister.Size = new System.Drawing.Size(86, 20);
+            this.maskedTextBoxFirstDeRegister.Size = new System.Drawing.Size(77, 20);
             this.maskedTextBoxFirstDeRegister.TabIndex = 1;
             this.maskedTextBoxFirstDeRegister.ValidatingType = typeof(System.DateTime);
             this.maskedTextBoxFirstDeRegister.Validating += new System.ComponentModel.CancelEventHandler(this.maskedTextBoxFirstDeRegister_Validating);
@@ -1077,12 +1108,14 @@
             // 
             // label20
             // 
-            this.label20.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label20.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.label20.AutoSize = true;
-            this.label20.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.label20.Location = new System.Drawing.Point(209, 63);
+            this.label20.BackColor = System.Drawing.SystemColors.Window;
+            this.label20.Location = new System.Drawing.Point(188, 57);
             this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(65, 13);
+            this.label20.Size = new System.Drawing.Size(73, 26);
             this.label20.TabIndex = 0;
             this.label20.Text = "В связи";
             // 
@@ -1092,9 +1125,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxFirstDeRegisterType.FormattingEnabled = true;
-            this.comboBoxFirstDeRegisterType.Location = new System.Drawing.Point(280, 31);
+            this.comboBoxFirstDeRegisterType.Location = new System.Drawing.Point(267, 31);
             this.comboBoxFirstDeRegisterType.Name = "comboBoxFirstDeRegisterType";
-            this.comboBoxFirstDeRegisterType.Size = new System.Drawing.Size(144, 21);
+            this.comboBoxFirstDeRegisterType.Size = new System.Drawing.Size(115, 21);
             this.comboBoxFirstDeRegisterType.TabIndex = 2;
             this.comboBoxFirstDeRegisterType.Validated += new System.EventHandler(this.Registred_Validated);
             // 
@@ -1104,19 +1137,22 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxSecondRegisterType.FormattingEnabled = true;
-            this.comboBoxSecondRegisterType.Location = new System.Drawing.Point(280, 60);
+            this.comboBoxSecondRegisterType.Location = new System.Drawing.Point(267, 60);
             this.comboBoxSecondRegisterType.Name = "comboBoxSecondRegisterType";
-            this.comboBoxSecondRegisterType.Size = new System.Drawing.Size(144, 21);
+            this.comboBoxSecondRegisterType.Size = new System.Drawing.Size(115, 21);
             this.comboBoxSecondRegisterType.TabIndex = 2;
             this.comboBoxSecondRegisterType.Validated += new System.EventHandler(this.Registred_Validated);
             // 
             // label21
             // 
-            this.label21.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label21.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(209, 36);
+            this.label21.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.label21.Location = new System.Drawing.Point(188, 28);
             this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(65, 13);
+            this.label21.Size = new System.Drawing.Size(73, 29);
             this.label21.TabIndex = 0;
             this.label21.Text = "По причине";
             // 
@@ -1133,6 +1169,7 @@
             // 
             // customerTabPage
             // 
+            this.customerTabPage.Controls.Add(this.textBoxCustomerNotaBene);
             this.customerTabPage.Location = new System.Drawing.Point(4, 22);
             this.customerTabPage.Name = "customerTabPage";
             this.customerTabPage.Padding = new System.Windows.Forms.Padding(3);
@@ -1143,6 +1180,7 @@
             // 
             // registerTabPage
             // 
+            this.registerTabPage.Controls.Add(this.textBoxRegisterNotaBene);
             this.registerTabPage.Location = new System.Drawing.Point(4, 22);
             this.registerTabPage.Name = "registerTabPage";
             this.registerTabPage.Padding = new System.Windows.Forms.Padding(3);
@@ -1430,6 +1468,13 @@
             this.selectAllToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
             this.selectAllToolStripMenuItem.Text = "Select &All";
             // 
+            // exportToToolStripMenuItem
+            // 
+            this.exportToToolStripMenuItem.Name = "exportToToolStripMenuItem";
+            this.exportToToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.exportToToolStripMenuItem.Text = "Export To";
+            this.exportToToolStripMenuItem.Click += new System.EventHandler(this.exportToToolStripMenuItem_Click);
+            // 
             // toolsToolStripMenuItem
             // 
             this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -1518,7 +1563,8 @@
             this.chiperReceptToolStripMenuItem,
             this.whyDeRegisterToolStripMenuItem,
             this.apppTPRToolStripMenuItem,
-            this.benefitsCategoryToolStripMenuItem});
+            this.benefitsCategoryToolStripMenuItem,
+            this.disabilityGroupsToolStripMenuItem});
             this.glossayToolStripMenuItem.Name = "glossayToolStripMenuItem";
             this.glossayToolStripMenuItem.Size = new System.Drawing.Size(59, 20);
             this.glossayToolStripMenuItem.Text = "Glossay";
@@ -1526,42 +1572,49 @@
             // landsToolStripMenuItem
             // 
             this.landsToolStripMenuItem.Name = "landsToolStripMenuItem";
-            this.landsToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
+            this.landsToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
             this.landsToolStripMenuItem.Tag = "Land";
-            this.landsToolStripMenuItem.Text = "Lands";
+            this.landsToolStripMenuItem.Text = "Участок";
             this.landsToolStripMenuItem.Click += new System.EventHandler(this.landsToolStripMenuItem_Click);
             // 
             // registerTypeToolStripMenuItem
             // 
             this.registerTypeToolStripMenuItem.Name = "registerTypeToolStripMenuItem";
-            this.registerTypeToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
-            this.registerTypeToolStripMenuItem.Text = "Register Type";
+            this.registerTypeToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
+            this.registerTypeToolStripMenuItem.Tag = "regType";
+            this.registerTypeToolStripMenuItem.Text = "Тип Учёта";
+            this.registerTypeToolStripMenuItem.Click += new System.EventHandler(this.landsToolStripMenuItem_Click);
             // 
             // chiperReceptToolStripMenuItem
             // 
             this.chiperReceptToolStripMenuItem.Name = "chiperReceptToolStripMenuItem";
-            this.chiperReceptToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
+            this.chiperReceptToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
             this.chiperReceptToolStripMenuItem.Tag = "chiperRecept";
-            this.chiperReceptToolStripMenuItem.Text = "Chiper Recept";
+            this.chiperReceptToolStripMenuItem.Text = "Категория Льгот";
+            this.chiperReceptToolStripMenuItem.Click += new System.EventHandler(this.landsToolStripMenuItem_Click);
             // 
             // whyDeRegisterToolStripMenuItem
             // 
             this.whyDeRegisterToolStripMenuItem.Name = "whyDeRegisterToolStripMenuItem";
-            this.whyDeRegisterToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
-            this.whyDeRegisterToolStripMenuItem.Text = "Why De Register";
+            this.whyDeRegisterToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
+            this.whyDeRegisterToolStripMenuItem.Tag = "whyDeReg";
+            this.whyDeRegisterToolStripMenuItem.Text = "Причина Снятия с Учёта";
+            this.whyDeRegisterToolStripMenuItem.Click += new System.EventHandler(this.landsToolStripMenuItem_Click);
             // 
             // apppTPRToolStripMenuItem
             // 
             this.apppTPRToolStripMenuItem.Name = "apppTPRToolStripMenuItem";
-            this.apppTPRToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
-            this.apppTPRToolStripMenuItem.Text = "Appp TPR";
+            this.apppTPRToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
+            this.apppTPRToolStripMenuItem.Tag = "apppTpr";
+            this.apppTPRToolStripMenuItem.Text = "АППП/ТПР";
+            this.apppTPRToolStripMenuItem.Click += new System.EventHandler(this.landsToolStripMenuItem_Click);
             // 
             // benefitsCategoryToolStripMenuItem
             // 
             this.benefitsCategoryToolStripMenuItem.Name = "benefitsCategoryToolStripMenuItem";
-            this.benefitsCategoryToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
+            this.benefitsCategoryToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
             this.benefitsCategoryToolStripMenuItem.Tag = "Benefits";
-            this.benefitsCategoryToolStripMenuItem.Text = "Benefits Category";
+            this.benefitsCategoryToolStripMenuItem.Text = "Контингенты";
             this.benefitsCategoryToolStripMenuItem.Click += new System.EventHandler(this.landsToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
@@ -1633,7 +1686,7 @@
             this.MainBindingNavigator.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
             this.MainBindingNavigator.Name = "MainBindingNavigator";
             this.MainBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.MainBindingNavigator.Size = new System.Drawing.Size(442, 25);
+            this.MainBindingNavigator.Size = new System.Drawing.Size(411, 25);
             this.MainBindingNavigator.TabIndex = 1;
             // 
             // bindingNavigatorAddNewItem
@@ -1801,17 +1854,112 @@
             // 
             this.errorProviderRegDate.ContainerControl = this;
             // 
-            // exportToToolStripMenuItem
-            // 
-            this.exportToToolStripMenuItem.Name = "exportToToolStripMenuItem";
-            this.exportToToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
-            this.exportToToolStripMenuItem.Text = "Export To";
-            this.exportToToolStripMenuItem.Click += new System.EventHandler(this.exportToToolStripMenuItem_Click);
-            // 
             // backgroundWorker1
             // 
             this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
             this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
+            // 
+            // textBoxCustomerNotaBene
+            // 
+            this.textBoxCustomerNotaBene.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBoxCustomerNotaBene.Location = new System.Drawing.Point(3, 3);
+            this.textBoxCustomerNotaBene.Multiline = true;
+            this.textBoxCustomerNotaBene.Name = "textBoxCustomerNotaBene";
+            this.textBoxCustomerNotaBene.Size = new System.Drawing.Size(586, 78);
+            this.textBoxCustomerNotaBene.TabIndex = 0;
+            this.textBoxCustomerNotaBene.Validated += new System.EventHandler(this.Cusrtomer_Validated);
+            // 
+            // textBoxRegisterNotaBene
+            // 
+            this.textBoxRegisterNotaBene.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBoxRegisterNotaBene.Location = new System.Drawing.Point(3, 3);
+            this.textBoxRegisterNotaBene.Multiline = true;
+            this.textBoxRegisterNotaBene.Name = "textBoxRegisterNotaBene";
+            this.textBoxRegisterNotaBene.Size = new System.Drawing.Size(586, 78);
+            this.textBoxRegisterNotaBene.TabIndex = 0;
+            this.textBoxRegisterNotaBene.Validated += new System.EventHandler(this.Registred_Validated);
+            // 
+            // disabilityGroupsToolStripMenuItem
+            // 
+            this.disabilityGroupsToolStripMenuItem.Name = "disabilityGroupsToolStripMenuItem";
+            this.disabilityGroupsToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
+            this.disabilityGroupsToolStripMenuItem.Tag = "Disability";
+            this.disabilityGroupsToolStripMenuItem.Text = "Группы инвалидности";
+            this.disabilityGroupsToolStripMenuItem.Click += new System.EventHandler(this.landsToolStripMenuItem_Click);
+            // 
+            // maskedTextBoxDateInvalid
+            // 
+            this.maskedTextBoxDateInvalid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.maskedTextBoxDateInvalid.Location = new System.Drawing.Point(494, 3);
+            this.maskedTextBoxDateInvalid.Mask = "00/00/0000";
+            this.maskedTextBoxDateInvalid.Name = "maskedTextBoxDateInvalid";
+            this.maskedTextBoxDateInvalid.Size = new System.Drawing.Size(97, 20);
+            this.maskedTextBoxDateInvalid.TabIndex = 1;
+            this.maskedTextBoxDateInvalid.ValidatingType = typeof(System.DateTime);
+            this.maskedTextBoxDateInvalid.Validating += new System.ComponentModel.CancelEventHandler(this.maskedTextBoxDateInvalid_Validating);
+            this.maskedTextBoxDateInvalid.Validated += new System.EventHandler(this.Invalid_Validated);
+            // 
+            // maskedTextBoxPeriodInvalid
+            // 
+            this.maskedTextBoxPeriodInvalid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.maskedTextBoxPeriodInvalid.Location = new System.Drawing.Point(494, 31);
+            this.maskedTextBoxPeriodInvalid.Mask = "00/00/0000";
+            this.maskedTextBoxPeriodInvalid.Name = "maskedTextBoxPeriodInvalid";
+            this.maskedTextBoxPeriodInvalid.Size = new System.Drawing.Size(97, 20);
+            this.maskedTextBoxPeriodInvalid.TabIndex = 1;
+            this.maskedTextBoxPeriodInvalid.ValidatingType = typeof(System.DateTime);
+            this.maskedTextBoxPeriodInvalid.Validating += new System.ComponentModel.CancelEventHandler(this.maskedTextBoxPeriodInvalid_Validating);
+            this.maskedTextBoxPeriodInvalid.Validated += new System.EventHandler(this.Invalid_Validated);
+            // 
+            // maskedTextBoxDateIncapable
+            // 
+            this.maskedTextBoxDateIncapable.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.maskedTextBoxDateIncapable.Location = new System.Drawing.Point(494, 60);
+            this.maskedTextBoxDateIncapable.Mask = "00/00/0000";
+            this.maskedTextBoxDateIncapable.Name = "maskedTextBoxDateIncapable";
+            this.maskedTextBoxDateIncapable.Size = new System.Drawing.Size(97, 20);
+            this.maskedTextBoxDateIncapable.TabIndex = 1;
+            this.maskedTextBoxDateIncapable.ValidatingType = typeof(System.DateTime);
+            this.maskedTextBoxDateIncapable.Validated += new System.EventHandler(this.Invalid_Validated);
+            // 
+            // labelDateInvalid
+            // 
+            this.labelDateInvalid.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelDateInvalid.AutoSize = true;
+            this.labelDateInvalid.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.labelDateInvalid.Location = new System.Drawing.Point(388, 1);
+            this.labelDateInvalid.Name = "labelDateInvalid";
+            this.labelDateInvalid.Size = new System.Drawing.Size(100, 26);
+            this.labelDateInvalid.TabIndex = 0;
+            this.labelDateInvalid.Text = "Признан инвалидом";
+            // 
+            // labelPeriodInvalid
+            // 
+            this.labelPeriodInvalid.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelPeriodInvalid.AutoSize = true;
+            this.labelPeriodInvalid.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.labelPeriodInvalid.Location = new System.Drawing.Point(388, 29);
+            this.labelPeriodInvalid.Name = "labelPeriodInvalid";
+            this.labelPeriodInvalid.Size = new System.Drawing.Size(100, 26);
+            this.labelPeriodInvalid.TabIndex = 0;
+            this.labelPeriodInvalid.Text = "Срок Инвалидности";
+            // 
+            // labelDateIncapable
+            // 
+            this.labelDateIncapable.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelDateIncapable.AutoSize = true;
+            this.labelDateIncapable.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.labelDateIncapable.Location = new System.Drawing.Point(388, 57);
+            this.labelDateIncapable.Name = "labelDateIncapable";
+            this.labelDateIncapable.Size = new System.Drawing.Size(100, 26);
+            this.labelDateIncapable.TabIndex = 0;
+            this.labelDateIncapable.Text = "Признан недееспособным";
             // 
             // boundChkBoxBenefits
             // 
@@ -1862,6 +2010,10 @@
             this.tableLayoutPanel8.ResumeLayout(false);
             this.tableLayoutPanel8.PerformLayout();
             this.CustomertabControl.ResumeLayout(false);
+            this.customerTabPage.ResumeLayout(false);
+            this.customerTabPage.PerformLayout();
+            this.registerTabPage.ResumeLayout(false);
+            this.registerTabPage.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.tableLayoutPanel12.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.customerDataGridView)).EndInit();
@@ -2036,5 +2188,14 @@
         private System.Windows.Forms.ToolStripMenuItem findByLandToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exportToToolStripMenuItem;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private System.Windows.Forms.TextBox textBoxCustomerNotaBene;
+        private System.Windows.Forms.TextBox textBoxRegisterNotaBene;
+        private System.Windows.Forms.ToolStripMenuItem disabilityGroupsToolStripMenuItem;
+        private System.Windows.Forms.MaskedTextBox maskedTextBoxDateInvalid;
+        private System.Windows.Forms.MaskedTextBox maskedTextBoxPeriodInvalid;
+        private System.Windows.Forms.MaskedTextBox maskedTextBoxDateIncapable;
+        private System.Windows.Forms.Label labelDateInvalid;
+        private System.Windows.Forms.Label labelPeriodInvalid;
+        private System.Windows.Forms.Label labelDateIncapable;
     }
 }

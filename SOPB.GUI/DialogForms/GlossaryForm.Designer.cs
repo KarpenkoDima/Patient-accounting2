@@ -229,6 +229,7 @@
             this.MinimizeBox = false;
             this.Name = "GlossaryForm";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Словарь";
             ((System.ComponentModel.ISupportInitialize)(this.glossasryDataGridView)).EndInit();
             this.splitContainer1.Panel1.ResumeLayout(false);

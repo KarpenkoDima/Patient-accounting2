@@ -91,6 +91,8 @@ namespace BAL.ORM
                         _paramsObjects[1].ToString());
                 case "GetCustomerByGlossary":
                     return _glossaryRepository.FindBy(_paramsObjects[0], (int)_paramsObjects[1]);
+                case "GetGlossaries":
+                    return _glossaryRepository.FillAll();
                 default:
                 {
                     return FillAllCustomers();
@@ -128,11 +130,14 @@ namespace BAL.ORM
 
         public object GetGlossaries()
         {
+            _lastQuery = "GetGlossaries";
+            _paramsObjects.Clear();
             return _glossaryRepository.FillAll();
         }
         public object GetEmptyData()
         {
             return _repo.FillAll();
         }
+      
     }
 }

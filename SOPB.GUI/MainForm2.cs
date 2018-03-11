@@ -128,6 +128,7 @@ namespace SOPB.GUI
             textBoxCodeCustomer.DataBindings.Clear();
             textBoxMedCard.DataBindings.Clear();
             textBoxError.DataBindings.Clear();
+            textBoxCustomerNotaBene.DataBindings.Clear();
 
             textBoxLastName.DataBindings.Add("Text", _customerBindingSource, "LastName");
             textBoxFirstName.DataBindings.Add("Text", _customerBindingSource, "FirstName");
@@ -135,6 +136,7 @@ namespace SOPB.GUI
             maskedTextBoxBirthOfDay.DataBindings.Add("Text", _customerBindingSource, "Birthday");
             textBoxCodeCustomer.DataBindings.Add("Text", _customerBindingSource, "CodeCustomer");
             textBoxMedCard.DataBindings.Add("Text", _customerBindingSource, "MedCard");
+            textBoxCustomerNotaBene.DataBindings.Add("Text", _customerBindingSource, "NotaBene");
 
             _errorBindingSource.DataSource = _customerBindingSource;
             _errorBindingSource.DataMember = "FK_Error_Customer_CustomerID";
@@ -216,6 +218,8 @@ namespace SOPB.GUI
             maskedTextBoxSecondDeRegister.DataBindings.Add("Text", _registerBindingSource, "SecondDeRegister");
             textBoxDiagnosis.DataBindings.Clear();
             textBoxDiagnosis.DataBindings.Add("Text", _registerBindingSource, "Diagnosis");
+            textBoxRegisterNotaBene.DataBindings.Clear();
+            textBoxRegisterNotaBene.DataBindings.Add("Text", _registerBindingSource, "NotaBene");
 
             comboBoxFirstRegisterType.DataSource = _registerTypeBindingSource;
             comboBoxFirstRegisterType.ValueMember = "RegisterTypeID";
@@ -270,13 +274,22 @@ namespace SOPB.GUI
             comboBoxDisabilityGroup.DataBindings.Add("SelectedValue", _invalidBindingSource, "DisabilityGroupID");
             comboBoxDisabilityGroup.DisplayMember = "Name";
 
+            maskedTextBoxDateIncapable.DataBindings.Clear();
+            maskedTextBoxDateIncapable.DataBindings.Add("Text", _invalidBindingSource, "DateIncapable");
+            maskedTextBoxDateInvalid.DataBindings.Clear();
+            maskedTextBoxDateInvalid.DataBindings.Add("Text", _invalidBindingSource, "DataInvalidity");
+            maskedTextBoxPeriodInvalid.DataBindings.Clear();
+            maskedTextBoxPeriodInvalid.DataBindings.Add("Text", _invalidBindingSource, "PeriodInvalidity");
 
             comboBoxCipherRecept.DataSource = _chiperBindingSource;
             comboBoxCipherRecept.ValueMember = "ChiperReceptID";
             comboBoxCipherRecept.DataBindings.Clear();
             comboBoxCipherRecept.DataBindings.Add("SelectedValue", _invalidBindingSource, "ChiperReceptID");
             comboBoxCipherRecept.DisplayMember = "Name";
-            
+
+            checkBoxInCapability.DataBindings.Clear();
+            checkBoxInCapability.DataBindings.Add("Checked", _invalidBindingSource, "Incapable");
+
             boundChkBoxBenefits.ChildDisplayMember = "Name";
             boundChkBoxBenefits.ChildValueMember = "BenefitsID";
             boundChkBoxBenefits.ParentValueMember = "InvID";
@@ -894,7 +907,7 @@ namespace SOPB.GUI
             }
             CustomerService service = new CustomerService();
 
-            BindingData(service.GetEmptyData());
+            //BindingData(service.GetEmptyData());
         }
 
         private void findByFirstNameToolStripMenuItem_Click(object sender, EventArgs e)
@@ -940,7 +953,11 @@ namespace SOPB.GUI
 
         private void landsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
+            if (!isLoadData)
+            {
+                CustomerService customer = new CustomerService();
+                BindingData(customer.GetGlossaries());
+            }
             string glossary = ((ToolStripMenuItem)sender).Tag.ToString();
             DialogResult result = DialogResult.No;
             if (string.Equals(glossary, "regType"))
@@ -1040,6 +1057,136 @@ namespace SOPB.GUI
         private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             this.Close();
+        }
+
+        private void Address_Validated(object sender, EventArgs e)
+        {
+            if (isLoadData)
+            {
+                if (_addressBindingSource.Current == null)
+                {
+                    string registerText = ((Control)sender).Text;
+                    _addressBindingSource.AddNew();
+                    ((Control)sender).Text = registerText;
+                }
+                _addressBindingSource.EndEdit();
+            }
+        }
+
+        private void Invalid_Validated(object sender, EventArgs e)
+        {
+            if (isLoadData)
+            {
+                if (_invalidBindingSource.Current == null)
+                {
+                    string invalidText = ((Control)sender).Text;
+                    _invalidBindingSource.AddNew();
+                    ((Control)sender).Text = invalidText;
+                }
+                _invalidBindingSource.EndEdit();
+            }
+        }
+
+        private void maskedTextBoxDateInvalid_Validating(object sender, CancelEventArgs e)
+        {
+            if (isLoadData)
+            {
+                if (errorProviderRegDate.GetError(maskedTextBoxDateInvalid).Length != 0)
+                {
+                    errorProviderRegDate.SetError(maskedTextBoxDateInvalid, "");
+                }
+                if (maskedTextBoxDateInvalid.MaskedTextProvider != null && (maskedTextBoxDateInvalid.MaskedTextProvider.MaskCompleted))
+                {
+                    if (!Utilits.ValidateText(maskedTextBoxDateInvalid))
+                    {
+                        errorProviderRegDate.SetError((Control)sender, "Ошибка! Значение введёное в поле ПРИЗНАН ИНВАЛИДОМ не является корректной датой. Введите корректную дату в поле Взят на учёт.");
+                    }
+                    else
+                    {
+                        DateTime minDate = new DateTime(1900, 1, 1);
+                        DateTime date = DateTime.Parse(maskedTextBoxDateInvalid.Text);
+
+                        if (date > DateTime.Now || date <= minDate)
+                        {
+                            errorProviderRegDate.SetError((Control)sender, "Ошибка!!! Дата выходит за допустимый диапозон");
+                            ((Control)sender).ResetText();
+                            maskedTextBoxDateInvalid.ForeColor = Color.Red;
+                            maskedTextBoxDateInvalid.BackColor = Color.Yellow;
+                            e.Cancel = true;
+                        }
+                        if (Utilits.ValidateText(maskedTextBoxDateInvalid))
+                        {
+                            DateTime birthday = DateTime.Parse(maskedTextBoxBirthOfDay.Text);
+                            if (date <= birthday)
+                            {
+                                errorProviderRegDate.SetError((Control)sender,
+                                    "Ошибка!! Дата ПРИЗНАН ИНВАЛИДОМ не может быть меньше или равной дате рождения пациента.");
+                                ((Control)sender).ResetText();
+                                maskedTextBoxDateInvalid.ForeColor = Color.Red;
+                                maskedTextBoxDateInvalid.BackColor = Color.Yellow;
+                                e.Cancel = true;
+                            }
+                        }
+                    }
+                }
+                if (e.Cancel == false)
+                {
+                    maskedTextBoxDateInvalid.BackColor = Color.White;
+                    maskedTextBoxDateInvalid.ForeColor = DefaultForeColor;
+                    errorProviderRegDate.SetError(maskedTextBoxDateInvalid, "");
+                }
+            }
+        }
+
+        private void maskedTextBoxPeriodInvalid_Validating(object sender, CancelEventArgs e)
+        {
+            if (isLoadData)
+            {
+                if (errorProviderRegDate.GetError(maskedTextBoxPeriodInvalid).Length != 0)
+                {
+                    errorProviderRegDate.SetError(maskedTextBoxPeriodInvalid, "");
+                }
+                if (maskedTextBoxPeriodInvalid.MaskedTextProvider != null && (maskedTextBoxPeriodInvalid.MaskedTextProvider.MaskCompleted))
+                {
+                    if (!Utilits.ValidateText(maskedTextBoxPeriodInvalid))
+                    {
+                        errorProviderRegDate.SetError((Control)sender, "Ошибка! Значение введёное в поле СРОК ИНВАЛИДНОСТИ не является корректной датой. Введите корректную дату в поле Взят на учёт.");
+                    }
+                    else
+                    {
+                        DateTime minDate = new DateTime(1900, 1, 1);
+                        DateTime date = DateTime.Parse(maskedTextBoxPeriodInvalid.Text);
+
+                        if (date > DateTime.Now || date <= minDate)
+                        {
+                            errorProviderRegDate.SetError((Control)sender, "Ошибка!!! Дата выходит за допустимый диапозон");
+                            ((Control)sender).ResetText();
+                            maskedTextBoxPeriodInvalid.ForeColor = Color.Red;
+                            maskedTextBoxPeriodInvalid.BackColor = Color.Yellow;
+                            e.Cancel = true;
+                        }
+                        if (Utilits.ValidateText(maskedTextBoxPeriodInvalid))
+                        {
+                            DateTime birthday = DateTime.Parse(maskedTextBoxBirthOfDay.Text);
+                            if (date <= birthday)
+                            {
+                                errorProviderRegDate.SetError((Control)sender,
+                                    "Ошибка!! Дата СРОК ИНВАЛИДНОСТИ не может быть меньше или равной дате рождения пациента.");
+                                ((Control)sender).ResetText();
+                                maskedTextBoxPeriodInvalid.ForeColor = Color.Red;
+                                maskedTextBoxPeriodInvalid.BackColor = Color.Yellow;
+                                e.Cancel = true;
+                            }
+                        }
+                    }
+                }
+                if (e.Cancel == false)
+                {
+                    maskedTextBoxPeriodInvalid.BackColor = Color.White;
+                    maskedTextBoxPeriodInvalid.ForeColor = DefaultForeColor;
+                    errorProviderRegDate.SetError(maskedTextBoxPeriodInvalid, "");
+                }
+            }
         }
     }
 }

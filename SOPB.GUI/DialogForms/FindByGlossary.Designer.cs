@@ -103,6 +103,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FindByGlossary";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Критерий поиска";
             this.TopMost = true;
             this.groupBox1.ResumeLayout(false);
