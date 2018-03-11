@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using BAL.ORM;
+using NLog;
 
 namespace SOPB.GUI.DialogForms
 {
@@ -27,17 +28,39 @@ namespace SOPB.GUI.DialogForms
         private void buttonOK_Click(object sender, EventArgs e)
         {
             _bindingGlossary.EndEdit();
-            CustomerService service = new CustomerService();
-            service.SaveGlossary("Land");
-            this.Close();
+            try
+            {
+                CustomerService service = new CustomerService();
+                service.SaveGlossary("Land");
+                this.Close();
+            }
+            catch (Exception exception)
+            {
+                Logger logger = LogManager.GetCurrentClassLogger();
+                logger.Warn(exception.Message);
+                MessageBox.Show("Произошла ошибка. Приложение будет закрыто.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                DialogResult = DialogResult.Abort;
+                this.Close();
+            }
 
         }
        
         private void sveToolStripButton_Click(object sender, EventArgs e)
         {
-            _bindingGlossary.EndEdit();
-            CustomerService service = new CustomerService();
-            service.SaveGlossary("Land");
+            try
+            {
+                _bindingGlossary.EndEdit();
+                CustomerService service = new CustomerService();
+                service.SaveGlossary("Land");
+            }
+            catch (Exception exception)
+            {
+                Logger logger = LogManager.GetCurrentClassLogger();
+                logger.Warn(exception.Message);
+                MessageBox.Show("Произошла ошибка. Приложение будет закрыто.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                DialogResult = DialogResult.Abort;
+                this.Close();
+            }
         }
     }
 }

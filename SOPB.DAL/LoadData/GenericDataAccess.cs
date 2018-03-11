@@ -6,6 +6,8 @@ namespace SOPB.Accounting.DAL.LoadData
 {
     public static class GenericDataAccess
     {
+        #region Execute
+
         public static void ExecuteSelectCommand(IDbCommand command, DataTable table)
         {
 
@@ -54,6 +56,8 @@ namespace SOPB.Accounting.DAL.LoadData
                 command.Connection.Close();
             }
         }
+
+        #endregion
 
         public static DbCommand CreateCommand(DbCommand createCommand)
         {

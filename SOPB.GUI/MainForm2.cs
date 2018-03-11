@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 using BAL.ORM;
+using NLog;
 using SOPB.Accounting.DAL.ConnectionManager;
 using SOPB.GUI.DialogForms;
 using SOPB.GUI.Utils;
@@ -326,8 +327,18 @@ namespace SOPB.GUI
         {
             if (!isLoadData)
             {
-                CustomerService service = new CustomerService();
-                BindingData(service.GetGlossaries());
+                try
+                {
+                    CustomerService service = new CustomerService();
+                    BindingData(service.GetGlossaries());
+                }
+                catch (Exception exception)
+                {
+                    Logger logger = LogManager.GetCurrentClassLogger();
+                    logger.Warn(exception.Message);
+                    MessageBox.Show("Произошла ошибка. Приложение будет закрыто.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    this.Close();
+                }
             }
 
             textBoxFirstName.Text = textBoxLastName.Text = @"[Новое Имя]";
@@ -383,31 +394,51 @@ namespace SOPB.GUI
 
         private void toolStripButtonFillAll_Click(object sender, EventArgs e)
         {
-            CustomerService service = new CustomerService();
-            if (isLoadData)
+            try
             {
-                _customerBindingSource.EndEdit();
-                _addressBindingSource.EndEdit();
-                _registerBindingSource.EndEdit();
-                _invalidBindingSource.EndEdit();
-                _invalidBenefitsBindingSource.EndEdit();
+                CustomerService service = new CustomerService();
+                if (isLoadData)
+                {
+                    _customerBindingSource.EndEdit();
+                    _addressBindingSource.EndEdit();
+                    _registerBindingSource.EndEdit();
+                    _invalidBindingSource.EndEdit();
+                    _invalidBenefitsBindingSource.EndEdit();
                 
-                BindingData(service.UpdateAllCustomers());
+                    BindingData(service.UpdateAllCustomers());
+                }
+                BindingData(service.FillAllCustomers());
             }
-            BindingData(service.FillAllCustomers());
+            catch (Exception exception)
+            {
+                Logger logger = LogManager.GetCurrentClassLogger();
+                logger.Warn(exception.Message);
+                MessageBox.Show("Произошла ошибка. Приложение будет закрыто.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                this.Close();
+            }
         }
 
         private void saveToolStripButton_Click(object sender, EventArgs e)
         {
-            if (isLoadData)
+            try
             {
-                _customerBindingSource.EndEdit();
-                _addressBindingSource.EndEdit();
-                _registerBindingSource.EndEdit();
-                _invalidBindingSource.EndEdit();
-                _invalidBenefitsBindingSource.EndEdit();
-                CustomerService service = new CustomerService();
-                BindingData(service.UpdateAllCustomers());
+                if (isLoadData)
+                {
+                    _customerBindingSource.EndEdit();
+                    _addressBindingSource.EndEdit();
+                    _registerBindingSource.EndEdit();
+                    _invalidBindingSource.EndEdit();
+                    _invalidBenefitsBindingSource.EndEdit();
+                    CustomerService service = new CustomerService();
+                    BindingData(service.UpdateAllCustomers());
+                }
+            }
+            catch (Exception exception)
+            {
+                Logger logger = LogManager.GetCurrentClassLogger();
+                logger.Warn(exception.Message);
+                MessageBox.Show("Произошла ошибка. Приложение будет закрыто.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                this.Close();
             }
         }
 
@@ -804,12 +835,26 @@ namespace SOPB.GUI
 
         private void findToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FindForm find = new FindForm();
-            if (find.ShowDialog() == DialogResult.OK)
+            try
             {
-                string lName = find.LastName;
-                CustomerService customer = new CustomerService();
-                customer.GetCustomersByLastName(lName);
+                FindForm find = new FindForm();
+                if (find.ShowDialog() == DialogResult.OK)
+                {
+                    string lName = find.LastName;
+                    CustomerService customer = new CustomerService();
+                    if (isLoadData)
+                    {
+                        customer.GetCustomersByLastName(lName);
+                    }
+                    else BindingData(customer.GetCustomersByLastName(lName));
+                }
+            }
+            catch (Exception exception)
+            {
+                Logger logger = LogManager.GetCurrentClassLogger();
+                logger.Warn(exception.Message);
+                MessageBox.Show("Произошла ошибка. Приложение будет закрыто.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                this.Close();
             }
         }
 
@@ -848,15 +893,25 @@ namespace SOPB.GUI
             //        break;
             //    }
             //}
-            FindForm find = new FindForm();
-            if (find.ShowDialog() == DialogResult.OK)
+            try
             {
-                string lName = find.LastName;
-                CustomerService customer = new CustomerService();
-                customer.GetCustomersByLastName(lName);
+                FindForm find = new FindForm();
+                if (find.ShowDialog() == OK)
+                {
+                    string lName = find.LastName;
+                    CustomerService customer = new CustomerService();
+                    customer.GetCustomersByLastName(lName);
+                }
+                // Force the form to repaint.
+                this.Invalidate();
             }
-            // Force the form to repaint.
-            this.Invalidate();
+            catch (Exception exception)
+            {
+                Logger logger = LogManager.GetCurrentClassLogger();
+                logger.Warn(exception.Message);
+                MessageBox.Show("Произошла ошибка. Приложение будет закрыто.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                this.Close();
+            }
         }
 
         private void boundChkBoxBenefits_Validated(object sender, EventArgs e)
@@ -921,22 +976,51 @@ namespace SOPB.GUI
 
         private void findByBirthdayToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FindByBirthday findByBirthday = new FindByBirthday();
-            if (findByBirthday.ShowDialog() == DialogResult.OK)
+            try
             {
-                CustomerService customer = new CustomerService();
-                BindingData(customer.GetCustomersByBirthdayWithPredicate(findByBirthday.BithDay, findByBirthday.Predicate));
+                FindByBirthday findByBirthday = new FindByBirthday();
+                if (findByBirthday.ShowDialog() == OK)
+                {
+                    CustomerService customer = new CustomerService();
+                    if (isLoadData) customer.GetCustomersByBirthdayWithPredicate(findByBirthday.BithDay, findByBirthday.Predicate);
+                    else
+                    {
+                        BindingData(customer.GetCustomersByBirthdayWithPredicate(findByBirthday.BithDay, findByBirthday.Predicate));
+                    }
+                   
+                }
+            }
+            catch (Exception exception)
+            {
+                Logger logger = LogManager.GetCurrentClassLogger();
+                logger.Warn(exception.Message);
+                MessageBox.Show("Произошла ошибка. Приложение будет закрыто.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                this.Close();
             }
         }
 
         private void findByAddressToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FindForm find = new FindForm("Адрес");
-            if (find.ShowDialog() == DialogResult.OK)
+            try
             {
-                string name = find.LastName;
-                CustomerService customer = new CustomerService();
-                customer.GetCustomerByAddress(name);
+                FindForm find = new FindForm("Адрес");
+                if (find.ShowDialog() == OK)
+                {
+                    string name = find.LastName;
+                    CustomerService customer = new CustomerService();
+                    if(isLoadData) customer.GetCustomerByAddress(name);
+                    else
+                    {
+                        BindingData(customer.GetCustomerByAddress(name));
+                    }
+                }
+            }
+            catch (Exception exception)
+            {
+                Logger logger = LogManager.GetCurrentClassLogger();
+                logger.Warn(exception.Message);
+                MessageBox.Show("Произошла ошибка. Приложение будет закрыто.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                this.Close();
             }
         }
 
@@ -948,7 +1032,17 @@ namespace SOPB.GUI
            
             int id = find._ID;
             CustomerService customer = new CustomerService();
-            BindingData(customer.GetCustomerByGlossary(name, id));
+            try
+            {
+                BindingData(customer.GetCustomerByGlossary(name, id));
+            }
+            catch (Exception exception)
+            {
+                Logger logger = LogManager.GetCurrentClassLogger();
+                logger.Warn(exception.Message);
+                MessageBox.Show("Произошла ошибка. Приложение будет закрыто.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                this.Close();
+            }
         }
 
         private void landsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -995,6 +1089,12 @@ namespace SOPB.GUI
                 GlossaryForm glossaryForm = new GlossaryForm("Причина снятия с учета", _whyDeRegisterBindingSource);
                 result = glossaryForm.ShowDialog();
             }
+
+            if (result == Abort)
+            {
+                MessageBox.Show("Произошла ошибка. Приложение будет закрыто.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                this.Close();
+            }
         }
 
 
@@ -1026,31 +1126,50 @@ namespace SOPB.GUI
 
         private void MainForm2_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (isLoadData)
+            try
             {
-                _customerBindingSource.EndEdit();
-                _addressBindingSource.EndEdit();
-                _registerBindingSource.EndEdit();
-                _invalidBindingSource.EndEdit();
-                _invalidBenefitsBindingSource.EndEdit();
-                CustomerService service = new CustomerService();
-                service.UpdateAllCustomers();
+                if (isLoadData)
+                {
+                    _customerBindingSource.EndEdit();
+                    _addressBindingSource.EndEdit();
+                    _registerBindingSource.EndEdit();
+                    _invalidBindingSource.EndEdit();
+                    _invalidBenefitsBindingSource.EndEdit();
+                    CustomerService service = new CustomerService();
+                    service.UpdateAllCustomers();
+                }
+            }
+            catch (Exception exception)
+            {
+                Logger logger = LogManager.GetCurrentClassLogger();
+                logger.Warn(exception.Message);
+                MessageBox.Show("Произошла ошибка. Приложение будет закрыто.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                //this.Close();
             }
 
         }
 
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
-            BackgroundWorker worker = sender as BackgroundWorker;
-            if (isLoadData)
+            try
             {
-                _customerBindingSource.EndEdit();
-                _addressBindingSource.EndEdit();
-                _registerBindingSource.EndEdit();
-                _invalidBindingSource.EndEdit();
-                _invalidBenefitsBindingSource.EndEdit();
-                CustomerService service = new CustomerService();
-                service.UpdateAllCustomers();
+                if (isLoadData)
+                {
+                    _customerBindingSource.EndEdit();
+                    _addressBindingSource.EndEdit();
+                    _registerBindingSource.EndEdit();
+                    _invalidBindingSource.EndEdit();
+                    _invalidBenefitsBindingSource.EndEdit();
+                    CustomerService service = new CustomerService();
+                    service.UpdateAllCustomers();
+                }
+            }
+            catch (Exception exception)
+            {
+                Logger logger = LogManager.GetCurrentClassLogger();
+                logger.Warn(exception.Message);
+                MessageBox.Show("Произошла ошибка. Приложение будет закрыто.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                this.Close();
             }
         }
 
