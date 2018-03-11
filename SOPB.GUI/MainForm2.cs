@@ -371,6 +371,16 @@ namespace SOPB.GUI
         private void toolStripButtonFillAll_Click(object sender, EventArgs e)
         {
             CustomerService service = new CustomerService();
+            if (isLoadData)
+            {
+                _customerBindingSource.EndEdit();
+                _addressBindingSource.EndEdit();
+                _registerBindingSource.EndEdit();
+                _invalidBindingSource.EndEdit();
+                _invalidBenefitsBindingSource.EndEdit();
+                
+                BindingData(service.UpdateAllCustomers());
+            }
             BindingData(service.FillAllCustomers());
         }
 
@@ -792,40 +802,46 @@ namespace SOPB.GUI
 
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
-            //test
-            // If you are not at the end of the list, move to the next item
-            // in the BindingSource.
-            while (true)
+            ////test
+            //// If you are not at the end of the list, move to the next item
+            //// in the BindingSource.
+            //while (true)
+            //{
+
+
+            //    if (_customerBindingSource.Position + 1 < _customerBindingSource.Count)
+            //    {
+            //        DataRowView curr = (DataRowView)_customerBindingSource.Current;
+            //        string str = curr[3].ToString();
+            //        if (str.Length > 0 && str[0]=='\'')
+            //        {
+            //            str = str.Remove(0, 1);
+            //            // str = str.Remove(str.Length - 1);
+            //            curr[3] = str;
+
+            //        }
+            //        else
+            //        {
+            //            str = "'"+str;
+            //            curr[3] = str;
+            //        }
+
+            //        _customerBindingSource.MoveNext();
+            //    }
+            //    // Otherwise, move back to the first item.
+            //    else
+            //    {
+            //        _customerBindingSource.MoveFirst();
+            //        break;
+            //    }
+            //}
+            FindForm find = new FindForm();
+            if (find.ShowDialog() == DialogResult.OK)
             {
-
-
-                if (_customerBindingSource.Position + 1 < _customerBindingSource.Count)
-                {
-                    DataRowView curr = (DataRowView)_customerBindingSource.Current;
-                    string str = curr[3].ToString();
-                    if (str.Length > 0 && str[0]=='\'')
-                    {
-                        str = str.Remove(0, 1);
-                        // str = str.Remove(str.Length - 1);
-                        curr[3] = str;
-
-                    }
-                    else
-                    {
-                        str = "'"+str;
-                        curr[3] = str;
-                    }
-
-                    _customerBindingSource.MoveNext();
-                }
-                // Otherwise, move back to the first item.
-                else
-                {
-                    _customerBindingSource.MoveFirst();
-                    break;
-                }
+                string lName = find.LastName;
+                CustomerService customer = new CustomerService();
+                customer.GetCustomersByLastName(lName);
             }
-
             // Force the form to repaint.
             this.Invalidate();
         }
@@ -984,5 +1000,46 @@ namespace SOPB.GUI
         }
 
         #endregion
+
+        private void exportToToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ExportTo export = new ExportTo(_customerBindingSource);
+            export.ShowDialog();
+        }
+
+        private void MainForm2_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (isLoadData)
+            {
+                _customerBindingSource.EndEdit();
+                _addressBindingSource.EndEdit();
+                _registerBindingSource.EndEdit();
+                _invalidBindingSource.EndEdit();
+                _invalidBenefitsBindingSource.EndEdit();
+                CustomerService service = new CustomerService();
+                service.UpdateAllCustomers();
+            }
+
+        }
+
+        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        {
+            BackgroundWorker worker = sender as BackgroundWorker;
+            if (isLoadData)
+            {
+                _customerBindingSource.EndEdit();
+                _addressBindingSource.EndEdit();
+                _registerBindingSource.EndEdit();
+                _invalidBindingSource.EndEdit();
+                _invalidBenefitsBindingSource.EndEdit();
+                CustomerService service = new CustomerService();
+                service.UpdateAllCustomers();
+            }
+        }
+
+        private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }
