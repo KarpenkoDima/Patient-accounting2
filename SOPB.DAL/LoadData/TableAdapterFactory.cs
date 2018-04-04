@@ -46,7 +46,7 @@ namespace SOPB.Accounting.DAL.LoadData
                 case "GENDER":
                     return new GenderTableAdapter();
                 default:
-                    return null;
+                    return new CustomerTableAdapter();
 
             }
         }

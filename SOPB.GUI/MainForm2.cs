@@ -1307,5 +1307,11 @@ namespace SOPB.GUI
                 }
             }
         }
+
+        private void exportToExcelToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CustomerService service = new CustomerService();
+            service.ExportToExcel();
+        }
     }
 }

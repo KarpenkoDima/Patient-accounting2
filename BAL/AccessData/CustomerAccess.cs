@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Globalization;
+using System.IO;
 using BAL.DataTables;
 using SOPB.Accounting.DAL.LoadData;
 using SOPB.Accounting.DAL.TableAdapters;
@@ -11,7 +13,11 @@ namespace BAL.AccessData
 {
     public class CustomerAccess
     {
-        private static Tables _tables = new Tables();
+        private static readonly Tables _tables = new Tables();
+
+        private static string whereClasure = String.Empty;
+        private static IConvertible value;
+        private static string dbType=String.Empty;
 
         static CustomerAccess()
         {
@@ -65,6 +71,9 @@ namespace BAL.AccessData
                     transactionWork.ReadData(_tables.DispancerDataSet.Tables["Register"]);
                     transactionWork.Commit();
                 }
+                whereClasure = String.Empty;
+                value = null;
+                dbType = string.Empty;
             }
             catch (Exception)
             {
@@ -114,6 +123,9 @@ namespace BAL.AccessData
                     transactionWork.Execute(_tables.AddressDataTable, "uspGetAddressByCustomerID", parameterAddr);
                     transactionWork.Commit();
                 }
+                whereClasure = "where vgc.CustomerID = @param";
+                value = id;
+                dbType = "@param int";
             }
             catch (Exception)
             {
@@ -169,11 +181,11 @@ namespace BAL.AccessData
                 throw;
             }
         }
-        public static void GetCustomersByBirthdayBetween(DateTime fromDateTime, DateTime toDateTime)
-        {
-            ClearData();
-            GetDataByBirthOfDay("", fromDateTime, toDateTime, "МЕЖДУ");
-        }
+        //public static void GetCustomersByBirthdayBetween(DateTime fromDateTime, DateTime toDateTime)
+        //{
+        //    ClearData();
+        //    GetDataByBirthOfDay("", fromDateTime, toDateTime, "МЕЖДУ");
+        //}
 
         public static void GetCustomersByBirthOfDay(DateTime fromDateTime, DateTime tillDateTime = new DateTime(), string predicate = "=")
         {
@@ -249,7 +261,7 @@ namespace BAL.AccessData
             parametersAddr[2].Value = parameters[2].Value;
             try
             {
-                using (transactionWork = (TransactionWork) TransactionFactory.Create())
+                using (transactionWork = (TransactionWork)TransactionFactory.Create())
                 {
                     transactionWork.Execute(_tables.CustomerDataTable, "uspGetCustomerByBirthOfDay", parameters);
                     transactionWork.Execute(_tables.InvalidDataTable, "uspGetInvalidByBirthOfDay", parametersInv);
@@ -258,6 +270,10 @@ namespace BAL.AccessData
                     transactionWork.Execute(_tables.AddressDataTable, "uspGetAddressByBirthOfDay", parametersAddr);
                     transactionWork.Commit();
                 }
+
+                whereClasure = "where Birthday " + predicate + " @param";
+                value = fromDateTime;
+                dbType = "@param datetime";
             }
             catch (Exception)
             {
@@ -314,6 +330,9 @@ namespace BAL.AccessData
                     transactionWork.Execute(_tables.AddressDataTable, storageProcedureNameAddr, parameterAddr);
                     transactionWork.Commit();
                 }
+                whereClasure = "where " + glossaryName + "ID = @param";
+                value = criteria;
+                dbType = "@param int";
             }
             catch (Exception)
             {
@@ -464,6 +483,66 @@ namespace BAL.AccessData
                 transactionWork?.Rollback();
                 throw;
             }
+        }
+
+        public static void ExportToExcel()
+        {
+            //FastExportingMethod.ExportToExcel(_tables, Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "List"));
+            //FastExportingMethod.GemExportToExcel(_tables, Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "List2.xls"));
+            DataTable table = new DataTable();
+            TransactionWork transactionWork = null;
+            SqlParameter[] parameters = new SqlParameter[3];
+
+            SqlParameter parameter = new SqlParameter();
+            parameter.DbType = DbType.String;
+            parameter.Size = 100;
+            parameter.ParameterName = "@whereClasure";
+            parameter.Value = whereClasure;
+            parameters[0] = parameter;
+
+
+            parameter = new SqlParameter();
+            parameter.DbType = DbType.String;
+            parameter.ParameterName = "@Param";
+            parameter.Size = 100;
+            if (value==null)
+            {
+                parameter.Value = string.Empty;
+            }
+            else parameter.Value = value;
+            parameter.IsNullable = true;
+            parameters[1] = parameter;
+
+            parameter = new SqlParameter();
+            parameter.DbType = DbType.String;
+            parameter.Size = 30;
+            parameter.ParameterName = "@ParamType";
+            parameter.Value = dbType;
+            parameter.IsNullable = true;
+            parameters[2] = parameter;
+
+            try
+            {
+                using (transactionWork = (TransactionWork) TransactionFactory.Create())
+                {
+                    transactionWork.Execute(table, "uspDynamicQuery", parameters);
+                    transactionWork.Commit();
+                }
+            }
+            catch (Exception)
+            {
+                transactionWork?.Rollback();
+                throw;
+            }
+
+            FastExportingMethod.ExportToExcel(table,
+                Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "List"));
+            FastExportingMethod.GemExportToExcel(table,
+                Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "List2.xls"));
+            table.Dispose();
+            table = null;
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
     }
 }

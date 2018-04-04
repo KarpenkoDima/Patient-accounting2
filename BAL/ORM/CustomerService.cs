@@ -113,7 +113,7 @@ namespace BAL.ORM
 
         public void ExportToExcel(params string[] columns)
         {
-            //repo.ExportToExcel(columns);
+            _repo.ExportToExcel(columns);
         }
 
         public object GetGlossary(string name)

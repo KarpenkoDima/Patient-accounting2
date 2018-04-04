@@ -158,6 +158,11 @@ namespace BAL.ORM.Repository
         {
             return null;
         }
+
+        public void ExportToExcel(string[] columns)
+        {
+            CustomerAccess.ExportToExcel();
+        }
     }
 
     internal class GlossaryRepository : RepositoryBase, IMutableRepository<Int32>

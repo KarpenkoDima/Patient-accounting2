@@ -38,6 +38,14 @@
     <OutputPath>bin\x86\Release\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="GemBox.Spreadsheet">
+      <HintPath>..\..\..\..\..\Video\Gembox.Spreadsheet\GemBox.Spreadsheet3.9cracked\GemBox.Spreadsheet.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <HintPath>C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\Common7\IDE\Extensions\Microsoft\ADL Tools\2.2.5000.0\Microsoft.Office.Interop.Excel.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -49,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccessData\CustomerAccess.cs" />
+    <Compile Include="DataTables\ExportToExcel.cs" />
     <Compile Include="DataTables\Tables.cs" />
     <Compile Include="ORM\Criteria.cs" />
     <Compile Include="ORM\CustomerService.cs" />

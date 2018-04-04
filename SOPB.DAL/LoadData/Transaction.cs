@@ -74,6 +74,7 @@ namespace SOPB.Accounting.DAL.LoadData
             baseTableAdapter.Transaction = this._transaction;
             baseTableAdapter.Execute(table, storageProc, parameters);
         }
+        
         public void Rollback()
         {
             _transaction.Rollback();
