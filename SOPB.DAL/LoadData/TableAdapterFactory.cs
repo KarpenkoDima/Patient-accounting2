@@ -11,7 +11,19 @@ namespace SOPB.Accounting.DAL.LoadData
 {
     public static class TableAdapterFactory
     {
+        static Dictionary<string, BaseTableAdapter> _factory = new Dictionary<string, BaseTableAdapter>();
         public static BaseTableAdapter AdapterFactory(string tableName)
+        {
+            if (!_factory.ContainsKey(tableName))
+            {
+                _factory.Add(tableName, GetTableAdapter(tableName));
+            }
+
+            return _factory[tableName];
+            
+        }
+
+        private static BaseTableAdapter GetTableAdapter(string tableName)
         {
             switch (tableName.ToUpper())
             {
@@ -47,7 +59,6 @@ namespace SOPB.Accounting.DAL.LoadData
                     return new GenderTableAdapter();
                 default:
                     return new CustomerTableAdapter();
-
             }
         }
     }

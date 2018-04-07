@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Globalization;
@@ -18,6 +19,35 @@ namespace BAL.AccessData
         private static string whereClasure = String.Empty;
         private static IConvertible value;
         private static string dbType=String.Empty;
+        public static Dictionary<string, string> ParametersForUsp = new Dictionary<string, string>()
+        { {"birthday", "@BirthOfDay;@BirthOfDayEnd;@predicate"},
+            {"address", "@City;@NameStreet"},
+            {"lastname", "@LastName"}
+        };
+        public static DbType DbTypeConversionKey(string fullName)
+        {
+
+            Dictionary<string, DbType> conversionKey = new Dictionary<string, DbType>
+            { {"System.Int64", DbType.Int64},
+                {"System.Byte[]",DbType.Binary},
+                {"System.Boolean",DbType.Boolean},
+                {"System.String",DbType.String},
+                {"System.DateTime",DbType.DateTime},
+                {"System.Decimal",DbType.Decimal},
+                {"System.Double",DbType.Double},
+                {"System.Int32", DbType.Int32},
+                {"System.Int16", DbType.Int16},
+                {"System.Byte", DbType.Byte},
+                {"System.Guid", DbType.Guid},
+                {"System.Object", DbType.Object},
+                {"System.Single", DbType.Single},
+                {"System.Char", DbType.AnsiStringFixedLength}};
+            if (conversionKey.ContainsKey(fullName))
+            {
+                return conversionKey[fullName];
+            }
+            return DbType.Object;
+        }
 
         static CustomerAccess()
         {
@@ -543,6 +573,49 @@ namespace BAL.AccessData
             table = null;
             GC.Collect();
             GC.WaitForPendingFinalizers();
+        }
+
+        ///////////////////////////////////////////////////
+        /// 
+        /// 
+        public static SqlParameter[] CreateUSP(string criteria, object[] parameters)
+        {
+            //string[] parametersName = ParametersForUsp[criteria].Split(';');
+            //SqlParameter[] sqlParameters;
+            //if (parametersName.Length == parameters.Length)
+            //{
+            //    sqlParameters = new SqlParameter[parametersName.Length];
+            //    for (int i = 0; i < parametersName.Length; i++)
+            //    {
+            //        SqlParameter parameter = new SqlParameter();
+            //        parameter.DbType = DbTypeConversionKey(parameters[i].GetType().FullName);
+            //        parameter.ParameterName = parametersName[i];
+            //        parameter.Value = parameters[i];
+            //        sqlParameters[i] = parameter;
+            //    }
+            //}
+
+            return null;//sqlParameters;
+        }
+
+        private static void GetDataByCriteriaTest(string criteria, object[] parameters, string predicate ="=")
+        {
+            TransactionWork transactionWork = null;
+
+            SqlParameter[] parameterCustomer = CreateUSP(criteria, parameters);
+            SqlParameter[] parameterReg = CreateUSP(criteria, parameters);
+            SqlParameter[] parameterInv = CreateUSP(criteria, parameters);
+            SqlParameter[] parameterInvBenefits = CreateUSP(criteria, parameters);
+            SqlParameter[] parameterAddr = CreateUSP(criteria, parameters);
+            using (transactionWork = (TransactionWork)TransactionFactory.Create())
+            {
+                transactionWork.Execute(_tables.CustomerDataTable, $"uspGetCustomerBy{criteria}", parameterCustomer);
+                transactionWork.Execute(_tables.RegisterDataTable, $"uspGetRegisterBy{criteria}", parameterReg);
+                transactionWork.Execute(_tables.InvalidDataTable,  $"uspGetInvalidBy{criteria}", parameterInv);
+                transactionWork.Execute(_tables.InvalidBenefitsDataTable, $"uspGetInvalidBenefitsBy{criteria}", parameterInvBenefits);
+                transactionWork.Execute(_tables.AddressDataTable, "uspGetAddress", parameterAddr);
+                transactionWork.Commit();
+            }
         }
     }
 }
