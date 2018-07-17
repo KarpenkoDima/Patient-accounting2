@@ -71,17 +71,17 @@ namespace BAL.ORM.Repository
         //    }
         //}
 
-        public object GetCustomerBy<T>(NewCriteria<T> newCriteria) where T : IComparable<T>
+        public object QueryData<T>(NewCriteria<T> newCriteria) where T : IComparable<T>
         {
             Query<T> query;
             query = new CustomerQuery<T>();
             query.Criterias(newCriteria);
             return query.Execute();
         }
-        public object FindByBetween(object criteria, T start, T end)
+        public object FindByBetween(string criteria, T start, T end)
         {
             Query<T> query = new CustomerQuery<T>();
-            query.Criterias(new NewCriteria<T>(Predicate.Between, criteria.ToString(), start, end));
+            query.Criterias(new NewCriteria<T>("Between", criteria, start, end));
             return query.Execute();
           
         }
@@ -112,47 +112,33 @@ namespace BAL.ORM.Repository
             throw new NotImplementedException();
         }
 
-        public object FindBy(object criteria, T value)
+        public object FindBy(string criteria, params T[] value)
         {
-            NewCriteria<T> newCriteria = NewCriteria<T>.CreateCriteria("=",criteria.ToString(), value);
-             ClearCustomerData();
-           return this.GetCustomerBy(newCriteria);
-            
+            NewCriteria<T> newCriteria = NewCriteria<T>.CreateCriteria("=", criteria, value);
+            return this.QueryData(newCriteria);
         }
         public object FindByPredicate(object criteria, T value, string predicate)
         {
-            ClearCustomerData();
             NewCriteria<T> newCriteria = NewCriteria<T>.CreateCriteria(predicate, criteria.ToString(), value);
-            return this.GetCustomerBy(newCriteria);
-            
+            return this.QueryData(newCriteria);
         }
+        public object FindByID(int id)
+        {
+            NewCriteria<int> criteria = NewCriteria<int>.CreateCriteria("=", "CustomerID", id);
+            return this.QueryData(criteria);
+        }
+
         public object FillAll()
         {
             CustomerAccess.FillDictionary();
             CustomerAccess.FillCustomerData();
             return CustomerAccess.GetData();
         }
-
         public void Update(IList<T> list)
         {
-            //problems in time save
-            ////if (IsCorrertError)
-            ////{
-
-            ////    Tables.CustomerDataTable.RowChanging -= CustomerDataTableOnRowChanging;
-            ////    Tables.CustomerDataTable.RowChanged -= CustomerDataTableOnRowChanged;
-            ////    Tables.RegisterDataTable.RowChanging -= RegisterDataTableOnRowChanging;
-               
-            ////}
             CustomerAccess.Update();
-        }        
-
-        #endregion
-
-        private void ClearCustomerData()
-        {
-            CustomerAccess.ClearData();
         }
+        #endregion
 
         public object GetEmpty()
         {
@@ -195,13 +181,17 @@ namespace BAL.ORM.Repository
             throw new NotImplementedException();
         }
 
-        public object FindBy(object criteria, int value)
+        public object FindBy(string criteria, params int[] value)
         {
             Query<int> query = new GlossaryQuery();
-            query.Criterias(new NewCriteria<int>(Predicate.Equals, criteria.ToString(), value));
+            query.Criterias(new NewCriteria<int>("=", criteria, value));
             return query.Execute();
         }
 
+        public object FindByID(int id)
+        {
+            return FindBy("ID", id);
+        }
         public object FillAll()
         {
             CustomerAccess.FillDictionary();
@@ -219,11 +209,6 @@ namespace BAL.ORM.Repository
         {
             return CustomerAccess.GetByEntityName(name);
         }
-        private void ClearCustomerData()
-        {
-            CustomerAccess.ClearData();
-        }
-
         public void SaveGlossary(string nameGlossary)
         {
             CustomerAccess.SaveEntity(nameGlossary);

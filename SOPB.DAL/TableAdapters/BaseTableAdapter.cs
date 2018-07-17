@@ -137,8 +137,8 @@ namespace SOPB.Accounting.DAL.TableAdapters
                 command.Parameters.Add(sqlParameter);
             }
 
-            this.CommandCollection[0] = command;
-            this.Fill(table);
+            this.Adapter.SelectCommand = command;
+            this.Adapter.Fill(table);
             //GenericDataAccess.ExecuteSelectCommand(command, table);
         }
 

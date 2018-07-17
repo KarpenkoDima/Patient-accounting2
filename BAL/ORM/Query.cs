@@ -24,93 +24,52 @@ namespace BAL.ORM
     {
         public override object Execute()
         {
-            
+
             foreach (NewCriteria<int> criteria in _criterias)
             {
                 if (criteria != null)
-                    switch (criteria.Predicate)
-                    {
-                        case Predicate.Equals:
-                            CustomerAccess.GetCustomersByGlossary("Customer", criteria.Criteria, criteria.Values[0]);
-                            break;
-                    }
+                    CustomerAccess.GetCustomersByGlossary("Customer", criteria.Criteria, criteria.Values[0]);
+                break;
             }
+
             return CustomerAccess.GetData();
         }
     }
 
     public class CustomerQuery<T> : Query<T> where T : IComparable<T>
     {
-
         public override object Execute()
         {
             foreach (NewCriteria<T> criteria in _criterias)
             {
                 if (criteria != null)
-                    switch (criteria.Predicate)
+                    switch (criteria.Criteria)
                     {
-                        case Predicate.ID:
+                        case Utilites.QueryCriteria.ID:
                             CustomerAccess.GetCustomersByID(Convert.ToInt32(criteria.First));
                             break;
-
-                        case Predicate.Equals:
-                        case Predicate.Between:
-                            MakeEquals(criteria);
+                        case Utilites.QueryCriteria.Bithday:
+                            if (criteria.Predicate == "Between")
+                            {
+                                CustomerAccess.GetCustomersByBirthdayBetween(Convert.ToDateTime(criteria.First),
+                                    Convert.ToDateTime(criteria.Second));
+                            }
+                            else
+                            {
+                                CustomerAccess.GetCustomersByBirthOfDay(Convert.ToDateTime(criteria.First),
+                                    criteria.Predicate);
+                            }
                             break;
-                        default: MakeWithPredicate(criteria);
+                        default:
+                            CustomerAccess.GetDataByCriteria(criteria.Criteria,
+                                criteria.Values.Cast<object>().ToArray(), criteria.Predicate);
                             break;
                     }
             }
             return CustomerAccess.GetData();
         }
-
-        private void MakeWithPredicate(NewCriteria<T> criteria)
-        {
-            switch (criteria.Predicate)
-            {
-                case Predicate.GreatThan:
-                    CustomerAccess.GetCustomersByBirthdayWithPredicate(DateTime.Parse(criteria.Values[0].ToString()), ">");
-                    break;
-                case Predicate.LessThan:
-                    CustomerAccess.GetCustomersByBirthdayWithPredicate(DateTime.Parse(criteria.Values[0].ToString()), "<");
-                    break;
-                case Predicate.GeatThanOrEquals:
-                    CustomerAccess.GetCustomersByBirthdayWithPredicate(DateTime.Parse(criteria.Values[0].ToString()), ">=");
-                    break;
-                case Predicate.LessThanOrEquals:
-                    CustomerAccess.GetCustomersByBirthdayWithPredicate(DateTime.Parse(criteria.Values[0].ToString()), "<=");
-                    break;
-
-                case Predicate.Between:
-                    if (criteria.Values.Length >= 2)
-                    {
-                        CustomerAccess.GetCustomersByBirthOfDay(
-                            DateTime.Parse(criteria.Values[0].ToString()),
-                            DateTime.Parse(criteria.Values[1].ToString()), "МЕЖДУ");
-                    }
-                    break;
-                default:
-                        CustomerAccess.GetCustomersByBirthday(DateTime.Parse(criteria.Values[0].ToString()));
-                    break;
-            }
-        }
-        
-
-        private void MakeEquals(NewCriteria<T> criteria)
-        {
-            switch (criteria.Criteria.ToUpper())
-            {
-                case "LASTNAME":
-                    CustomerAccess.GetCustomersByLastName(criteria.Values[0].ToString());
-                    break;
-                case "BIRTHDAY":
-                    MakeWithPredicate(criteria);
-                    break;
-                case "ADDRESS":
-                    CustomerAccess.GetCustomersByAddress(criteria.Values[0].ToString());
-                    break;
-            }
-        }
     }
 
 }
+
+

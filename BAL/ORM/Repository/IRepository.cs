@@ -8,8 +8,9 @@ namespace BAL.ORM.Repository
 {
     public interface IRepository<T> where T : IComparable<T>
     {
-        object FindBy(object criteria, T value);
+        object FindBy(string criteria, params T[] value);
         object FillAll();
+        object FindByID(int id);
 
     }
 

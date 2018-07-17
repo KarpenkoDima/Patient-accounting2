@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using BAL.ORM.Repository;
+using static BAL.Utilites;
 
 namespace BAL.ORM
 {
+
+    
     public class CustomerService
     {
-        readonly CustomRepository<string> _repo = new CustomRepository<string>();
+        
         readonly GlossaryRepository _glossaryRepository = new GlossaryRepository();
 
         private static string _lastQuery;
@@ -14,54 +18,61 @@ namespace BAL.ORM
     
         public object GetCustomersByFirstName(string firstName)
         {
-            _lastQuery = "GetCustomersByFirstName";
+            _lastQuery = QueryCriteria.FirstName;
             _paramsObjects.Clear();
             _paramsObjects.Add(firstName);
-           return  _repo.FindBy("firstName", firstName);
-            // return _tables.DispancerDataSet;
+            CustomRepository<string> _repo = new CustomRepository<string>();
+           return  _repo.FindBy(QueryCriteria.FirstName, firstName);
         }
         public object GetCustomersByLastName(string lastName)
         {
-            _lastQuery = "GetCustomersByLastName";
+            _lastQuery = QueryCriteria.LastName;
             _paramsObjects.Clear();
             _paramsObjects.Add(lastName);
-            return  _repo.FindBy("lastname", lastName);
+            CustomRepository<string> _repo = new CustomRepository<string>();
+            return  _repo.FindBy(QueryCriteria.LastName, lastName);
         }
         public object GetCustomersByBirthdayBetween(DateTime from, DateTime to)
         {
-            _lastQuery = "GetCustomersByBirthdayBetween";
+            _lastQuery = QueryCriteria.Bithday;
             _paramsObjects.Clear();
             _paramsObjects.Add(from);
             _paramsObjects.Add(to);
-            return _repo.FindByBetween("birthday", from.ToShortDateString(), to.ToShortDateString());
-
+            _paramsObjects.Add("BETWEEN");
+            CustomRepository<DateTime> repo = new CustomRepository<DateTime>();
+            return repo.FindByBetween(QueryCriteria.Bithday, from, to);
         }
         public object GetCustomersByBirthday(DateTime date)
         {
-            _lastQuery = "GetCustomersByBirthday";
+            _lastQuery = QueryCriteria.Bithday;
             _paramsObjects.Clear();
             _paramsObjects.Add(date);
-           return _repo.FindBy("birthday", date.ToShortDateString());
+            CustomRepository<DateTime> _repo = new CustomRepository<DateTime>();
+            return _repo.FindBy(QueryCriteria.Bithday, date);
         }
         public object GetCustomersByBirthdayWithPredicate(DateTime date, string predicate)
         {
-            _lastQuery = "GetCustomersByBirthdayWithPredicate";
+            _lastQuery = QueryCriteria.Bithday;
             _paramsObjects.Clear();
             _paramsObjects.Add(date);
             _paramsObjects.Add(predicate);
-            return _repo.FindByPredicate("birthday", date.ToShortDateString(), predicate);
+            CustomRepository<DateTime> _repo = new CustomRepository<DateTime>();
+            return _repo.FindByPredicate(QueryCriteria.Bithday, date, predicate);
         }
-        public object GetCustomerByAddress(string streetName)
+        public object GetCustomerByAddress(string streetName, string city="Славянск")
         {
-            _lastQuery = "GetCustomerByAddress";
+            _lastQuery = QueryCriteria.Address;
             _paramsObjects.Clear();
             _paramsObjects.Add(streetName);
-            return _repo.FindBy("address", streetName);
+            _paramsObjects.Add(city);
+            var _repo = new CustomRepository<string>();
+            return _repo.FindBy(QueryCriteria.Address, new []{city,streetName});
         }
         public object FillAllCustomers()
         {
-            _lastQuery = "FillAllCustomers";
+            _lastQuery = QueryCriteria.GetAll;
             _paramsObjects.Clear();
+            var _repo = new CustomRepository<string>();
             return _repo.FillAll();
         }
 
@@ -70,6 +81,7 @@ namespace BAL.ORM
             object o;
             try
             {
+                var _repo = new CustomRepository<string>();
                 _repo.Update(null);
             }
             finally
@@ -84,14 +96,31 @@ namespace BAL.ORM
         {
             switch (_lastQuery)
             {
-                case "GetCustomersByLastName":
-                    return _repo.FindBy("lastname", _paramsObjects[0].ToString());
-                case "GetCustomersByBirthdayWithPredicate":
-                    return _repo.FindByPredicate("birthday", _paramsObjects[0].ToString(),
-                        _paramsObjects[1].ToString());
-                case "GetCustomerByGlossary":
-                    return _glossaryRepository.FindBy(_paramsObjects[0], (int)_paramsObjects[1]);
-                case "GetGlossaries":
+                case QueryCriteria.LastName:
+                    CustomRepository<string> repo = new CustomRepository<string>();
+                    return repo.FindBy(QueryCriteria.LastName, _paramsObjects[0].ToString());
+                case QueryCriteria.Address:
+                    repo = new CustomRepository<string>();
+                    return repo.FindBy(QueryCriteria.Address, _paramsObjects.Cast<string>().ToArray());
+                case QueryCriteria.Bithday:
+                    CustomRepository<DateTime> repo2 = new CustomRepository<DateTime>();
+                    if (_paramsObjects.Count == 2)
+                    {
+                        return repo2.FindByPredicate(QueryCriteria.Bithday, Convert.ToDateTime(_paramsObjects[0]),
+                            _paramsObjects[1].ToString());
+                    }
+                    else  if (_paramsObjects.Count == 3)
+                    {
+                        return repo2.FindByBetween(QueryCriteria.Bithday, Convert.ToDateTime(_paramsObjects[0]),
+                            Convert.ToDateTime(_paramsObjects[0]));
+                    }
+                    else
+                    {
+                        return repo2.FindBy(QueryCriteria.Bithday, _paramsObjects.Cast<DateTime>().ToArray());
+                    }
+                case QueryCriteria.Glossary:
+                    return _glossaryRepository.FindBy(_paramsObjects[0].ToString(), (int)_paramsObjects[1]);
+                case QueryCriteria.GetGlossaries:
                     return _glossaryRepository.FillAll();
                 default:
                 {
@@ -99,12 +128,9 @@ namespace BAL.ORM
                 }
             }
         }
-
-
-
         public object GetCustomerByGlossary(string name, int id)
         {
-            _lastQuery = "GetCustomerByGlossary";
+            _lastQuery = QueryCriteria.Glossary;
             _paramsObjects.Clear();
             _paramsObjects.Add(name);
            _paramsObjects.Add(id);
@@ -113,6 +139,7 @@ namespace BAL.ORM
 
         public void ExportToExcel(params string[] columns)
         {
+            CustomRepository<string> _repo = new CustomRepository<string>();
             _repo.ExportToExcel(columns);
         }
 
@@ -130,13 +157,19 @@ namespace BAL.ORM
 
         public object GetGlossaries()
         {
-            _lastQuery = "GetGlossaries";
+            _lastQuery = QueryCriteria.GetGlossaries;
             _paramsObjects.Clear();
             return _glossaryRepository.FillAll();
         }
         public object GetEmptyData()
         {
+            CustomRepository<string> _repo = new CustomRepository<string>();
             return _repo.FillAll();
+        }
+
+        public void Validation()
+        {
+
         }
       
     }

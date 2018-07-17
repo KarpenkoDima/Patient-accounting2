@@ -44,7 +44,7 @@ namespace SOPB.DALUnitTestProject.ORMTest
         }
         [TestMethod]
         [DataRow("appptpr")]
-        [DataRow("gender")]
+        //[DataRow("gender")]
         [DataRow("land")]
         [DataRow("benefitscategory")]
         public void CustomerService_GetCustomersByGlossary_TestMethod(string name)

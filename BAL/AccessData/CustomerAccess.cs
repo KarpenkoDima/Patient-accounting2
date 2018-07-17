@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using BAL.DataTables;
@@ -12,6 +13,7 @@ using SOPB.Accounting.DAL.TableAdapters.Glossary;
 
 namespace BAL.AccessData
 {
+    
     public class CustomerAccess
     {
         private static readonly Tables _tables = new Tables();
@@ -20,9 +22,9 @@ namespace BAL.AccessData
         private static IConvertible value;
         private static string dbType=String.Empty;
         public static Dictionary<string, string> ParametersForUsp = new Dictionary<string, string>()
-        { {"birthday", "@BirthOfDay;@BirthOfDayEnd;@predicate"},
-            {"address", "@City;@NameStreet"},
-            {"lastname", "@LastName"}
+        { {Utilites.QueryCriteria.Bithday, "@BirthOfDay:;@BirthOfDayEnd:;@predicate:10"},
+            {Utilites.QueryCriteria.Address, "@City:100;@NameStreet:100"},
+            {Utilites.QueryCriteria.LastName, "@LastName:100"}
         };
         public static DbType DbTypeConversionKey(string fullName)
         {
@@ -48,7 +50,30 @@ namespace BAL.AccessData
             }
             return DbType.Object;
         }
+        public static SqlDbType SqlTypeConversionKey(string fullName)
+        {
 
+            var conversionKey = new Dictionary<string, SqlDbType>
+            { {"System.Int64", SqlDbType.BigInt},
+                {"System.Byte[]",SqlDbType.Binary},
+                {"System.Boolean",SqlDbType.Bit},
+                {"System.String",SqlDbType.VarChar},
+                {"System.DateTime",SqlDbType.DateTime},
+                {"System.Decimal",SqlDbType.Decimal},
+                {"System.Double",SqlDbType.Float},
+                {"System.Int32", SqlDbType.Int},
+                {"System.Int16", SqlDbType.SmallInt},
+                {"System.Byte", SqlDbType.TinyInt},
+                {"System.Guid", SqlDbType.UniqueIdentifier},
+                {"System.Object", SqlDbType.Variant},
+                {"System.Single", SqlDbType.Real},
+                {"System.Char", SqlDbType.NChar}};
+            if (conversionKey.ContainsKey(fullName))
+            {
+                return conversionKey[fullName];
+            }
+            return SqlDbType.Variant;
+        }
         static CustomerAccess()
         {
             FillDictionary();
@@ -163,192 +188,55 @@ namespace BAL.AccessData
                 throw;
             }
         }
-
-        public static void GetCustomersByLastName(string lastName)
+       
+        public static void GetCustomersByBirthdayBetween(DateTime fromDateTime, DateTime toDateTime)
         {
             ClearData();
-            GetDataByLastName(lastName);
-        }
+            GetDataByCriteria("Birthday", new object[] {fromDateTime, toDateTime, "МЕЖДУ"}, "BETWEEN");
+    }
 
-        private static void GetDataByLastName(string lastName)
-        {
-            TransactionWork transactionWork = null;
-            SqlParameter parameter = new SqlParameter();
-            parameter.DbType = DbType.String;
-            parameter.Size = 100;
-            parameter.ParameterName = "@LastName";
-
-            SqlParameter parameterReg = new SqlParameter();
-            parameterReg.DbType = DbType.String;
-            parameterReg.Size = 100;
-            parameterReg.ParameterName = "@LastName";
-            SqlParameter parameterInv = new SqlParameter();
-            parameterInv.DbType = DbType.String;
-            parameterInv.Size = 100;
-            parameterInv.ParameterName = "@LastName";
-            SqlParameter parameterAddr = new SqlParameter();
-            parameterAddr.DbType = DbType.String;
-            parameterAddr.Size = 100;
-            parameterAddr.ParameterName = "@LastName";
-            try
-            {
-                parameter.Value = lastName;
-                parameterReg.Value = lastName;
-                parameterInv.Value = lastName;
-                parameterAddr.Value = lastName;
-                using (transactionWork = (TransactionWork)TransactionFactory.Create())
-                {
-                    transactionWork.Execute(_tables.CustomerDataTable, "uspGetCustomerByLastName", parameter);
-                    transactionWork.Execute(_tables.RegisterDataTable, "uspGetRegisterByLastName", parameterReg);
-                    transactionWork.Execute(_tables.InvalidDataTable, "uspGetInvalidByLastName", parameterInv);
-                    transactionWork.Execute(_tables.AddressDataTable, "uspGetAddressByLastName", parameterAddr);
-                    transactionWork.Commit();
-                }
-            }
-            catch (Exception)
-            {
-                transactionWork?.Rollback();
-                throw;
-            }
-        }
-        //public static void GetCustomersByBirthdayBetween(DateTime fromDateTime, DateTime toDateTime)
-        //{
-        //    ClearData();
-        //    GetDataByBirthOfDay("", fromDateTime, toDateTime, "МЕЖДУ");
-        //}
-
-        public static void GetCustomersByBirthOfDay(DateTime fromDateTime, DateTime tillDateTime = new DateTime(), string predicate = "=")
+        public static void GetCustomersByBirthOfDay(DateTime fromDateTime, string predicate = "=")
         {
             ClearData();
-            DateTime time = new DateTime();
-            if (tillDateTime == time)
-            {
-                tillDateTime = DateTime.Now;
-            }
-            GetDataByBirthOfDay("", fromDateTime, tillDateTime, predicate);
+            GetDataByCriteria("Birthday", new object[] { fromDateTime, DateTime.Now, predicate}, predicate);
         }
-        public static void GetCustomersByBirthdayWithPredicate(DateTime fromDateTime, string predicate)
+        
+        public static void GetCustomersByGlossary(string name, string glossaryName, int id)
         {
             ClearData();
-            GetDataByBirthOfDay("uspGetCustomerByBirthOfDay", fromDateTime, DateTime.Now, predicate);
-        }
-        public static void GetCustomersByBirthday(DateTime fromDateTime)
-        {
-            ClearData();
-            GetDataByBirthOfDay("uspGetCustomerByBirthOfDay", fromDateTime, DateTime.Now);
-        }
-        private static void GetDataByBirthOfDay(string name, DateTime fromDateTime, DateTime tillDateTime, string predicate="=")
-        {
-            TransactionWork transactionWork = null;
-            SqlParameter[] parameters = new SqlParameter[3];
-            SqlParameter parameter = new SqlParameter();
-            parameter.DbType = DbType.DateTime;
-            parameter.ParameterName = "@BirthOfDay";
-            parameter.Value = fromDateTime;
-            parameters[0] = parameter;
-            parameter = new SqlParameter();
-            parameter.DbType = DbType.DateTime;
-            parameter.ParameterName = "@BirthOfDayEnd";
-            parameter.Value = tillDateTime;
-            parameters[1] = parameter;
-            parameter = new SqlParameter();
-            parameter.DbType = DbType.String;
-            parameter.Size = 10;
-            parameter.ParameterName = "@predicate";
-            parameter.Value = predicate;
-            parameters[2] = parameter;
-
-            SqlParameter[] parametersInv = new SqlParameter[3];
-            parametersInv[0] = new SqlParameter(parameters[0].ParameterName, parameters[0].SqlDbType);
-            parametersInv[0].Value = parameters[0].Value;
-            parametersInv[1] = new SqlParameter(parameters[1].ParameterName, parameters[1].SqlDbType);
-            parametersInv[1].Value = parameters[1].Value;
-            parametersInv[2] = new SqlParameter(parameters[2].ParameterName, parameters[2].SqlDbType, parameters[2].Size);
-            parametersInv[2].Value = parameters[2].Value;
-
-            SqlParameter[] parametersInvBenefits = new SqlParameter[3];
-            parametersInvBenefits[0] = new SqlParameter(parameters[0].ParameterName, parameters[0].SqlDbType);
-            parametersInvBenefits[0].Value = parameters[0].Value;
-            parametersInvBenefits[1] = new SqlParameter(parameters[1].ParameterName, parameters[1].SqlDbType);
-            parametersInvBenefits[1].Value = parameters[1].Value;
-            parametersInvBenefits[2] = new SqlParameter(parameters[2].ParameterName, parameters[2].SqlDbType, parameters[2].Size);
-            parametersInvBenefits[2].Value = parameters[2].Value;
-
-            SqlParameter[] parametersReg = new SqlParameter[3];
-            parametersReg[0] = new SqlParameter(parameters[0].ParameterName, parameters[0].SqlDbType);
-            parametersReg[0].Value = parameters[0].Value;
-            parametersReg[1] = new SqlParameter(parameters[1].ParameterName, parameters[1].SqlDbType);
-            parametersReg[1].Value = parameters[1].Value;
-            parametersReg[2] = new SqlParameter(parameters[2].ParameterName, parameters[2].SqlDbType, parameters[2].Size);
-            parametersReg[2].Value = parameters[2].Value;
-
-            SqlParameter[] parametersAddr = new SqlParameter[3];
-            parametersAddr[0] = new SqlParameter(parameters[0].ParameterName, parameters[0].SqlDbType);
-            parametersAddr[0].Value = parameters[0].Value;
-            parametersAddr[1] = new SqlParameter(parameters[1].ParameterName, parameters[1].SqlDbType);
-            parametersAddr[1].Value = parameters[1].Value;
-            parametersAddr[2] = new SqlParameter(parameters[2].ParameterName, parameters[2].SqlDbType, parameters[2].Size);
-            parametersAddr[2].Value = parameters[2].Value;
-            try
-            {
-                using (transactionWork = (TransactionWork)TransactionFactory.Create())
-                {
-                    transactionWork.Execute(_tables.CustomerDataTable, "uspGetCustomerByBirthOfDay", parameters);
-                    transactionWork.Execute(_tables.InvalidDataTable, "uspGetInvalidByBirthOfDay", parametersInv);
-                    transactionWork.Execute(_tables.InvalidBenefitsDataTable, "uspGetInvalidBenefitsByBirthOfDay", parametersInvBenefits);
-                    transactionWork.Execute(_tables.RegisterDataTable, "uspGetRegisterByBirthOfDay", parametersReg);
-                    transactionWork.Execute(_tables.AddressDataTable, "uspGetAddressByBirthOfDay", parametersAddr);
-                    transactionWork.Commit();
-                }
-
-                whereClasure = "where Birthday " + predicate + " @param";
-                value = fromDateTime;
-                dbType = "@param datetime";
-            }
-            catch (Exception)
-            {
-                transactionWork?.Rollback();
-                throw;
-            }
+            GetDataByGlossary(glossaryName, id);
         }
 
-
-        public static void GetCustomersByGlossary(string name, string glossaryName, int criteria)
-        {
-            ClearData();
-            GetDataByGlossary(glossaryName, criteria);
-        }
-
-        private static void GetDataByGlossary(string glossaryName, int criteria)
+        private static void GetDataByGlossary(string glossaryName, int id)
         {
             TransactionWork transactionWork = null;
             string storageProcedureName = string.Format("uspGet{0}By{1}", "Customer", glossaryName);
             SqlParameter parameter = new SqlParameter();
             parameter.DbType = DbType.Int32;
             parameter.ParameterName = "@ID";
-            parameter.Value = criteria;
+            parameter.Value = id;
             string storageProcedureNameReg = string.Format("uspGet{0}By{1}", "Register", glossaryName);
             SqlParameter parameterReg = new SqlParameter();
             parameterReg.DbType = DbType.Int32;
             parameterReg.ParameterName = "@ID";
-            parameterReg.Value = criteria;
+            parameterReg.Value = id;
             string storageProcedureNameInv = string.Format("uspGet{0}By{1}", "Invalid", glossaryName);
             SqlParameter parameterInv = new SqlParameter();
             parameterInv.DbType = DbType.Int32;
             parameterInv.ParameterName = "@ID";
-            parameterInv.Value = criteria;
+            parameterInv.Value = id;
 
             string storageProcedureNameInvBenefits = string.Format("uspGet{0}By{1}", "InvalidBenefits", glossaryName);
             SqlParameter parameterInvBenefits = new SqlParameter();
             parameterInvBenefits.DbType = DbType.Int32;
             parameterInvBenefits.ParameterName = "@ID";
-            parameterInvBenefits.Value = criteria;
+            parameterInvBenefits.Value = id;
 
             string storageProcedureNameAddr = string.Format("uspGet{0}By{1}", "Address", glossaryName);
             SqlParameter parameterAddr = new SqlParameter();
             parameterAddr.DbType = DbType.Int32;
             parameterAddr.ParameterName = "@ID";
-            parameterAddr.Value = criteria;
+            parameterAddr.Value = id;
             try
             {
                 using (transactionWork = (TransactionWork)TransactionFactory.Create())
@@ -360,9 +248,10 @@ namespace BAL.AccessData
                     transactionWork.Execute(_tables.AddressDataTable, storageProcedureNameAddr, parameterAddr);
                     transactionWork.Commit();
                 }
-                whereClasure = "where " + glossaryName + "ID = @param";
-                value = criteria;
-                dbType = "@param int";
+                WhereClasure(glossaryName, new object[]{id}, "=");
+                //whereClasure = "where " + glossaryName + "ID = @param";
+                //value = id;
+                //dbType = "@param int";
             }
             catch (Exception)
             {
@@ -392,88 +281,8 @@ namespace BAL.AccessData
                 throw;
             }
         }
-        private static void GetDataByCriteria(DataTable table, string storageProcedureName, string parameterName, string value)
-        {
-           
-            TransactionWork transactionWork = null;
-           
-            SqlParameter parameter = new SqlParameter();
-            parameter.DbType = DbType.String;
-            parameter.Size = 100;
-            parameter.ParameterName = parameterName;
-            SqlParameter parameterCity = new SqlParameter();
-            parameterCity.DbType = DbType.String;
-            parameterCity.Size = 100;
-            parameterCity.ParameterName = "@city";
 
-            SqlParameter parameterReg = new SqlParameter();
-            parameterReg.DbType = DbType.String;
-            parameterReg.Size = 100;
-            parameterReg.ParameterName = parameterName;
-            SqlParameter parameterCityReg = new SqlParameter();
-            parameterCityReg.DbType = DbType.String;
-            parameterCityReg.Size = 100;
-            parameterCityReg.ParameterName = "@city";
-
-            SqlParameter parameterInv = new SqlParameter();
-            parameterInv.DbType = DbType.String;
-            parameterInv.Size = 100;
-            parameterInv.ParameterName = parameterName;
-            SqlParameter parameterCityInv = new SqlParameter();
-            parameterCityInv.DbType = DbType.String;
-            parameterCityInv.Size = 100;
-            parameterCityInv.ParameterName = "@city";
-            SqlParameter parameterInvBenefits = new SqlParameter();
-            parameterInvBenefits.DbType = DbType.String;
-            parameterInvBenefits.Size = 100;
-            parameterInvBenefits.ParameterName = parameterName;
-            SqlParameter parameterCityInvBenefits = new SqlParameter();
-            parameterCityInvBenefits.DbType = DbType.String;
-            parameterCityInvBenefits.Size = 100;
-            parameterCityInvBenefits.ParameterName = "@city";
-            SqlParameter parameterAddr = new SqlParameter();
-            parameterAddr.DbType = DbType.String;
-            parameterAddr.Size = 100;
-            parameterAddr.ParameterName = parameterName;
-            SqlParameter parameterCityAddr = new SqlParameter();
-            parameterCityAddr.DbType = DbType.String;
-            parameterCityAddr.Size = 100;
-            parameterCityAddr.ParameterName = "@city";
-            try
-            {
-                parameter.Value = value;
-                parameterCity.Value = "";
-                parameterReg.Value = value;
-                parameterCityReg.Value = "";
-                parameterInv.Value = value;
-                parameterCityInv.Value = "";
-                parameterCityInvBenefits.Value = "";
-                parameterInvBenefits.Value = value;
-                parameterAddr.Value = value;
-                parameterCityAddr.Value = "";
-                using (transactionWork = (TransactionWork)TransactionFactory.Create())
-                {
-                    transactionWork.Execute(_tables.CustomerDataTable, storageProcedureName, parameter, parameterCity);
-                    transactionWork.Execute(_tables.RegisterDataTable, "uspGetRegisterByAddress", parameterReg, parameterCityReg);
-                    transactionWork.Execute(_tables.InvalidDataTable,  "uspGetInvalidByAddress", parameterInv, parameterCityInv);
-                    transactionWork.Execute(_tables.InvalidBenefitsDataTable, "uspGetInvalidBenefitsByAddress", parameterInvBenefits, parameterCityInvBenefits);
-                    transactionWork.Execute(_tables.AddressDataTable, "uspGetAddress", parameterAddr,parameterCityAddr);
-                    transactionWork.Commit();
-                }
-            }
-            catch (Exception)
-            {
-                transactionWork?.Rollback();
-                throw;
-            }
-        }
-        public static void GetCustomersByAddress( string street)
-        {
-            ClearData();
-            GetDataByCriteria(_tables.CustomerDataTable,   "uspGetCustomerByAddress", "@NameStreet", street);
-        }
-
-        public static void ClearData()
+        private static void ClearData()
         {
 
             _tables.AddressDataTable.Clear();
@@ -517,8 +326,6 @@ namespace BAL.AccessData
 
         public static void ExportToExcel()
         {
-            //FastExportingMethod.ExportToExcel(_tables, Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "List"));
-            //FastExportingMethod.GemExportToExcel(_tables, Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "List2.xls"));
             DataTable table = new DataTable();
             TransactionWork transactionWork = null;
             SqlParameter[] parameters = new SqlParameter[3];
@@ -529,7 +336,6 @@ namespace BAL.AccessData
             parameter.ParameterName = "@whereClasure";
             parameter.Value = whereClasure;
             parameters[0] = parameter;
-
 
             parameter = new SqlParameter();
             parameter.DbType = DbType.String;
@@ -575,29 +381,37 @@ namespace BAL.AccessData
             GC.WaitForPendingFinalizers();
         }
 
-        ///////////////////////////////////////////////////
-        /// 
-        /// 
-        public static SqlParameter[] CreateUSP(string criteria, object[] parameters)
+       
+        private static SqlParameter[] CreateUSP(string criteria, object[] parameters)
         {
-            //string[] parametersName = ParametersForUsp[criteria].Split(';');
-            //SqlParameter[] sqlParameters;
-            //if (parametersName.Length == parameters.Length)
-            //{
-            //    sqlParameters = new SqlParameter[parametersName.Length];
-            //    for (int i = 0; i < parametersName.Length; i++)
-            //    {
-            //        SqlParameter parameter = new SqlParameter();
-            //        parameter.DbType = DbTypeConversionKey(parameters[i].GetType().FullName);
-            //        parameter.ParameterName = parametersName[i];
-            //        parameter.Value = parameters[i];
-            //        sqlParameters[i] = parameter;
-            //    }
-            //}
+            string[] parametersName = ParametersForUsp[criteria].Split(';');
+            SqlParameter[] sqlParameters=null;
+            if (parametersName.Length == parameters.Length)
+            {
+                sqlParameters = new SqlParameter[parametersName.Length];
+                for (int i = 0; i < parametersName.Length; i++)
+                {
+                    string[] parameterNameSize = parametersName[i].Split(':');
+                    SqlParameter parameter = new SqlParameter();
+                    parameter.DbType = DbTypeConversionKey(parameters[i].GetType().FullName);
+                    parameter.ParameterName = parameterNameSize[0];
+                    if (!string.IsNullOrEmpty(parameterNameSize[1]))
+                    {
+                        parameter.Size = Convert.ToInt32(parameterNameSize[1]);
+                    }
+                    parameter.Value = parameters[i];
+                    sqlParameters[i] = parameter;
+                }
+            }
 
-            return null;//sqlParameters;
+            return sqlParameters;
         }
 
+        public static void GetDataByCriteria(string criteria, object[] parameters, string predicate = "=")
+        {
+            ClearData();
+            GetDataByCriteriaTest(criteria, parameters, predicate);
+        }
         private static void GetDataByCriteriaTest(string criteria, object[] parameters, string predicate ="=")
         {
             TransactionWork transactionWork = null;
@@ -607,14 +421,42 @@ namespace BAL.AccessData
             SqlParameter[] parameterInv = CreateUSP(criteria, parameters);
             SqlParameter[] parameterInvBenefits = CreateUSP(criteria, parameters);
             SqlParameter[] parameterAddr = CreateUSP(criteria, parameters);
-            using (transactionWork = (TransactionWork)TransactionFactory.Create())
+
+            try
             {
-                transactionWork.Execute(_tables.CustomerDataTable, $"uspGetCustomerBy{criteria}", parameterCustomer);
-                transactionWork.Execute(_tables.RegisterDataTable, $"uspGetRegisterBy{criteria}", parameterReg);
-                transactionWork.Execute(_tables.InvalidDataTable,  $"uspGetInvalidBy{criteria}", parameterInv);
-                transactionWork.Execute(_tables.InvalidBenefitsDataTable, $"uspGetInvalidBenefitsBy{criteria}", parameterInvBenefits);
-                transactionWork.Execute(_tables.AddressDataTable, "uspGetAddress", parameterAddr);
-                transactionWork.Commit();
+                using (transactionWork = (TransactionWork)TransactionFactory.Create())
+                {
+                    transactionWork.Execute(_tables.CustomerDataTable, $"uspGetCustomerBy{criteria}",
+                        parameterCustomer);
+                    transactionWork.Execute(_tables.RegisterDataTable, $"uspGetRegisterBy{criteria}", parameterReg);
+                    transactionWork.Execute(_tables.InvalidDataTable, $"uspGetInvalidBy{criteria}", parameterInv);
+                    transactionWork.Execute(_tables.InvalidBenefitsDataTable, $"uspGetInvalidBenefitsBy{criteria}",
+                        parameterInvBenefits);
+                    transactionWork.Execute(_tables.AddressDataTable, $"uspGetAddressBy{criteria}", parameterAddr);
+                    transactionWork.Commit();
+                }
+
+                WhereClasure(criteria, parameters, predicate);
+            }
+            catch (Exception)
+            {
+                transactionWork?.Rollback();
+                throw;
+            }
+        }
+
+        private static void WhereClasure(string criteria, object[] parameters, string predicate)
+        {
+            if (parameters.Length == 2 && string.Equals(predicate.ToUpper(), "BETWEEN"))
+            {
+                whereClasure = $"where {criteria} {predicate} @param1 AND @param2";
+                //value = 
+            }
+            else
+            {
+                whereClasure = $"where {criteria} " + predicate + " @param";
+                value = (IConvertible) parameters[0];
+                dbType = "@param " + SqlTypeConversionKey(parameters[0].GetType().FullName);
             }
         }
     }

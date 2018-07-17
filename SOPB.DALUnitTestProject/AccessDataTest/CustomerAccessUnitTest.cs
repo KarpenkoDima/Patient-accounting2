@@ -50,19 +50,19 @@ namespace SOPB.DALUnitTestProject.AccessDataTest
             Assert.IsTrue(dataSet.Tables["Customer"].Rows.Count>0);
         }
 
-        [TestMethod]
-        [DataRow("Bogodur")]
-        [DataRow("Ленин")]
-        [DataRow("")]
-        public void CustomerAccess_GetCustomersByLastName_TestMethod(string lastName)
-        {
-            SqlConnection connection = ConnectionManager.Connection;
-            connection.Open();
-            CustomerAccess.FillDictionary();
-            CustomerAccess.GetCustomersByLastName(lastName);
-            DataSet dataSet = (DataSet)CustomerAccess.GetData();
-            Assert.IsTrue(dataSet.Tables["Customer"].Rows.Count > 0);
-        }
+        //[TestMethod]
+        //[DataRow("Bogodur")]
+        //[DataRow("Ленин")]
+        //[DataRow("")]
+        //public void CustomerAccess_GetCustomersByLastName_TestMethod(string lastName)
+        //{
+        //    SqlConnection connection = ConnectionManager.Connection;
+        //    connection.Open();
+        //    CustomerAccess.FillDictionary();
+        //    CustomerAccess.GetDataByCriteria("LastName", new object[]{lastName});
+        //    DataSet dataSet = (DataSet)CustomerAccess.GetData();
+        //    Assert.IsTrue(dataSet.Tables["Customer"].Rows.Count > 0);
+        //}
         [TestMethod]
         public void CustomerAccess_GetCustomersByBirthdayBetween_TestMethod()
         {
@@ -70,7 +70,7 @@ namespace SOPB.DALUnitTestProject.AccessDataTest
             connection.Open();
             CustomerAccess.FillDictionary();
             CustomerAccess.FillCustomerData();
-            CustomerAccess.GetCustomersByBirthOfDay(new DateTime(1970, 1, 1), new DateTime(2016, 01, 01), "МЕЖДУ");
+            CustomerAccess.GetCustomersByBirthdayBetween(new DateTime(1970, 1, 1), new DateTime(2016, 01, 01));
             DataSet dataSet = (DataSet)CustomerAccess.GetData();
             Assert.IsTrue(dataSet.Tables["Customer"].Rows.Count > 0);
         }
@@ -84,7 +84,7 @@ namespace SOPB.DALUnitTestProject.AccessDataTest
             connection.Open();
             CustomerAccess.FillDictionary();
             CustomerAccess.FillCustomerData();
-            CustomerAccess.GetCustomersByBirthday(new DateTime(year, m, day));
+            CustomerAccess.GetCustomersByBirthOfDay(new DateTime(year, m, day));
             DataSet dataSet = (DataSet)CustomerAccess.GetData();
             Assert.IsTrue(dataSet.Tables["Customer"].Rows.Count > 0);
         }
@@ -129,10 +129,10 @@ namespace SOPB.DALUnitTestProject.AccessDataTest
 
             CustomerAccess.FillDictionary();
             CustomerAccess.FillCustomerData();
-            CustomerAccess.GetCustomersByLastName(lastname1);
-            CustomerAccess.GetCustomersByAddress(addr1);
-            CustomerAccess.GetCustomersByLastName(lastName2);
-            CustomerAccess.GetCustomersByAddress(addr2);
+            CustomerAccess.GetDataByCriteria("LastName", new []{ lastname1});
+            CustomerAccess.GetDataByCriteria("Address", new[] { "Славянск", addr1 });
+            CustomerAccess.GetDataByCriteria("LastName", new[] { lastName2 });
+            CustomerAccess.GetDataByCriteria("Address", new[] { "Славянск", addr2 });
             DataSet dataSet = (DataSet)CustomerAccess.GetData();
             Assert.IsTrue(dataSet.Tables["Customer"].Rows.Count > 0);
         }
@@ -148,7 +148,29 @@ namespace SOPB.DALUnitTestProject.AccessDataTest
 
             CustomerAccess.FillDictionary();
             CustomerAccess.FillCustomerData();
-            CustomerAccess.GetCustomersByAddress(addr);
+            CustomerAccess.GetDataByCriteria("Address", new[] { "Славянск", addr });
+            DataSet dataSet = (DataSet)CustomerAccess.GetData();
+            Assert.IsTrue(dataSet.Tables["Customer"].Rows.Count > 0);
+        }
+
+        [TestMethod]
+        [DataRow("Ив", "Ленина", "Сыр", "Вольная")]
+        [DataRow("Сыр", "Вольная", "Ив", "Ленина")]
+        [DataRow("Ив", "Hd", "Сыр", "Вольная")]
+        [DataRow("Сыр", "Вольная", "Ив", "Ленина")]
+        [DataRow("Ив", "Ленина", "Сыр", "Вольная")]
+        [DataRow("Сыр", "Искры", "Ив", "Ленина")]
+        public void CustomerAccess_GetDataByCriteria_TestMethod(string lastname1, string addr1, string lastName2, string addr2)
+        {
+            SqlConnection connection = ConnectionManager.Connection;
+            connection.Open();
+
+            CustomerAccess.FillDictionary();
+            CustomerAccess.FillCustomerData();
+            CustomerAccess.GetDataByCriteria("LastName", new[] { lastname1}, "=");
+            CustomerAccess.GetDataByCriteria("Address", new []{"Славянск", addr1}, "=");
+            CustomerAccess.GetDataByCriteria("LastName", new[] { lastName2, }, "=");
+            CustomerAccess.GetDataByCriteria("Address", new[] {"Славянск", addr2}, "=");
             DataSet dataSet = (DataSet)CustomerAccess.GetData();
             Assert.IsTrue(dataSet.Tables["Customer"].Rows.Count > 0);
         }

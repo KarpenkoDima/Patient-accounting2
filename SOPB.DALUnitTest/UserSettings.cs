@@ -10,7 +10,7 @@ namespace SOPB.DALUnitTest
     static class UserSettings
     {
         public static string UserName = "Катя";
-        public static string Password = "";
+        public static string Password = "1";
 
         public static SqlConnection InitConnection()
         {
