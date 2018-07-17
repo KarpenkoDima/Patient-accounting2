@@ -65,6 +65,7 @@ namespace SOPB.GUI
             _disabilityBindingSource = new BindingSource();
             _chiperBindingSource = new BindingSource();
             _invalidBenefitsBindingSource = new BindingSource();
+            
             MainBindingNavigator.BindingSource = _customerBindingSource;
 
             bindingNavigatorAddNewItem.Enabled = false;
@@ -106,7 +107,7 @@ namespace SOPB.GUI
         }
 
         private void BindingData(object data)
-        {
+        {            
             _apppTprBindingSource.DataSource = data;
             _apppTprBindingSource.DataMember = "ApppTpr";
 
@@ -438,6 +439,13 @@ namespace SOPB.GUI
                 comboBoxApppTpr.SelectedIndex = comboBoxGender.SelectedIndex = 0;
                 _customerBindingSource.EndEdit();
             }
+        }
+
+        private void toolStripButton2_Click(object sender, EventArgs e)
+        {
+            _customerBindingSource.EndEdit();
+            CustomerService service = new CustomerService();
+            service.Validation();
         }
     }
 }

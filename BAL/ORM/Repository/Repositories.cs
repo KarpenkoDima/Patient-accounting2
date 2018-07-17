@@ -149,6 +149,11 @@ namespace BAL.ORM.Repository
         {
             CustomerAccess.ExportToExcel();
         }
+
+        internal void Validated()
+        {
+            CustomerAccess.Vapidated();
+        }
     }
 
     internal class GlossaryRepository : RepositoryBase, IMutableRepository<Int32>

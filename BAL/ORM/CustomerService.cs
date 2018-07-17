@@ -169,7 +169,8 @@ namespace BAL.ORM
 
         public void Validation()
         {
-
+            CustomRepository<string> repo = new CustomRepository<string>();
+            repo.Validated();
         }
       
     }

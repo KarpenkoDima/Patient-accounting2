@@ -167,6 +167,9 @@
             this.searchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tabPageErrTable = new System.Windows.Forms.TabPage();
+            this.dataGridViewError = new System.Windows.Forms.DataGridView();
+            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
             this.CustomertabControl.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.tableLayoutPanel8.SuspendLayout();
@@ -200,6 +203,8 @@
             this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
             this.toolStripContainer1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
+            this.tabPageErrTable.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewError)).BeginInit();
             this.SuspendLayout();
             // 
             // registerTabPage
@@ -277,9 +282,9 @@
             // 
             this.label19.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(289, 5);
+            this.label19.Location = new System.Drawing.Point(288, 5);
             this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(69, 13);
+            this.label19.Size = new System.Drawing.Size(68, 13);
             this.label19.TabIndex = 0;
             this.label19.Text = "В связи";
             // 
@@ -287,9 +292,9 @@
             // 
             this.label20.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(289, 28);
+            this.label20.Location = new System.Drawing.Point(288, 28);
             this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(69, 13);
+            this.label20.Size = new System.Drawing.Size(68, 13);
             this.label20.TabIndex = 0;
             this.label20.Text = "В связи";
             // 
@@ -311,7 +316,7 @@
             this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 41.02564F));
             this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15.38461F));
             this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25.82417F));
-            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 176F));
+            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 178F));
             this.tableLayoutPanel8.Controls.Add(this.label14, 0, 0);
             this.tableLayoutPanel8.Controls.Add(this.label16, 0, 1);
             this.tableLayoutPanel8.Controls.Add(this.label17, 0, 2);
@@ -343,9 +348,9 @@
             // 
             this.label21.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(289, 51);
+            this.label21.Location = new System.Drawing.Point(288, 51);
             this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(69, 13);
+            this.label21.Size = new System.Drawing.Size(68, 13);
             this.label21.TabIndex = 0;
             this.label21.Text = "По причине";
             // 
@@ -353,9 +358,9 @@
             // 
             this.label22.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(289, 74);
+            this.label22.Location = new System.Drawing.Point(288, 74);
             this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(69, 13);
+            this.label22.Size = new System.Drawing.Size(68, 13);
             this.label22.TabIndex = 0;
             this.label22.Text = "По причине";
             // 
@@ -367,7 +372,7 @@
             this.maskedTextBoxFirstRegister.Location = new System.Drawing.Point(89, 3);
             this.maskedTextBoxFirstRegister.Mask = "00/00/0000";
             this.maskedTextBoxFirstRegister.Name = "maskedTextBoxFirstRegister";
-            this.maskedTextBoxFirstRegister.Size = new System.Drawing.Size(194, 20);
+            this.maskedTextBoxFirstRegister.Size = new System.Drawing.Size(193, 20);
             this.maskedTextBoxFirstRegister.TabIndex = 1;
             this.maskedTextBoxFirstRegister.ValidatingType = typeof(System.DateTime);
             // 
@@ -379,7 +384,7 @@
             this.maskedTextBoxSecondRegister.Location = new System.Drawing.Point(89, 26);
             this.maskedTextBoxSecondRegister.Mask = "00/00/0000";
             this.maskedTextBoxSecondRegister.Name = "maskedTextBoxSecondRegister";
-            this.maskedTextBoxSecondRegister.Size = new System.Drawing.Size(194, 20);
+            this.maskedTextBoxSecondRegister.Size = new System.Drawing.Size(193, 20);
             this.maskedTextBoxSecondRegister.TabIndex = 1;
             this.maskedTextBoxSecondRegister.ValidatingType = typeof(System.DateTime);
             // 
@@ -391,7 +396,7 @@
             this.maskedTextBoxFirstDeRegister.Location = new System.Drawing.Point(89, 49);
             this.maskedTextBoxFirstDeRegister.Mask = "00/00/0000";
             this.maskedTextBoxFirstDeRegister.Name = "maskedTextBoxFirstDeRegister";
-            this.maskedTextBoxFirstDeRegister.Size = new System.Drawing.Size(194, 20);
+            this.maskedTextBoxFirstDeRegister.Size = new System.Drawing.Size(193, 20);
             this.maskedTextBoxFirstDeRegister.TabIndex = 1;
             this.maskedTextBoxFirstDeRegister.ValidatingType = typeof(System.DateTime);
             // 
@@ -403,7 +408,7 @@
             this.maskedTextBoxSecondDeRegister.Location = new System.Drawing.Point(89, 72);
             this.maskedTextBoxSecondDeRegister.Mask = "00/00/0000";
             this.maskedTextBoxSecondDeRegister.Name = "maskedTextBoxSecondDeRegister";
-            this.maskedTextBoxSecondDeRegister.Size = new System.Drawing.Size(194, 20);
+            this.maskedTextBoxSecondDeRegister.Size = new System.Drawing.Size(193, 20);
             this.maskedTextBoxSecondDeRegister.TabIndex = 1;
             this.maskedTextBoxSecondDeRegister.ValidatingType = typeof(System.DateTime);
             // 
@@ -412,9 +417,9 @@
             this.comboBoxFirstRegisterType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxFirstRegisterType.FormattingEnabled = true;
-            this.comboBoxFirstRegisterType.Location = new System.Drawing.Point(364, 3);
+            this.comboBoxFirstRegisterType.Location = new System.Drawing.Point(362, 3);
             this.comboBoxFirstRegisterType.Name = "comboBoxFirstRegisterType";
-            this.comboBoxFirstRegisterType.Size = new System.Drawing.Size(120, 21);
+            this.comboBoxFirstRegisterType.Size = new System.Drawing.Size(119, 21);
             this.comboBoxFirstRegisterType.TabIndex = 2;
             // 
             // comboBoxSecondRegisterType
@@ -423,9 +428,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxSecondRegisterType.FormattingEnabled = true;
-            this.comboBoxSecondRegisterType.Location = new System.Drawing.Point(364, 26);
+            this.comboBoxSecondRegisterType.Location = new System.Drawing.Point(362, 26);
             this.comboBoxSecondRegisterType.Name = "comboBoxSecondRegisterType";
-            this.comboBoxSecondRegisterType.Size = new System.Drawing.Size(120, 21);
+            this.comboBoxSecondRegisterType.Size = new System.Drawing.Size(119, 21);
             this.comboBoxSecondRegisterType.TabIndex = 2;
             // 
             // comboBoxFirstDeRegisterType
@@ -434,9 +439,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxFirstDeRegisterType.FormattingEnabled = true;
-            this.comboBoxFirstDeRegisterType.Location = new System.Drawing.Point(364, 49);
+            this.comboBoxFirstDeRegisterType.Location = new System.Drawing.Point(362, 49);
             this.comboBoxFirstDeRegisterType.Name = "comboBoxFirstDeRegisterType";
-            this.comboBoxFirstDeRegisterType.Size = new System.Drawing.Size(120, 21);
+            this.comboBoxFirstDeRegisterType.Size = new System.Drawing.Size(119, 21);
             this.comboBoxFirstDeRegisterType.TabIndex = 2;
             // 
             // comboBoxSecondDeRegisterType
@@ -445,9 +450,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxSecondDeRegisterType.FormattingEnabled = true;
-            this.comboBoxSecondDeRegisterType.Location = new System.Drawing.Point(364, 72);
+            this.comboBoxSecondDeRegisterType.Location = new System.Drawing.Point(362, 72);
             this.comboBoxSecondDeRegisterType.Name = "comboBoxSecondDeRegisterType";
-            this.comboBoxSecondDeRegisterType.Size = new System.Drawing.Size(120, 21);
+            this.comboBoxSecondDeRegisterType.Size = new System.Drawing.Size(119, 21);
             this.comboBoxSecondDeRegisterType.TabIndex = 2;
             // 
             // label23
@@ -700,7 +705,8 @@
             this.toolStripSeparator,
             this.toolStripSeparator2,
             this.helpToolStripButton,
-            this.toolStripButton1});
+            this.toolStripButton1,
+            this.toolStripButton2});
             this.MainBindingNavigator.Location = new System.Drawing.Point(3, 24);
             this.MainBindingNavigator.MoveFirstItem = this.bindingNavigatorMoveFirstItem;
             this.MainBindingNavigator.MoveLastItem = this.bindingNavigatorMoveLastItem;
@@ -708,7 +714,7 @@
             this.MainBindingNavigator.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
             this.MainBindingNavigator.Name = "MainBindingNavigator";
             this.MainBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.MainBindingNavigator.Size = new System.Drawing.Size(411, 25);
+            this.MainBindingNavigator.Size = new System.Drawing.Size(465, 25);
             this.MainBindingNavigator.TabIndex = 1;
             // 
             // bindingNavigatorSeparator
@@ -772,6 +778,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.errorTabControl.Controls.Add(this.errorTabPage);
+            this.errorTabControl.Controls.Add(this.tabPageErrTable);
             this.errorTabControl.Location = new System.Drawing.Point(3, 564);
             this.errorTabControl.Name = "errorTabControl";
             this.errorTabControl.SelectedIndex = 0;
@@ -1237,7 +1244,7 @@
             this.tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 46.03175F));
             this.tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 53.96825F));
             this.tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 18F));
-            this.tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 163F));
+            this.tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 164F));
             this.tableLayoutPanel11.Controls.Add(this.textBoxCodeCustomer, 3, 0);
             this.tableLayoutPanel11.Controls.Add(this.textBoxMedCard, 1, 0);
             this.tableLayoutPanel11.Controls.Add(this.labelCodePacient, 0, 0);
@@ -1254,7 +1261,7 @@
             // 
             this.textBoxCodeCustomer.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.textBoxCodeCustomer.Location = new System.Drawing.Point(208, 3);
+            this.textBoxCodeCustomer.Location = new System.Drawing.Point(207, 3);
             this.textBoxCodeCustomer.Name = "textBoxCodeCustomer";
             this.textBoxCodeCustomer.Size = new System.Drawing.Size(141, 20);
             this.textBoxCodeCustomer.TabIndex = 2;
@@ -1265,7 +1272,7 @@
             this.textBoxMedCard.Dock = System.Windows.Forms.DockStyle.Left;
             this.textBoxMedCard.Location = new System.Drawing.Point(89, 3);
             this.textBoxMedCard.Name = "textBoxMedCard";
-            this.textBoxMedCard.Size = new System.Drawing.Size(95, 20);
+            this.textBoxMedCard.Size = new System.Drawing.Size(94, 20);
             this.textBoxMedCard.TabIndex = 1;
             this.textBoxMedCard.Validated += new System.EventHandler(this.Cusrtomer_Validated);
             // 
@@ -1284,7 +1291,7 @@
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(190, 0);
+            this.label2.Location = new System.Drawing.Point(189, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(12, 24);
             this.label2.TabIndex = 6;
@@ -1678,6 +1685,36 @@
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.aboutToolStripMenuItem.Text = "&About...";
             // 
+            // tabPageErrTable
+            // 
+            this.tabPageErrTable.Controls.Add(this.dataGridViewError);
+            this.tabPageErrTable.Location = new System.Drawing.Point(4, 22);
+            this.tabPageErrTable.Name = "tabPageErrTable";
+            this.tabPageErrTable.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageErrTable.Size = new System.Drawing.Size(308, 87);
+            this.tabPageErrTable.TabIndex = 1;
+            this.tabPageErrTable.Text = "tabPage1";
+            this.tabPageErrTable.UseVisualStyleBackColor = true;
+            // 
+            // dataGridViewError
+            // 
+            this.dataGridViewError.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewError.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridViewError.Location = new System.Drawing.Point(3, 3);
+            this.dataGridViewError.Name = "dataGridViewError";
+            this.dataGridViewError.Size = new System.Drawing.Size(302, 81);
+            this.dataGridViewError.TabIndex = 0;
+            // 
+            // toolStripButton2
+            // 
+            this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
+            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton2.Name = "toolStripButton2";
+            this.toolStripButton2.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton2.Text = "toolStripButton2";
+            this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
+            // 
             // MainForm025
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1733,6 +1770,8 @@
             this.toolStripContainer1.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.tabPageErrTable.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewError)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1876,6 +1915,9 @@
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripButton toolStripButton1;
         private System.Windows.Forms.ToolStripMenuItem findToolStripMenuItem;
+        private System.Windows.Forms.TabPage tabPageErrTable;
+        private System.Windows.Forms.DataGridView dataGridViewError;
+        private System.Windows.Forms.ToolStripButton toolStripButton2;
     }
 }
 

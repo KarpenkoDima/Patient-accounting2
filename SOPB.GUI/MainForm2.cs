@@ -141,6 +141,7 @@ namespace SOPB.GUI
 
             _errorBindingSource.DataSource = _customerBindingSource;
             _errorBindingSource.DataMember = "FK_Error_Customer_CustomerID";
+            
             textBoxError.DataBindings.Add("Text", _errorBindingSource, "Error");
 
             comboBoxApppTpr.DataSource = _apppTprBindingSource;
@@ -484,7 +485,6 @@ namespace SOPB.GUI
                             maskedTextBoxBirthOfDay.BackColor = Color.Yellow;
                             e.Cancel = true;
                         }
-
 
                         if (Utilits.ValidateText(maskedTextBoxFirstRegister))
                         {
@@ -1312,6 +1312,13 @@ namespace SOPB.GUI
         {
             CustomerService service = new CustomerService();
             service.ExportToExcel();
+        }
+
+        private void toolStripButtonValidation_Click(object sender, EventArgs e)
+        {
+            _customerBindingSource.EndEdit();
+            CustomerService service = new CustomerService();
+            service.Validation();           
         }
     }
 }

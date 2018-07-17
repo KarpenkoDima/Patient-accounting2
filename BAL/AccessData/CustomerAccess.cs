@@ -137,6 +137,27 @@ namespace BAL.AccessData
             }
         }
 
+        internal static void Vapidated()
+        {
+            var err = from customer in _tables.CustomerDataTable.AsEnumerable()
+                      where customer.Field<DateTime?>("Birthday").HasValue && customer.Field<DateTime?>("Birthday") >=  DateTime.Now
+                      select new
+                      {
+                          CustomerID = customer.Field<int>("CustomerID"),
+                          LastName = customer.Field<string>("LastName"),
+                          FirstName = customer.Field<string>("FirstName"),
+                          MiddleName = customer.Field<string>("MiddleName"),
+                          Error = "Дата рождения выходит за диапазон"
+                      };
+            _tables.ErrorDataTable.Clear();
+            _tables.ErrorDataTable.Dispose();
+            foreach (var item in err)
+            {
+                _tables.ErrorDataTable.Rows.Add(item.CustomerID, item.LastName + " " + item.FirstName, item.Error);
+            }
+       
+        }
+
         public static void GetCustomersByID(int idx)
         {
             ClearData();
@@ -269,9 +290,10 @@ namespace BAL.AccessData
                 {
                     for (int i = 0; i < _tables.DispancerDataSet.Tables.Count; i++)
                     {
-                        transactionWork.UpdateData(_tables.DispancerDataSet.Tables[i]);
+                        if(_tables.DispancerDataSet.Tables[i].TableName != _tables.ErrorDataTable.TableName)
+                            transactionWork.UpdateData(_tables.DispancerDataSet.Tables[i]);
                     }
-
+                    _tables.ErrorDataTable.Clear();
                     transactionWork.Commit();
                 }
             }
@@ -284,13 +306,19 @@ namespace BAL.AccessData
 
         private static void ClearData()
         {
-
             _tables.AddressDataTable.Clear();
+            _tables.AddressDataTable.Dispose();
             _tables.InvalidBenefitsDataTable.Clear();
+            _tables.InvalidBenefitsDataTable.Dispose();
             _tables.InvalidDataTable.Clear();
+            _tables.InvalidDataTable.Dispose();
             _tables.RegisterDataTable.Clear();
+            _tables.RegisterDataTable.Dispose();
             _tables.ErrorDataTable.Clear();
+            _tables.ErrorDataTable.Dispose();
             _tables.CustomerDataTable.Clear();
+            _tables.CustomerDataTable.Dispose();
+
         }
 
         public static object GetByEntityName(string name)

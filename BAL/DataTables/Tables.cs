@@ -313,6 +313,12 @@ namespace BAL.DataTables
             errorID.Caption = "CustomerID";
             ErrorDataTable.Columns.Add(errorID);
 
+            DataColumn flmColumn = new DataColumn("FML");
+            flmColumn.AllowDBNull = true;
+            flmColumn.DataType = typeof(System.String);
+            flmColumn.Caption = "ФИО";
+            ErrorDataTable.Columns.Add(flmColumn);            
+
             DataColumn errorColumn = new DataColumn("Error");
             errorColumn.AllowDBNull = true;
             errorColumn.DataType = typeof(System.String);
